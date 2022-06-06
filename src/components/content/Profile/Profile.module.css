@@ -1,0 +1,21 @@
+.profile > img {
+    height: 100px;
+    width: 100%;
+    box-shadow: #5689d5 0 0 3px 3px;
+}
+
+.userProfile {
+    font-style: italic;
+    margin: 10px;
+}
+
+.userProfile > img {
+    height: 64px;
+    box-shadow: #c2bbaa 0 0 3px 3px;
+    margin: 10px;
+    border-radius: 20%;
+}
+
+.posts {
+    margin: 10px;
+}

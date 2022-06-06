@@ -1,0 +1,21 @@
+.navbar {
+    background-color: chartreuse;
+    grid-area: n;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
+.navbar button {
+    width: 100%;
+    margin: 2px;
+    background-color: lightyellow;
+}
+
+.active {
+    font-weight: bold;
+}
