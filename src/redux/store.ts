@@ -1,6 +1,16 @@
 import {v1} from "uuid";
-import {StoreType} from "./types";
-import {ActionTypes, AddPostActionType, ChangeNewPostTextActionType} from "./actionTypes";
+import {RootStateType} from "./stateTypes";
+import {ActionTypes} from "./actions";
+
+export type StoreType = {
+    _state: RootStateType
+    _onChange: () => void
+    _changeNewPost: (newPostText: string) => void
+    _addPost: () => void
+    dispatch: (action: ActionTypes) => void
+    getState: () => RootStateType;
+    subscribe: (callBack: () => void) => void
+}
 
 export const store: StoreType = {
     _state: {
@@ -92,14 +102,3 @@ export const store: StoreType = {
     },
     
 }
-
-
-export const addPostAC = (): AddPostActionType => ({
-    type: "ADD-POST"
-})
-
-export const changeNewPostTextAC = (postText: string): ChangeNewPostTextActionType => ({
-    type: "CHANGE-NEW-POST-TEXT",
-    postText
-})
-

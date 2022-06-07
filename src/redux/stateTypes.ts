@@ -1,5 +1,3 @@
-import {ActionTypes} from "./actionTypes";
-
 export type MessageType = {
     id: string
     message: string
@@ -43,14 +41,4 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
-}
-
-export type StoreType = {
-    _state: RootStateType
-    _onChange: () => void
-    _changeNewPost: (newPostText: string) => void
-    _addPost: () => void
-    dispatch: (action: ActionTypes) => void
-    getState: () => RootStateType;
-    subscribe: (callBack: () => void) => void
 }

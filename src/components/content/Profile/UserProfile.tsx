@@ -1,6 +1,6 @@
 import React from "react"
 import s from './Profile.module.css';
-import {UserProfileType} from "../../../redux/types";
+import {UserProfileType} from "../../../redux/stateTypes";
 
 type UserProfilePropsType = {
     state: UserProfileType
