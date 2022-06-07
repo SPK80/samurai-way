@@ -3,6 +3,7 @@ import s from './Profile.module.css';
 import {UserPost} from "./UserPost";
 import {PostType} from "../../../redux/types";
 import {ActionTypes} from "../../../redux/actionTypes";
+import {addPostAC, changeNewPostTextAC} from "../../../redux/store";
 
 type UserPostsPropsType = {
     state: Array<PostType>
@@ -19,11 +20,11 @@ export const UserPosts: React.FC<UserPostsPropsType> =
      }) => {
         
         const onAddPostHandler = () => {
-            dispatch({type: "ADD-POST"})
+            dispatch(addPostAC())
         }
         
         const changeNewPostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch({type: "CHANGE-NEW-POST-TEXT", postText: e.currentTarget.value})
+            dispatch(changeNewPostTextAC(e.currentTarget.value))
         }
         
         return (

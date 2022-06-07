@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {StoreType} from "./types";
-import {ActionTypes} from "./actionTypes";
+import {ActionTypes, AddPostActionType, ChangeNewPostTextActionType} from "./actionTypes";
 
 export const store: StoreType = {
     _state: {
@@ -92,3 +92,14 @@ export const store: StoreType = {
     },
     
 }
+
+
+export const addPostAC = (): AddPostActionType => ({
+    type: "ADD-POST"
+})
+
+export const changeNewPostTextAC = (postText: string): ChangeNewPostTextActionType => ({
+    type: "CHANGE-NEW-POST-TEXT",
+    postText
+})
+
