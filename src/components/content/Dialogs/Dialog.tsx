@@ -1,20 +1,20 @@
 import s from "./Dialogs.module.css";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import {DialogType} from "../../../redux/types";
 
 export type DialogPropsType = {
-    id: string
-    name: string
+    state: DialogType
 }
 
-export const Dialog = (props: DialogPropsType) => {
+export const Dialog: React.FC<DialogPropsType> = ({state}) => {
     return (
         <div className={s.dialog}>
             <NavLink
                 className={(navData) => navData.isActive ? s.active : ''}
-                to={props.id}
+                to={state.id}
             >
-                {props.name}
+                {state.name}
             </NavLink>
         </div>
     )

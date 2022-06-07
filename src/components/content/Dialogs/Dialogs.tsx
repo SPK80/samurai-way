@@ -2,23 +2,27 @@ import React from "react";
 import s from './Dialogs.module.css';
 import {Dialog} from "./Dialog";
 import {Message} from "./Message";
-import {DialogsPageType} from "../../../redux/state";
+import {DialogsPageType} from "../../../redux/types";
 
-export const Dialogs: React.FC<DialogsPageType> = (props) => {
+type DialogsPagePropsType = {
+    state: DialogsPageType
+}
+
+export const Dialogs: React.FC<DialogsPagePropsType> = ({state}) => {
     
     return (
         <div className={s.dialogs}>
             
             <div className={s.dialogsItems}>
-                {props.dialogs.map(d =>
+                {state.dialogs.map(dialog =>
                     <Dialog
-                        key={d.id}
-                        {...d}
+                        key={dialog.id}
+                        state={dialog}
                     />)}
             </div>
             
             <div className={s.messages}>
-                {props.messages.map(m =>
+                {state.messages.map(m =>
                     <Message key={m.id}{...m} />)}
             </div>
         

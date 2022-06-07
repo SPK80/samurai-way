@@ -1,33 +1,22 @@
 import React from "react"
 import s from './Profile.module.css';
-import {UserProfileType} from "../../../redux/state";
-//
-// export type UserProfilePropsType = {
-// 	avatar?: string
-// 	name: string
-// 	age?: number
-// 	birthday: string
-// 	gender?: 'male' | 'female' | 'other'
-// 	website?: string
-// 	description: string
-// 	// location: LocationType
-// }
-// type  LocationType = {
-//   country: string
-//   city: string
-// }
+import {UserProfileType} from "../../../redux/types";
 
-export const UserProfile: React.FC<UserProfileType> = (props) => {
+type UserProfilePropsType = {
+    state: UserProfileType
+}
+
+export const UserProfile: React.FC<UserProfilePropsType> = ({state}) => {
     return (
         <div className={s.userProfile}>
-            <img src={props.avatar} alt="avatar"/>
-            <div>{props.name}</div>
-            <div>{props.gender}</div>
-            <div>age - {props.age}</div>
-            <div>birthday - {props.birthday}</div>
-            <div>{props.description}</div>
-            <a href={props.website} target="_blank" rel="noreferrer">
-                {props.website}
+            <img src={state.avatar} alt="avatar"/>
+            <div>{state.name}</div>
+            <div>{state.gender}</div>
+            <div>age - {state.age}</div>
+            <div>birthday - {state.birthday}</div>
+            <div>{state.description}</div>
+            <a href={state.website} target="_blank" rel="noreferrer">
+                {state.website}
             </a>
         </div>
     )
