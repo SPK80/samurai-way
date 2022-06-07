@@ -2,29 +2,28 @@ import React, {ChangeEvent} from "react";
 import s from './Profile.module.css';
 import {UserPost} from "./UserPost";
 import {PostType} from "../../../redux/types";
+import {ActionTypes} from "../../../redux/actionTypes";
 
 type UserPostsPropsType = {
     state: Array<PostType>
-    addPost: () => void
     newPostText: string
-    changeNewPost: (newPostText: string) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export const UserPosts: React.FC<UserPostsPropsType> =
     ({
          state,
-         addPost,
          newPostText,
-         changeNewPost
+         dispatch
         
      }) => {
         
         const onAddPostHandler = () => {
-            addPost()
+            dispatch({type: "ADD-POST"})
         }
         
         const changeNewPostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            changeNewPost(e.currentTarget.value)
+            dispatch({type: "CHANGE-NEW-POST-TEXT", postText: e.currentTarget.value})
         }
         
         return (

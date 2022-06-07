@@ -1,3 +1,5 @@
+import {ActionTypes} from "./actionTypes";
+
 export type MessageType = {
     id: string
     message: string
@@ -46,8 +48,9 @@ export type RootStateType = {
 export type StoreType = {
     _state: RootStateType
     _onChange: () => void
-    changeNewPost: (newPostText: string) => void
+    _changeNewPost: (newPostText: string) => void
+    _addPost: () => void
+    dispatch: (action: ActionTypes) => void
     getState: () => RootStateType;
-    addPost: () => void
     subscribe: (callBack: () => void) => void
 }

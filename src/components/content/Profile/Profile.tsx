@@ -3,15 +3,15 @@ import s from './Profile.module.css';
 import {ProfilePageType} from "../../../redux/types";
 import {UserProfile} from "./UserProfile";
 import {UserPosts} from "./UserPosts";
+import {ActionTypes} from "../../../redux/actionTypes";
 
 type ProfilePagePropsType = {
     state: ProfilePageType
-    addPost: () => void
-    changeNewPost: (newPostText: string) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export const Profile: React.FC<ProfilePagePropsType> =
-    ({state, addPost, changeNewPost}) => {
+    ({state, dispatch}) => {
         return (
             <div className={s.profile}>
                 <img
@@ -22,8 +22,7 @@ export const Profile: React.FC<ProfilePagePropsType> =
                 <UserPosts
                     state={state.userPosts}
                     newPostText={state.newPostText}
-                    addPost={addPost}
-                    changeNewPost={changeNewPost}
+                    dispatch={dispatch}
                 />
             </div>
         )

@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {StoreType} from "./types";
+import {ActionTypes} from "./actionTypes";
 
 export const store: StoreType = {
     _state: {
@@ -45,7 +46,23 @@ export const store: StoreType = {
         store._onChange = callBack
     },
     
-    addPost: () => {
+    dispatch: (action: ActionTypes) => {
+        
+        switch (action.type) {
+            case "ADD-POST": {
+                store._addPost()
+                store._onChange()
+                return
+            }
+            case "CHANGE-NEW-POST-TEXT": {
+                store._changeNewPost(action.postText)
+                store._onChange()
+                return
+            }
+        }
+    },
+    
+    _addPost: () => {
         const newPostText = store._state.profilePage.newPostText
         store._state = {
             ...store._state,
@@ -62,10 +79,9 @@ export const store: StoreType = {
                 ]
             }
         }
-        store._onChange()
     },
     
-    changeNewPost: (newPostText: string) => {
+    _changeNewPost: (newPostText: string) => {
         store._state = {
             ...store._state,
             profilePage: {
@@ -73,7 +89,6 @@ export const store: StoreType = {
                 newPostText
             }
         }
-        store._onChange()
     },
     
 }

@@ -25,8 +25,7 @@ export const App: React.FC<AppPropsType> = ({store}) => {
                         element={
                             <Profile
                                 state={state.profilePage}
-                                addPost={store.addPost}
-                                changeNewPost={store.changeNewPost}
+                                dispatch={store.dispatch}
                             />}
                     />
                     <Route
