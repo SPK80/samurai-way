@@ -1,6 +1,15 @@
 .dialogs {
     display: grid;
     grid-template-columns: 1fr 5fr;
+    border: solid 1px #ccc;
+    margin-top: 10px;
+}
+
+.newMessage {
+    display: flex;
+}
+
+.newMessage > textarea {
 }
 
 .dialogsItems {
