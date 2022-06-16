@@ -2,18 +2,14 @@ import {v1} from "uuid";
 import {RootStateType} from "./stateTypes";
 import {ActionTypes} from "./actions";
 
-export type StoreType = {
-    _state: RootStateType
-    _onChange: () => void
-    _changeNewPost: (newPostText: string) => void
-    _addPost: () => void
+export interface IStore {
     dispatch: (action: ActionTypes) => void
-    getState: () => RootStateType;
+    getState: () => RootStateType
     subscribe: (callBack: () => void) => void
 }
 
-export const store: StoreType = {
-    _state: {
+class Store implements IStore {
+    private state: RootStateType = {
         profilePage: {
             userProfile: {
                 avatar: "https://avatars.githubusercontent.com/u/36849366?v=4",
@@ -45,42 +41,30 @@ export const store: StoreType = {
         },
         
         sidebar: {}
-    },
+    }
     
-    _onChange: () => {
-    },
+    private onChange: () => void = () => {
+    }
     
-    getState: () => store._state,
-    
-    subscribe: (callBack: () => void) => {
-        store._onChange = callBack
-    },
-    
-    dispatch: (action: ActionTypes) => {
-        
-        switch (action.type) {
-            case "ADD-POST": {
-                store._addPost()
-                store._onChange()
-                return
-            }
-            case "CHANGE-NEW-POST-TEXT": {
-                store._changeNewPost(action.postText)
-                store._onChange()
-                return
+    private changeNewPost(newPostText: string) {
+        this.state = {
+            ...this.state,
+            profilePage: {
+                ...this.state.profilePage,
+                newPostText
             }
         }
-    },
+    }
     
-    _addPost: () => {
-        const newPostText = store._state.profilePage.newPostText
-        store._state = {
-            ...store._state,
+    private addPost() {
+        const newPostText = this.state.profilePage.newPostText
+        this.state = {
+            ...this.state,
             profilePage: {
-                ...store._state.profilePage,
+                ...this.state.profilePage,
                 newPostText: '',
                 userPosts: [
-                    ...store._state.profilePage.userPosts,
+                    ...this.state.profilePage.userPosts,
                     {
                         id: v1(),
                         message: newPostText,
@@ -89,16 +73,31 @@ export const store: StoreType = {
                 ]
             }
         }
-    },
+    }
     
-    _changeNewPost: (newPostText: string) => {
-        store._state = {
-            ...store._state,
-            profilePage: {
-                ...store._state.profilePage,
-                newPostText
+    public dispatch(action: ActionTypes): void {
+        switch (action.type) {
+            case "ADD-POST": {
+                this.addPost()
+                this.onChange()
+                return
+            }
+            case "CHANGE-NEW-POST-TEXT": {
+                this.changeNewPost(action.postText)
+                this.onChange()
+                return
             }
         }
-    },
+    }
+    
+    public getState(): RootStateType {
+        return this.state
+    }
+    
+    public subscribe(callBack: () => void): void {
+        this.onChange = callBack
+    }
     
 }
+
+export const store = new Store()

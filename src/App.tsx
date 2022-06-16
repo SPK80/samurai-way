@@ -5,10 +5,10 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/content/Profile/Profile";
 import {Dialogs} from "./components/content/Dialogs/Dialogs";
 import {Route, Routes} from "react-router-dom";
-import {StoreType} from "./redux/store";
+import {IStore} from "./redux/store";
 
 type AppPropsType = {
-    store: StoreType
+    store: IStore
 }
 
 export const App: React.FC<AppPropsType> = ({store}) => {
@@ -25,7 +25,7 @@ export const App: React.FC<AppPropsType> = ({store}) => {
                         element={
                             <Profile
                                 state={state.profilePage}
-                                dispatch={store.dispatch}
+                                dispatch={store.dispatch.bind(store)}
                             />}
                     />
                     <Route
