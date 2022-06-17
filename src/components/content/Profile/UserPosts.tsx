@@ -2,12 +2,12 @@ import React, {ChangeEvent} from "react";
 import s from './Profile.module.css';
 import {UserPost} from "./UserPost";
 import {PostType} from "../../../redux/stateTypes";
-import {ActionTypes, addPostAC, changeNewPostTextAC} from "../../../redux/actions";
+import {addPostAC, changeNewPostTextAC, ProfilePageActionTypes} from "../../../redux/profilePageActionTypes";
 
 type UserPostsPropsType = {
     state: Array<PostType>
     newPostText: string
-    dispatch: (action: ActionTypes) => void
+    dispatch: (action: ProfilePageActionTypes) => void
 }
 
 export const UserPosts: React.FC<UserPostsPropsType> =

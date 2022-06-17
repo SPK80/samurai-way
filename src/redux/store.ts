@@ -1,12 +1,17 @@
 import {v1} from "uuid";
 import {RootStateType} from "./stateTypes";
-import {ActionTypes} from "./actions";
+import {DialogsPageActionTypes} from "./dialogsPageActionTypes";
+import {ProfilePageActionTypes} from "./profilePageActionTypes";
+import {profilePageReducer} from "./reducers/profilePageReducer";
+import {dialogsPageReducer} from "./reducers/dialogsPageReducer";
 
 export interface IStore {
     dispatch: (action: ActionTypes) => void
     getState: () => RootStateType
     subscribe: (callBack: () => void) => void
 }
+
+type ActionTypes = DialogsPageActionTypes | ProfilePageActionTypes
 
 class Store implements IStore {
     private state: RootStateType = {
@@ -47,85 +52,17 @@ class Store implements IStore {
     private onChange: () => void = () => {
     }
     
-    private changeNewPost(newPostText: string) {
-        this.state = {
-            ...this.state,
-            profilePage: {
-                ...this.state.profilePage,
-                newPostText
-            }
-        }
-    }
-    
-    private changeNewMessageText(newMessageText: string) {
-        this.state = {
-            ...this.state,
-            dialogsPage: {
-                ...this.state.dialogsPage,
-                newMessageText
-            }
-        }
-    }
-    
-    private addPost() {
-        const newPostText = this.state.profilePage.newPostText
-        this.state = {
-            ...this.state,
-            profilePage: {
-                ...this.state.profilePage,
-                newPostText: '',
-                userPosts: [
-                    ...this.state.profilePage.userPosts,
-                    {
-                        id: v1(),
-                        message: newPostText,
-                        likesCount: 0
-                    }
-                ]
-            }
-        }
-    }
-    
-    private addMessage() {
-        const newMessageText = this.state.dialogsPage.newMessageText
-        this.state = {
-            ...this.state,
-            dialogsPage: {
-                ...this.state.dialogsPage,
-                newMessageText: '',
-                messages: [
-                    ...this.state.dialogsPage.messages,
-                    {
-                        id: v1(),
-                        message: newMessageText
-                    }
-                ]
-            }
-        }
-    }
-    
     public dispatch(action: ActionTypes): void {
-        switch (action.type) {
-            case "ADD-POST": {
-                this.addPost()
-                this.onChange()
-                return
+        const newProfilePageState = profilePageReducer(this.state.profilePage, action as ProfilePageActionTypes)
+        const newDialogsPageState = dialogsPageReducer(this.state.dialogsPage, action as DialogsPageActionTypes)
+        
+        if (newProfilePageState !== this.state.profilePage || newDialogsPageState !== this.state.dialogsPage) {
+            this.state = {
+                ...this.state,
+                profilePage: newProfilePageState,
+                dialogsPage: newDialogsPageState,
             }
-            case "ADD-MESSAGE": {
-                this.addMessage()
-                this.onChange()
-                return
-            }
-            case "CHANGE-NEW-POST-TEXT": {
-                this.changeNewPost(action.postText)
-                this.onChange()
-                return
-            }
-            case  "CHANGE-NEW-MESSAGE-TEXT": {
-                this.changeNewMessageText(action.messageText)
-                this.onChange()
-                return
-            }
+            this.onChange()
         }
     }
     

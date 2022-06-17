@@ -1,10 +1,14 @@
 import React, {ChangeEvent} from "react";
-import {ActionTypes, addMessageAC, changeNewMessageTextAC} from "../../../redux/actions";
+import {
+    addMessageAC,
+    changeNewMessageTextAC,
+    DialogsPageActionTypes
+} from "../../../redux/dialogsPageActionTypes";
 import s from './Dialogs.module.css'
 
 type NewMessagePagePropsType = {
     state: string
-    dispatch: (action: ActionTypes) => void
+    dispatch: (action: DialogsPageActionTypes) => void
 }
 
 export const NewMessage: React.FC<NewMessagePagePropsType> = ({state, dispatch}) => {

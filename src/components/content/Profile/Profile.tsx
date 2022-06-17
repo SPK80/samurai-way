@@ -3,11 +3,11 @@ import s from './Profile.module.css';
 import {ProfilePageType} from "../../../redux/stateTypes";
 import {UserProfile} from "./UserProfile";
 import {UserPosts} from "./UserPosts";
-import {ActionTypes} from "../../../redux/actions";
+import {ProfilePageActionTypes} from "../../../redux/profilePageActionTypes";
 
 type ProfilePagePropsType = {
     state: ProfilePageType
-    dispatch: (action: ActionTypes) => void
+    dispatch: (action: ProfilePageActionTypes) => void
 }
 
 export const Profile: React.FC<ProfilePagePropsType> =

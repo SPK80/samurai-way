@@ -3,13 +3,13 @@ import {Dialogs} from "./Dialogs";
 import {DialogsPageType} from "../../../redux/stateTypes";
 import {Messages} from "./Messages";
 import {NewMessage} from "./NewMessage";
-import {ActionTypes} from "../../../redux/actions";
 import s from './Dialogs.module.css'
+import {DialogsPageActionTypes} from "../../../redux/dialogsPageActionTypes";
 
 
 type DialogsPagePropsType = {
     state: DialogsPageType
-    dispatch: (action: ActionTypes) => void
+    dispatch: (action: DialogsPageActionTypes) => void
 }
 
 export const DialogsPage: React.FC<DialogsPagePropsType> = ({state, dispatch}) => {
