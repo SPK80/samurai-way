@@ -28,6 +28,7 @@ class Store implements IStore {
         },
         
         dialogsPage: {
+            newMessageText: '',
             dialogs: [
                 {id: v1(), name: 'Dimych'},
                 {id: v1(), name: 'Andrey'},
@@ -56,6 +57,16 @@ class Store implements IStore {
         }
     }
     
+    private changeNewMessageText(newMessageText: string) {
+        this.state = {
+            ...this.state,
+            dialogsPage: {
+                ...this.state.dialogsPage,
+                newMessageText
+            }
+        }
+    }
+    
     private addPost() {
         const newPostText = this.state.profilePage.newPostText
         this.state = {
@@ -75,6 +86,24 @@ class Store implements IStore {
         }
     }
     
+    private addMessage() {
+        const newMessageText = this.state.dialogsPage.newMessageText
+        this.state = {
+            ...this.state,
+            dialogsPage: {
+                ...this.state.dialogsPage,
+                newMessageText: '',
+                messages: [
+                    ...this.state.dialogsPage.messages,
+                    {
+                        id: v1(),
+                        message: newMessageText
+                    }
+                ]
+            }
+        }
+    }
+    
     public dispatch(action: ActionTypes): void {
         switch (action.type) {
             case "ADD-POST": {
@@ -82,8 +111,18 @@ class Store implements IStore {
                 this.onChange()
                 return
             }
+            case "ADD-MESSAGE": {
+                this.addMessage()
+                this.onChange()
+                return
+            }
             case "CHANGE-NEW-POST-TEXT": {
                 this.changeNewPost(action.postText)
+                this.onChange()
+                return
+            }
+            case  "CHANGE-NEW-MESSAGE-TEXT": {
+                this.changeNewMessageText(action.messageText)
                 this.onChange()
                 return
             }
@@ -97,7 +136,6 @@ class Store implements IStore {
     public subscribe(callBack: () => void): void {
         this.onChange = callBack
     }
-    
 }
 
 export const store = new Store()

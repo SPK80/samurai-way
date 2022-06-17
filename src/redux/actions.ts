@@ -1,11 +1,37 @@
-export type ActionTypes = ReturnType<typeof addPostAC> |
-    ReturnType<typeof changeNewPostTextAC>
-
-export const addPostAC = () => ({
+type AddPostAT = {
     type: "ADD-POST"
-} as const)
+}
 
-export const changeNewPostTextAC = (postText: string) => ({
+export const addPostAC = (): AddPostAT => ({
+    type: "ADD-POST"
+})
+
+type ChangeNewPostTextAT = {
+    type: "CHANGE-NEW-POST-TEXT"
+    postText: string
+}
+
+export const changeNewPostTextAC = (postText: string): ChangeNewPostTextAT => ({
     type: "CHANGE-NEW-POST-TEXT",
     postText
-} as const)
+})
+
+type ChangeNewMessageTextAT = {
+    type: "CHANGE-NEW-MESSAGE-TEXT"
+    messageText: string
+}
+
+export const changeNewMessageTextAC = (messageText: string): ChangeNewMessageTextAT => ({
+    type: "CHANGE-NEW-MESSAGE-TEXT",
+    messageText
+})
+
+type AddMessageAT = {
+    type: "ADD-MESSAGE"
+}
+
+export const addMessageAC = (): AddMessageAT => ({
+    type: "ADD-MESSAGE"
+})
+
+export type ActionTypes = AddPostAT | ChangeNewPostTextAT | ChangeNewMessageTextAT | AddMessageAT

@@ -3,9 +3,9 @@ import s from './App.module.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/content/Profile/Profile";
-import {Dialogs} from "./components/content/Dialogs/Dialogs";
 import {Route, Routes} from "react-router-dom";
 import {IStore} from "./redux/store";
+import {DialogsPage} from "./components/content/Dialogs/DialogsPage";
 
 type AppPropsType = {
     store: IStore
@@ -31,8 +31,9 @@ export const App: React.FC<AppPropsType> = ({store}) => {
                     <Route
                         path={'/dialogs/*'}
                         element={
-                            <Dialogs
+                            <DialogsPage
                                 state={state.dialogsPage}
+                                dispatch={store.dispatch.bind(store)}
                             />}
                     />
                 </Routes>

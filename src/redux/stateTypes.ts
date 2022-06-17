@@ -33,6 +33,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    newMessageText: string
 }
 
 export type SidebarType = {}
