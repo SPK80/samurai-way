@@ -24,8 +24,21 @@ const changeNewMessageText = (state: DialogsPageType, newMessageText: string): D
     }
 }
 
-export const dialogsPageReducer = (state: DialogsPageType, action: DialogsPageActionTypes): DialogsPageType => {
-    
+const initialState: DialogsPageType = {
+    newMessageText: '',
+    dialogs: [
+        {id: v1(), name: 'Dimych'},
+        {id: v1(), name: 'Andrey'},
+        {id: v1(), name: 'Sveta'},
+    ],
+    messages: [
+        {id: v1(), message: 'Hi'},
+        {id: v1(), message: 'How is your?'},
+        {id: v1(), message: 'Yo'},
+    ]
+}
+
+export const dialogsPageReducer = (state: DialogsPageType = initialState, action: DialogsPageActionTypes): DialogsPageType => {
     switch (action.type) {
         case "ADD-MESSAGE":
             return addMessage(state)

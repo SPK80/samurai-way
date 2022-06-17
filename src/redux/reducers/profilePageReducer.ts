@@ -25,7 +25,25 @@ const changeNewPostText = (state: ProfilePageType, newPostText: string): Profile
     }
 }
 
-export const profilePageReducer = (state: ProfilePageType, action: ProfilePageActionTypes): ProfilePageType => {
+const initialState: ProfilePageType = {
+    userProfile: {
+        avatar: "https://avatars.githubusercontent.com/u/36849366?v=4",
+        name: 'Pavel',
+        age: 41,
+        birthday: 'June 24',
+        gender: 'male',
+        website: 'https://github.com/SPK80',
+        description: 'FrontEnd developer',
+    },
+    newPostText: '',
+    userPosts: [
+        {id: v1(), message: 'Hello', likesCount: 3},
+        {id: v1(), message: 'Yo Yo Yo!', likesCount: 5},
+    ]
+}
+
+export const profilePageReducer = (state: ProfilePageType = initialState, action: ProfilePageActionTypes): ProfilePageType => {
+    
     switch (action.type) {
         case "ADD-POST":
             return addPost(state)
