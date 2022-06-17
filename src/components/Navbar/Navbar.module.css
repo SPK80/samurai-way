@@ -8,14 +8,19 @@
 
 .navbar a {
     text-decoration: none;
+    border: solid 1px #fd8b00;
+    border-radius: 3px;
+    padding: 2px 10px;
+    margin: 2px;
+    text-align: center;
+    color: #713c00;
+    text-transform: uppercase;
 }
 
-.navbar button {
-    width: 100%;
-    margin: 2px;
-    background-color: lightyellow;
+.navbar a:hover {
+    border: solid 1px darkslateblue;
 }
 
 .active {
-    font-weight: bold;
+    background-color: #fd8b00;
 }
