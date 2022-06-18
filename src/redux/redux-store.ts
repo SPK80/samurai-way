@@ -6,4 +6,9 @@ const reducers = combineReducers({
     dialogsPage: dialogsPageReducer,
     profilePage: profilePageReducer,
 })
+
+export type RootStateType = ReturnType<typeof reducers>
+
 export const store = createStore(reducers)
+
+export type DispatchType = typeof store.dispatch

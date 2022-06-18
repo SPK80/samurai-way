@@ -1,18 +1,15 @@
-import React, {Dispatch} from 'react';
+import React from 'react';
 import s from './App.module.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/content/Profile/Profile";
 import {Route, Routes} from "react-router-dom";
 import {DialogsPage} from "./components/content/Dialogs/DialogsPage";
-import {DialogsPageType, ProfilePageType} from "./redux/stateTypes";
-import {EmptyObject} from "redux";
-import {DialogsPageActionTypes} from "./redux/dialogsPageActionTypes";
-import {ProfilePageActionTypes} from "./redux/profilePageActionTypes";
+import {DispatchType, RootStateType} from "./redux/redux-store";
 
 type AppPropsType = {
-    state: EmptyObject & { dialogsPage: DialogsPageType; profilePage: ProfilePageType; }
-    dispatch: Dispatch<DialogsPageActionTypes | ProfilePageActionTypes>
+    state: RootStateType
+    dispatch: DispatchType //Dispatch<DialogsPageActionTypes | ProfilePageActionTypes>
 }
 
 export const App: React.FC<AppPropsType> = ({state, dispatch}) => {
