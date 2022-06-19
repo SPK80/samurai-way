@@ -8,7 +8,7 @@ type ProfilePagePropsType = {
     store: StoreType
 }
 
-export const Profile: React.FC<ProfilePagePropsType> =
+export const ProfilePage: React.FC<ProfilePagePropsType> =
     ({store}) => {
         return (
             <div className={s.profile}>
