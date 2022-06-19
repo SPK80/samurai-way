@@ -3,21 +3,32 @@ import s from './Profile.module.css';
 import {UserProfileType} from "../../../redux/stateTypes";
 
 type UserProfilePropsType = {
-    state: UserProfileType
+    userProfile: UserProfileType
 }
 
-export const UserProfile: React.FC<UserProfilePropsType> = ({state}) => {
-    return (
-        <div className={s.userProfile}>
-            <img src={state.avatar} alt="avatar"/>
-            <div>{state.name}</div>
-            <div>{state.gender}</div>
-            <div>age - {state.age}</div>
-            <div>birthday - {state.birthday}</div>
-            <div>{state.description}</div>
-            <a href={state.website} target="_blank" rel="noreferrer">
-                {state.website}
-            </a>
-        </div>
-    )
-}
+export const UserProfile: React.FC<UserProfilePropsType> =
+    ({
+         userProfile: {
+             age,
+             avatar,
+             birthday,
+             description,
+             gender,
+             name,
+             website
+         }
+     }) => {
+        return (
+            <div className={s.userProfile}>
+                <img src={avatar} alt="avatar"/>
+                <div>{name}</div>
+                <div>{gender}</div>
+                <div>age - {age}</div>
+                <div>birthday - {birthday}</div>
+                <div>{description}</div>
+                <a href={website} target="_blank" rel="noreferrer">
+                    {website}
+                </a>
+            </div>
+        )
+    }

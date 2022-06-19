@@ -4,14 +4,14 @@ import {Dialog} from "./Dialog";
 import {DialogType} from "../../../redux/stateTypes";
 
 type DialogsPropsType = {
-    state: Array<DialogType>
+    dialogs: Array<DialogType>
 }
 
-export const Dialogs: React.FC<DialogsPropsType> = ({state}) => {
+export const Dialogs: React.FC<DialogsPropsType> = ({dialogs}) => {
     
     return (
         <div className={s.dialogsItems}>
-            {state.map(dialog =>
+            {dialogs.map(dialog =>
                 <Dialog
                     key={dialog.id}
                     state={dialog}
@@ -19,5 +19,3 @@ export const Dialogs: React.FC<DialogsPropsType> = ({state}) => {
         </div>
     )
 }
-
-

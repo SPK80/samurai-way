@@ -6,14 +6,9 @@ import {BrowserRouter} from "react-router-dom";
 import {store} from "./redux/redux-store";
 
 const renderTree = () => {
-    const state = store.getState()
-    const dispatch = store.dispatch;
     ReactDOM.render(
         <BrowserRouter>
-            <App
-                state={state}
-                dispatch={dispatch}
-            />
+            <App store={store}/>
         </BrowserRouter>
         , document.getElementById('root')
     )

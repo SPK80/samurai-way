@@ -2,28 +2,28 @@ import React, {ChangeEvent} from "react";
 import s from './Profile.module.css';
 import {UserPost} from "./UserPost";
 import {PostType} from "../../../redux/stateTypes";
-import {addPostAC, changeNewPostTextAC, ProfilePageActionTypes} from "../../../redux/profilePageActionTypes";
 
 type UserPostsPropsType = {
-    state: Array<PostType>
+    posts: Array<PostType>
     newPostText: string
-    dispatch: (action: ProfilePageActionTypes) => void
+    addPost: () => void
+    changeNewPostText: (text: string) => void
 }
 
 export const UserPosts: React.FC<UserPostsPropsType> =
     ({
-         state,
+         posts,
          newPostText,
-         dispatch
-        
+         addPost,
+         changeNewPostText
      }) => {
         
         const onAddPostHandler = () => {
-            dispatch(addPostAC())
+            addPost()
         }
         
         const changeNewPostTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(changeNewPostTextAC(e.currentTarget.value))
+            changeNewPostText(e.currentTarget.value)
         }
         
         return (
@@ -40,7 +40,7 @@ export const UserPosts: React.FC<UserPostsPropsType> =
                     </button>
                 </div>
                 <div>
-                    {state.map(userPost =>
+                    {posts.map(userPost =>
                         <UserPost key={userPost.id} {...userPost}/>)}
                 </div>
             </div>

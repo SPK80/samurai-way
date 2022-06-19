@@ -4,14 +4,15 @@ import s from "./Dialogs.module.css";
 import {Message} from "./Message";
 
 type MessagesPropsType = {
-    state: Array<MessageType>
+    messages: Array<MessageType>
 }
-export const Messages: React.FC<MessagesPropsType> = ({state}) => {
+export const Messages: React.FC<MessagesPropsType> = ({messages}) => {
     
     return (
         <div className={s.messages}>
-            {state.map(m =>
+            {messages.map(m =>
                 <Message key={m.id}{...m} />)}
         </div>
     )
 }
+

@@ -5,14 +5,13 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/content/Profile/Profile";
 import {Route, Routes} from "react-router-dom";
 import {DialogsPage} from "./components/content/Dialogs/DialogsPage";
-import {DispatchType, RootStateType} from "./redux/redux-store";
+import {StoreType} from "./redux/redux-store";
 
 type AppPropsType = {
-    state: RootStateType
-    dispatch: DispatchType //Dispatch<DialogsPageActionTypes | ProfilePageActionTypes>
+    store: StoreType
 }
 
-export const App: React.FC<AppPropsType> = ({state, dispatch}) => {
+export const App: React.FC<AppPropsType> = ({store}) => {
     return (
         <div className={s.app}>
             <Header title={'Hello, samurai! Let\'s go!'}/>
@@ -21,19 +20,11 @@ export const App: React.FC<AppPropsType> = ({state, dispatch}) => {
                 <Routes>
                     <Route
                         path={'/profile'}
-                        element={
-                            <Profile
-                                state={state.profilePage}
-                                dispatch={dispatch}
-                            />}
+                        element={<Profile store={store}/>}
                     />
                     <Route
                         path={'/dialogs/*'}
-                        element={
-                            <DialogsPage
-                                state={state.dialogsPage}
-                                dispatch={dispatch}
-                            />}
+                        element={<DialogsPage store={store}/>}
                     />
                 </Routes>
             </div>
