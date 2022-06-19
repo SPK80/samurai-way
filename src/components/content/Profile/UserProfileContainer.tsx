@@ -1,12 +1,13 @@
 import React from "react";
-import {StoreType} from "../../../redux/redux-store";
 import {UserProfile} from "./UserProfile";
+import {StoreContext} from "../../../StoreContext";
 
-type UserProfileContainerPropsType = {
-    store: StoreType
-}
-export const UserProfileContainer: React.FC<UserProfileContainerPropsType> =
-    ({store}) => {
-        const userProfile = store.getState().profilePage.userProfile
-        return <UserProfile userProfile={userProfile}/>
-    }
+export const UserProfileContainer: React.FC = () =>
+    <StoreContext.Consumer>
+        {
+            store => {
+                const userProfile = store.getState().profilePage.userProfile
+                return <UserProfile userProfile={userProfile}/>
+            }
+        }
+    </StoreContext.Consumer>

@@ -1,11 +1,13 @@
-import {StoreType} from "../../../redux/redux-store";
 import React from "react";
 import {Messages} from "./Messages";
+import {StoreContext} from "../../../StoreContext";
 
-type MessagesContainerPropsType = {
-    store: StoreType
-}
-export const MessagesContainer: React.FC<MessagesContainerPropsType> = ({store}) =>
-    <Messages
-        messages={store.getState().dialogsPage.messages}
-    />
+export const MessagesContainer: React.FC = () =>
+    <StoreContext.Consumer>
+        {
+            store =>
+                <Messages
+                    messages={store.getState().dialogsPage.messages}
+                />
+        }
+    </StoreContext.Consumer>
