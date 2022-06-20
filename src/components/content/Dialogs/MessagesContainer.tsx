@@ -1,12 +1,13 @@
 import React from "react";
 import {Messages} from "./Messages";
-import {StoreContext} from "../../../StoreContext";
+import {AppStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
 
-export const MessagesContainer: React.FC = () =>
-    <StoreContext.Consumer>
-        {
-            store => <Messages
-                messages={store.getState().dialogsPage.messages}
-            />
-        }
-    </StoreContext.Consumer>
+const mapStateToProps = (state: AppStateType) => ({
+    messages: state.dialogsPage.messages
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({})
+
+export const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)

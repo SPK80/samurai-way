@@ -1,20 +1,18 @@
 import React from "react";
 import {addPostAC, changeNewPostTextAC} from "../../../redux/reducers/profilePageActionCreators";
 import {UserPosts} from "./UserPosts";
-import {StoreContext} from "../../../StoreContext";
+import {AppStateType} from "../../../redux/redux-store";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
 
-export const UserPostsContainer: React.FC = () =>
-    <StoreContext.Consumer>
-        {
-            store => {
-                const profilePage = store.getState().profilePage
-                return <UserPosts
-                    posts={profilePage.userPosts}
-                    newPostText={profilePage.newPostText}
-                    addPost={() => store.dispatch(addPostAC())}
-                    changeNewPostText={text => store.dispatch(changeNewPostTextAC(text))}
-                />
-            }
-            
-        }
-    </StoreContext.Consumer>
+const mapStateToProps = (state: AppStateType) => ({
+    posts: state.profilePage.userPosts,
+    newPostText: state.profilePage.newPostText,
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    addPost: () => dispatch(addPostAC()),
+    changeNewPostText: (text: string) => dispatch(changeNewPostTextAC(text)),
+})
+
+export const UserPostsContainer = connect(mapStateToProps, mapDispatchToProps)(UserPosts)

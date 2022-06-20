@@ -1,13 +1,13 @@
 import React from "react";
 import {UserProfile} from "./UserProfile";
-import {StoreContext} from "../../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
 
-export const UserProfileContainer: React.FC = () =>
-    <StoreContext.Consumer>
-        {
-            store => {
-                const userProfile = store.getState().profilePage.userProfile
-                return <UserProfile userProfile={userProfile}/>
-            }
-        }
-    </StoreContext.Consumer>
+const mapStateToProps = (state: AppStateType) => ({
+    userProfile: state.profilePage.userProfile
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({})
+
+export const UserProfileContainer = connect(mapStateToProps, mapDispatchToProps)(UserProfile)

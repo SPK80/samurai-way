@@ -1,13 +1,13 @@
 import React from "react";
 import {Dialogs} from "./Dialogs";
-import {StoreContext} from "../../../StoreContext";
+import {AppStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
 
-export const DialogsContainer: React.FC = () =>
-    <StoreContext.Consumer>
-        {
-            store =>
-                <Dialogs
-                    dialogs={store.getState().dialogsPage.dialogs}
-                />
-        }
-    </StoreContext.Consumer>
+const mapStateToProps = (state: AppStateType) => ({
+    dialogs: state.dialogsPage.dialogs,
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({})
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
