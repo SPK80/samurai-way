@@ -1,5 +1,5 @@
-import {DialogsPageActionTypes} from "../dialogsPageActionTypes";
 import {v1} from "uuid";
+import {addMessageAC, changeNewMessageTextAC} from "./dialogsPageActionCreators";
 
 export type DialogType = {
     id: string
@@ -49,6 +49,9 @@ const initialState = {
     ] as Array<MessageType>,
 }
 
+
+type DialogsPageActionTypes = ReturnType<typeof changeNewMessageTextAC> | ReturnType<typeof addMessageAC>
+
 export const dialogsPageReducer = (state: DialogsPageType = initialState, action: DialogsPageActionTypes): DialogsPageType => {
     switch (action.type) {
         case "ADD-MESSAGE":
@@ -60,5 +63,4 @@ export const dialogsPageReducer = (state: DialogsPageType = initialState, action
         default:
             return state
     }
-    
 }

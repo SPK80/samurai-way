@@ -1,5 +1,5 @@
 import React from "react";
-import {addPostAC, changeNewPostTextAC} from "../../../redux/profilePageActionTypes";
+import {addPostAC, changeNewPostTextAC} from "../../../redux/reducers/profilePageActionCreators";
 import {UserPosts} from "./UserPosts";
 import {StoreContext} from "../../../StoreContext";
 

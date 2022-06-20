@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ProfilePageActionTypes} from "../profilePageActionTypes";
+import {addPostAC, changeNewPostTextAC} from "./profilePageActionCreators";
 
 export type PostType = {
     id: string
@@ -59,8 +59,9 @@ const initialState = {
     ] as Array<PostType>
 }
 
+type ProfilePageActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof changeNewPostTextAC>
+
 export const profilePageReducer = (state: ProfilePageType = initialState, action: ProfilePageActionTypes): ProfilePageType => {
-    
     switch (action.type) {
         case "ADD-POST":
             return addPost(state)
@@ -71,5 +72,4 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
         default:
             return state
     }
-    
 }

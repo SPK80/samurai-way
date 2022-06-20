@@ -1,5 +1,5 @@
 import React from "react";
-import {addMessageAC, changeNewMessageTextAC} from "../../../redux/dialogsPageActionTypes";
+import {addMessageAC, changeNewMessageTextAC} from "../../../redux/reducers/dialogsPageActionCreators";
 import {NewMessage} from "./NewMessage";
 import {StoreContext} from "../../../StoreContext";
 
