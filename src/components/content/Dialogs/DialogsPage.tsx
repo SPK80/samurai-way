@@ -6,12 +6,12 @@ import {NewMessageContainer} from "./NewMessageContainer";
 
 export const DialogsPage: React.FC = () => {
     return (
-        <>
+        <div>
             <NewMessageContainer/>
             <div className={s.dialogs}>
                 <DialogsContainer/>
                 <MessagesContainer/>
             </div>
-        </>
+        </div>
     )
 }

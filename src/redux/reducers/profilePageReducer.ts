@@ -1,6 +1,21 @@
-import {ProfilePageType} from "../stateTypes";
 import {v1} from "uuid";
 import {ProfilePageActionTypes} from "../profilePageActionTypes";
+
+export type PostType = {
+    id: string
+    message: string
+    likesCount: number
+}
+
+export type UserProfileType = {
+    avatar: string
+    name: string
+    age: number
+    birthday: string
+    gender: 'male' | 'female'
+    website: string
+    description: string
+}
 
 const addPost = (state: ProfilePageType): ProfilePageType => {
     const newPostText = state.newPostText
@@ -25,7 +40,9 @@ const changeNewPostText = (state: ProfilePageType, newPostText: string): Profile
     }
 }
 
-const initialState: ProfilePageType = {
+type ProfilePageType = typeof initialState
+
+const initialState = {
     userProfile: {
         avatar: "https://avatars.githubusercontent.com/u/36849366?v=4",
         name: 'Pavel',
@@ -34,12 +51,12 @@ const initialState: ProfilePageType = {
         gender: 'male',
         website: 'https://github.com/SPK80',
         description: 'FrontEnd developer',
-    },
-    newPostText: '',
+    } as UserProfileType,
+    newPostText: '' as string,
     userPosts: [
         {id: v1(), message: 'Hello', likesCount: 3},
         {id: v1(), message: 'Yo Yo Yo!', likesCount: 5},
-    ]
+    ] as Array<PostType>
 }
 
 export const profilePageReducer = (state: ProfilePageType = initialState, action: ProfilePageActionTypes): ProfilePageType => {

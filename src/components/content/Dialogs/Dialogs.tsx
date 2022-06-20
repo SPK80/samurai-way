@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Dialogs.module.css';
 import {Dialog} from "./Dialog";
-import {DialogType} from "../../../redux/stateTypes";
+import {DialogType} from "../../../redux/reducers/dialogsPageReducer";
 
 type DialogsPropsType = {
     dialogs: Array<DialogType>

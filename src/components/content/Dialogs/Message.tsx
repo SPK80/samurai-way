@@ -1,11 +1,13 @@
 import s from "./Dialogs.module.css";
 import React from "react";
-import {MessageType} from "../../../redux/stateTypes";
+import {MessageType} from "../../../redux/reducers/dialogsPageReducer";
 
-type MessagePropsType = MessageType
+type MessagePropsType = {
+    message: MessageType
+}
 
-export const Message: React.FC<MessagePropsType> = (props) => {
+export const Message: React.FC<MessagePropsType> = ({message}) => {
     return (
-        <div className={s.message}>{props.message}</div>
+        <div className={s.message}>{message.message}</div>
     )
 }

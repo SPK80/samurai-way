@@ -1,6 +1,15 @@
-import {DialogsPageType} from "../stateTypes";
 import {DialogsPageActionTypes} from "../dialogsPageActionTypes";
 import {v1} from "uuid";
+
+export type DialogType = {
+    id: string
+    name: string
+}
+
+export type MessageType = {
+    id: string
+    message: string
+}
 
 const addMessage = (state: DialogsPageType): DialogsPageType => {
     const newMessageText = state.newMessageText
@@ -24,18 +33,20 @@ const changeNewMessageText = (state: DialogsPageType, newMessageText: string): D
     }
 }
 
-const initialState: DialogsPageType = {
+type DialogsPageType = typeof initialState
+
+const initialState = {
     newMessageText: '',
     dialogs: [
         {id: v1(), name: 'Dimych'},
         {id: v1(), name: 'Andrey'},
         {id: v1(), name: 'Sveta'},
-    ],
+    ] as Array<DialogType>,
     messages: [
         {id: v1(), message: 'Hi'},
         {id: v1(), message: 'How is your?'},
         {id: v1(), message: 'Yo'},
-    ]
+    ] as Array<MessageType>,
 }
 
 export const dialogsPageReducer = (state: DialogsPageType = initialState, action: DialogsPageActionTypes): DialogsPageType => {

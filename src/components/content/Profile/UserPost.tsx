@@ -1,5 +1,5 @@
 import React from "react";
-import {PostType} from "../../../redux/stateTypes";
+import {PostType} from "../../../redux/reducers/profilePageReducer";
 
 export const UserPost: React.FC<PostType> = (props) => {
     return (

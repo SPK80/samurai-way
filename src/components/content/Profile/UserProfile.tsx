@@ -1,6 +1,6 @@
 import React from "react"
 import s from './Profile.module.css';
-import {UserProfileType} from "../../../redux/stateTypes";
+import {UserProfileType} from "../../../redux/reducers/profilePageReducer";
 
 type UserProfilePropsType = {
     userProfile: UserProfileType

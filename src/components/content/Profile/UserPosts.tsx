@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import s from './Profile.module.css';
 import {UserPost} from "./UserPost";
-import {PostType} from "../../../redux/stateTypes";
+import {PostType} from "../../../redux/reducers/profilePageReducer";
 
 type UserPostsPropsType = {
     posts: Array<PostType>
