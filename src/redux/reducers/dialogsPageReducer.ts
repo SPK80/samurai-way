@@ -33,7 +33,7 @@ const changeNewMessageText = (state: DialogsPageType, newMessageText: string): D
     }
 }
 
-type DialogsPageType = typeof initialState
+export type DialogsPageType = typeof initialState
 
 const initialState = {
     newMessageText: '',
