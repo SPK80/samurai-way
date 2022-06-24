@@ -40,7 +40,7 @@ const changeNewPostText = (state: ProfilePageType, newPostText: string): Profile
     }
 }
 
-type ProfilePageType = typeof initialState
+export type ProfilePageType = typeof initialState
 
 const initialState = {
     userProfile: {
