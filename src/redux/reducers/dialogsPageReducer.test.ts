@@ -13,9 +13,9 @@ beforeEach(() => {
             {id: v1(), name: 'Sveta'},
         ] as Array<DialogType>,
         messages: [
-            {id: v1(), message: 'Hi'},
-            {id: v1(), message: 'How is your?'},
-            {id: v1(), message: 'Yo'},
+            {id: v1(), text: 'Hi'},
+            {id: v1(), text: 'How is your?'},
+            {id: v1(), text: 'Yo'},
         ] as Array<MessageType>,
     }
     
@@ -25,7 +25,7 @@ test('new message must be added', () => {
     const action = addMessageAC()
     const endState = dialogsPageReducer(initialState, action)
     expect(endState.messages.length).toBe(4)
-    expect(endState.messages[3].message).toBe(initialState.newMessageText)
+    expect(endState.messages[3].text).toBe(initialState.newMessageText)
 })
 
 test('newMessageText must be changed', () => {

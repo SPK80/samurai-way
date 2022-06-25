@@ -8,7 +8,7 @@ export type DialogType = {
 
 export type MessageType = {
     id: string
-    message: string
+    text: string
 }
 
 const addMessage = (state: DialogsPageType): DialogsPageType => {
@@ -20,7 +20,7 @@ const addMessage = (state: DialogsPageType): DialogsPageType => {
             ...state.messages,
             {
                 id: v1(),
-                message: newMessageText
+                text: newMessageText
             }
         ]
     }
@@ -43,9 +43,9 @@ const initialState = {
         {id: v1(), name: 'Sveta'},
     ] as Array<DialogType>,
     messages: [
-        {id: v1(), message: 'Hi'},
-        {id: v1(), message: 'How is your?'},
-        {id: v1(), message: 'Yo'},
+        {id: v1(), text: 'Hi'},
+        {id: v1(), text: 'How is your?'},
+        {id: v1(), text: 'Yo'},
     ] as Array<MessageType>,
 }
 

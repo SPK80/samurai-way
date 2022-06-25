@@ -8,6 +8,6 @@ type MessagePropsType = {
 
 export const Message: React.FC<MessagePropsType> = ({message}) => {
     return (
-        <div className={s.message}>{message.message}</div>
+        <div className={s.message}>{message.text}</div>
     )
 }

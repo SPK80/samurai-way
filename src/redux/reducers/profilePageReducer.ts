@@ -3,7 +3,7 @@ import {addPostAC, changeNewPostTextAC} from "./profilePageActionCreators";
 
 export type PostType = {
     id: string
-    message: string
+    text: string
     likesCount: number
 }
 
@@ -26,7 +26,7 @@ const addPost = (state: ProfilePageType): ProfilePageType => {
             ...state.userPosts,
             {
                 id: v1(),
-                message: newPostText,
+                text: newPostText,
                 likesCount: 0
             }
         ]
@@ -54,8 +54,8 @@ const initialState = {
     } as UserProfileType,
     newPostText: '' as string,
     userPosts: [
-        {id: v1(), message: 'Hello', likesCount: 3},
-        {id: v1(), message: 'Yo Yo Yo!', likesCount: 5},
+        {id: v1(), text: 'Hello', likesCount: 3},
+        {id: v1(), text: 'Yo Yo Yo!', likesCount: 5},
     ] as Array<PostType>
 }
 
