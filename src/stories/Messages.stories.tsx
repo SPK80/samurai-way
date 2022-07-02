@@ -1,5 +1,4 @@
 import React from "react";
-import {Message} from "../components/content/Dialogs/Message";
 import {Messages} from "../components/content/Dialogs/Messages";
 
 export default {
