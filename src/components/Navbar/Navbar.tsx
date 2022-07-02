@@ -23,8 +23,14 @@ export const Navbar = () => {
             >
                 Dialogs
             </NavLink>
+            
+            <NavLink
+                className={navClassNameGetter}
+                to={'/users'}
+            >
+                Users
+            </NavLink>
         
         </nav>
-    
     )
 }

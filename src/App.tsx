@@ -1,10 +1,11 @@
 import React from 'react';
+import {Route, Routes} from "react-router-dom";
 import s from './App.module.css';
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {ProfilePage} from "./components/content/Profile/ProfilePage";
-import {Route, Routes} from "react-router-dom";
 import {DialogsPage} from "./components/content/Dialogs/DialogsPage";
+import {UsersPage} from "./components/content/Users/UsersPage";
 
 export const App: React.FC = () => {
     return (
@@ -20,6 +21,10 @@ export const App: React.FC = () => {
                     <Route
                         path={'/dialogs/*'}
                         element={<DialogsPage/>}
+                    />
+                    <Route
+                        path={'/users'}
+                        element={<UsersPage/>}
                     />
                 </Routes>
             </div>
