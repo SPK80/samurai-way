@@ -1,15 +1,15 @@
 import React from "react";
+import {useSelector} from "react-redux";
 import s from "./Dialogs.module.css";
 import {Message} from "./Message";
 import {MessageType} from "../../../redux/reducers/dialogsPageReducer";
+import {AppStateType} from "../../../redux/redux-store";
 
-type MessagesPropsType = {
-    messages: Array<MessageType>
-}
-export const Messages: React.FC<MessagesPropsType> = ({messages}) => {
+export const Messages: React.FC = () => {
+    const messagesState = useSelector<AppStateType, Array<MessageType>>(state => state.dialogsPage.messages)
     return (
         <div className={s.messages}>
-            {messages.map(m =>
+            {messagesState.map(m =>
                 <Message
                     key={m.id}
                     message={m}

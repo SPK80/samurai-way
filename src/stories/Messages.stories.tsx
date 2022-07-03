@@ -8,16 +8,16 @@ export default {
 
 export const ThreeMessages = () => (
     <Messages
-        messages={[
-            {id: '1', text: 'First message'},
-            {id: '2', text: 'This is second message'},
-            {id: '3', text: 'And last message'},
-        ]}
+        // messages={[
+        //     {id: '1', text: 'First message'},
+        //     {id: '2', text: 'This is second message'},
+        //     {id: '3', text: 'And last message'},
+        // ]}
     />
 )
 
 export const EmptyMessages = () => (
     <Messages
-        messages={[]}
+        // messages={[]}
     />
 )

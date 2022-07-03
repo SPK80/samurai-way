@@ -8,12 +8,12 @@ export default {
 }
 
 export const TestNewMessage = () => {
-    const [messageText, setMessageText] = useState('')
+    // const [messageText, setMessageText] = useState('')
     return (
         <NewMessage
-            newMessageText={messageText}
-            changeMessage={setMessageText}
-            addMessage={action("addMessage")}
+            // newMessageText={messageText}
+            // changeMessage={setMessageText}
+            // addMessage={action("addMessage")}
         />
     )
 }

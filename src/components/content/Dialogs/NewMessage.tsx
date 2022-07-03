@@ -1,34 +1,26 @@
 import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../../redux/redux-store";
+import {addMessageAC, changeNewMessageTextAC} from "../../../redux/reducers/dialogsPageActionCreators";
 
-type NewMessagePropsType = {
-    newMessageText: string
-    changeMessage: (text: string) => void
-    addMessage: () => void
-}
-
-export const NewMessage: React.FC<NewMessagePropsType> =
-    ({
-         newMessageText,
-         changeMessage,
-         addMessage
-     }) => {
-        
-        const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>
-            changeMessage(e.currentTarget.value)
-        
-        const onClickHandler = () =>
-            addMessage()
-        
-        return (
-            <div className={s.newMessage}>
+export const NewMessage: React.FC = () => {
+    
+    const newMessageTextState = useSelector<AppStateType, string>(state => state.dialogsPage.newMessageText)
+    
+    const dispatch = useDispatch()
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => dispatch(changeNewMessageTextAC(e.currentTarget.value))
+    const onClickHandler = () => dispatch(addMessageAC())
+    
+    return (
+        <div className={s.newMessage}>
             <textarea
                 rows={4} cols={50}
-                value={newMessageText}
+                value={newMessageTextState}
                 onChange={onChangeHandler}
             />
-                <button onClick={onClickHandler}>Add</button>
-            </div>
-        )
-    }
+            <button onClick={onClickHandler}>Add</button>
+        </div>
+    )
+}
 
