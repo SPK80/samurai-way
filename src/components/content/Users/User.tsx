@@ -22,7 +22,7 @@ export const User: React.FC<UserPropsType> =
         return (
             <div className={s.user}>
                 <div className={s.avatarAndFollowContainer}>
-                    <img src={userData.avatar} alt="avatar"/>
+                    <img src={userData.avatarUrl} alt="avatar"/>
                     <button
                         onClick={onButtonClickHandler}
                     >{userData.following ? "Unfollow" : "Follow"}</button>

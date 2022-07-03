@@ -11,7 +11,7 @@ export default {
 export const PavelUser = () => {
     const [userData, setUserData] = useState<UserType>({
         id: '1',
-        avatar: 'https://avatars.githubusercontent.com/u/36849366?v=4',
+        avatarUrl: 'https://avatars.githubusercontent.com/u/36849366?v=4',
         following: false,
         location: {country: "Rus", city: "Moscow"},
         status: 'Study React-Redux',

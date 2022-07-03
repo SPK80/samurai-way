@@ -3,7 +3,7 @@ import avatar from '../../avatar.png'
 
 export type UserType = {
     id: string
-    avatar: string
+    avatarUrl: string
     name: string
     status: string
     location: {
