@@ -1,18 +1,26 @@
-import React from "react";
 import {UserType} from "../../../redux/reducers/usersPageReducer";
-
+import React from "react";
+import s from './User.module.css'
 
 type UserPropsType = UserType
 
 export const User: React.FC<UserPropsType> = (props) => {
     return (
-        <div>
-            <img src={props.avatar} alt="avatar"/>
-            <span>{props.following ? "Unfollow" : "Follow"}</span>
-            <span>{props.name}</span>
-            <span>{props.status}</span>
-            <span>{props.location.city}</span>
-            <span>{props.location.country}</span>
+        <div className={s.user}>
+            <div className={s.avatarAndFollowContainer}>
+                <img src={props.avatar} alt="avatar"/>
+                <button>{props.following ? "Unfollow" : "Follow"}</button>
+            </div>
+            <div className={s.userDataContainer}>
+                <div className={s.nameAndStatus}>
+                    <div className={s.name}>{props.name}</div>
+                    <div className={s.status}>{props.status}</div>
+                </div>
+                <div className={s.location}>
+                    <div>{props.location.country},</div>
+                    <div>{props.location.city}</div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -1,0 +1,46 @@
+.user {
+    display: flex;
+}
+
+.avatarAndFollowContainer {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+}
+
+.avatarAndFollowContainer > img {
+    width: 64px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 1px #cbbc9a;
+    margin-bottom: 5px;
+}
+
+.userDataContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.userDataContainer > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+}
+
+.status {
+    font-size: 0.75em;
+}
+
+.nameAndStatus {
+    justify-content: space-between;
+}
+
+.location {
+    justify-content: center;
+}
