@@ -1,5 +1,6 @@
 .user {
     display: flex;
+    margin: 5px;
 }
 
 .avatarAndFollowContainer {
@@ -10,6 +11,7 @@
 
 .avatarAndFollowContainer > img {
     width: 64px;
+    height: 64px;
     border-radius: 50%;
     box-shadow: 0 0 5px 1px #cbbc9a;
     margin-bottom: 5px;

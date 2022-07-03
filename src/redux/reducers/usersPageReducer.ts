@@ -1,4 +1,5 @@
 import {followUserAC, unfollowUserAC} from "./usersPageActionCreators";
+import avatar from '../../avatar.png'
 
 export type UserType = {
     id: string
@@ -17,7 +18,7 @@ const initialState = {
         {
             id: '1',
             name: 'Dmitry K.',
-            avatar: "",
+            avatar: avatar,
             following: false,
             status: 'I am looking for a Job right now..',
             location: {
@@ -28,7 +29,7 @@ const initialState = {
         {
             id: '2',
             name: 'Svetlana D.',
-            avatar: "",
+            avatar: avatar,
             following: false,
             status: 'I am so pretty',
             location: {
@@ -39,7 +40,7 @@ const initialState = {
         {
             id: '3',
             name: 'Sergei S.',
-            avatar: "",
+            avatar: avatar,
             following: false,
             status: 'I like football!',
             location: {
