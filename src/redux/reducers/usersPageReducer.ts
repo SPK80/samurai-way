@@ -1,4 +1,4 @@
-import {followUserAC, unfollowUserAC} from "./usersPageActionCreators";
+import {followUserAC, setUsersAC, unfollowUserAC} from "./usersPageActionCreators";
 import avatar from '../../avatar.png'
 
 export type UserType = {
@@ -14,49 +14,17 @@ export type UserType = {
 }
 
 const initialState = {
-    usersList: [
-        {
-            id: '1',
-            name: 'Dmitry K.',
-            avatar: avatar,
-            following: false,
-            status: 'I am looking for a Job right now..',
-            location: {
-                country: 'Belarus',
-                city: 'Minsk'
-            }
-        },
-        {
-            id: '2',
-            name: 'Svetlana D.',
-            avatar: avatar,
-            following: false,
-            status: 'I am so pretty',
-            location: {
-                country: 'Belarus',
-                city: 'Minsk'
-            }
-        },
-        {
-            id: '3',
-            name: 'Sergei S.',
-            avatar: avatar,
-            following: false,
-            status: 'I like football!',
-            location: {
-                country: 'Ukraine',
-                city: 'Kiev'
-            }
-        },
-    ] as Array<UserType>
+    usersList: [] as Array<UserType>
 }
 
 export type UsersPageType = typeof initialState
 
-type UsersPageActionTypes = ReturnType<typeof followUserAC> | ReturnType<typeof unfollowUserAC>
+type UsersPageActionTypes =
+    ReturnType<typeof followUserAC>
+    | ReturnType<typeof unfollowUserAC>
+    | ReturnType<typeof setUsersAC>
 
 export const usersPageReducer = (state: UsersPageType = initialState, action: UsersPageActionTypes): UsersPageType => {
-    // debugger
     switch (action.type) {
         case "FOLLOW":
             return {
@@ -67,6 +35,11 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Us
             return {
                 ...state,
                 usersList: state.usersList.map(u => u.id === action.userId ? {...u, following: false} : u)
+            }
+        case "SETUSERS":
+            return {
+                ...state,
+                usersList: [...state.usersList, ...action.usersList]
             }
         default:
             return state

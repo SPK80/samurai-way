@@ -1,5 +1,5 @@
 import {usersPageReducer, UsersPageType} from "./usersPageReducer";
-import {followUserAC, unfollowUserAC} from "./usersPageActionCreators";
+import {followUserAC, setUsersAC, unfollowUserAC} from "./usersPageActionCreators";
 
 let initialState: UsersPageType;
 
@@ -9,7 +9,7 @@ beforeEach(() => {
             {
                 id: '1',
                 name: 'Dmitry K.',
-                avatar: "",
+                avatarUrl: "",
                 following: false,
                 status: 'I am looking for a Job right now..',
                 location: {
@@ -20,7 +20,7 @@ beforeEach(() => {
             {
                 id: '2',
                 name: 'Svetlana D.',
-                avatar: "",
+                avatarUrl: "",
                 following: false,
                 status: 'I am so pretty',
                 location: {
@@ -31,7 +31,7 @@ beforeEach(() => {
             {
                 id: '3',
                 name: 'Sergei S.',
-                avatar: "",
+                avatarUrl: "",
                 following: true,
                 status: 'I like football!',
                 location: {
@@ -55,4 +55,11 @@ test('Must unfollow 3nd user', () => {
     const endState = usersPageReducer(initialState, action)
     console.log(endState)
     expect(endState.usersList[2].following).toBeFalsy()
+})
+
+test('Must set 3 users', () => {
+    const action = setUsersAC(initialState.usersList)
+    const endState = usersPageReducer({usersList: []}, action)
+    console.log(endState)
+    expect(endState.usersList.length).toBe(3)
 })
