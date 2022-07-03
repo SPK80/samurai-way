@@ -2,25 +2,41 @@ import {UserType} from "../../../redux/reducers/usersPageReducer";
 import React from "react";
 import s from './User.module.css'
 
-type UserPropsType = UserType
-
-export const User: React.FC<UserPropsType> = (props) => {
-    return (
-        <div className={s.user}>
-            <div className={s.avatarAndFollowContainer}>
-                <img src={props.avatar} alt="avatar"/>
-                <button>{props.following ? "Unfollow" : "Follow"}</button>
-            </div>
-            <div className={s.userDataContainer}>
-                <div className={s.nameAndStatus}>
-                    <div className={s.name}>{props.name}</div>
-                    <div className={s.status}>{props.status}</div>
-                </div>
-                <div className={s.location}>
-                    <div>{props.location.country},</div>
-                    <div>{props.location.city}</div>
-                </div>
-            </div>
-        </div>
-    )
+type UserPropsType = {
+    userData: UserType
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
 }
+
+export const User: React.FC<UserPropsType> =
+    ({
+         userData,
+         follow,
+         unfollow,
+     }) => {
+        const onButtonClickHandler = () => {
+            if (userData.following) unfollow(userData.id)
+            else follow(userData.id)
+        }
+        
+        return (
+            <div className={s.user}>
+                <div className={s.avatarAndFollowContainer}>
+                    <img src={userData.avatar} alt="avatar"/>
+                    <button
+                        onClick={onButtonClickHandler}
+                    >{userData.following ? "Unfollow" : "Follow"}</button>
+                </div>
+                <div className={s.userDataContainer}>
+                    <div className={s.nameAndStatus}>
+                        <div className={s.name}>{userData.name}</div>
+                        <div className={s.status}>{userData.status}</div>
+                    </div>
+                    <div className={s.location}>
+                        <div>{userData.location.country},</div>
+                        <div>{userData.location.city}</div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
