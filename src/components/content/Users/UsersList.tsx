@@ -1,47 +1,35 @@
 import {UserType} from "../../../redux/reducers/usersPageReducer";
 import React, {useEffect} from "react";
+import s from "./usersList.module.css"
 import {User} from "./User";
-import avatar from "../../../avatar.png";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {followUserAC, setUsersAC, unfollowUserAC} from "../../../redux/reducers/usersPageActionCreators";
+import axios from "axios";
 
 export const UsersList: React.FC = () => {
+    
+    let totalCount = 0
+    
     useEffect(() => {
-        if (usersListState.length === 0) dispatchSetUsers([
-            {
-                id: '1',
-                name: 'Dmitry K.',
-                avatarUrl: avatar,
-                following: false,
-                status: 'I am looking for a Job right now..',
-                location: {
-                    country: 'Belarus',
-                    city: 'Minsk'
-                }
-            },
-            {
-                id: '2',
-                name: 'Svetlana D.',
-                avatarUrl: avatar,
-                following: false,
-                status: 'I am so pretty',
-                location: {
-                    country: 'Belarus',
-                    city: 'Minsk'
-                }
-            },
-            {
-                id: '3',
-                name: 'Sergei S.',
-                avatarUrl: avatar,
-                following: false,
-                status: 'I like football!',
-                location: {
-                    country: 'Ukraine',
-                    city: 'Kiev'
-                }
-            },])
+        console.log("UsersList")
+        if (usersListState.length > 0) return
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response => {
+                
+                totalCount = response.data.totalCount
+                const error = response.data.error
+                dispatchSetUsers(response.data.items.map((it: any): UserType =>
+                    ({
+                        id: it.id,
+                        name: it.name,
+                        avatarUrl: it.photos.small,
+                        status: "",
+                        following: false,
+                        location: {country: "", city: ""},
+                    }))
+                )
+            })
     }, [])
     
     const usersListState = useSelector<AppStateType, Array<UserType>>(state => state.usersPage.usersList)
@@ -51,8 +39,18 @@ export const UsersList: React.FC = () => {
     const dispatchUnfollow = (userId: string) => dispatch(unfollowUserAC(userId))
     const dispatchSetUsers = (usersList: Array<UserType>) => dispatch(setUsersAC(usersList))
     
+    const pageSize = 10;
+    const pagesCount = Math.ceil(totalCount / pageSize)
+    console.log('pagesCount:', pagesCount)
+    
+    const pages = []
+    for (let i = 0; i < pagesCount; i++) {
+        pages.push(i)
+    }
+    
     return (
-        <div>
+        <div className={s.usersList}>
+            {pages.map(p => <span>{p}</span>)}
             {usersListState.map(u =>
                 <User
                     key={u.id}
