@@ -20,3 +20,13 @@ export const setCurrentPageAC = (currentPage: number) => ({
     currentPage
 } as const)
 
+export const setTotalCountAC = (totalCount: number) => ({
+    type: "SET-TOTAL-COUNT",
+    totalCount
+} as const)
+
+export const setPageSizeAC = (pageSize: number) => ({
+    type: "SET-PAGE-SIZE",
+    pageSize
+} as const)
+

@@ -1,5 +1,11 @@
-import {followUserAC, setCurrentPageAC, setUsersAC, unfollowUserAC} from "./usersPageActionCreators";
-import avatar from '../../assets/avatar.png'
+import {
+    followUserAC,
+    setCurrentPageAC,
+    setPageSizeAC,
+    setTotalCountAC,
+    setUsersAC,
+    unfollowUserAC
+} from "./usersPageActionCreators";
 
 export type UserType = {
     id: string
@@ -27,6 +33,8 @@ type UsersPageActionTypes =
     | ReturnType<typeof unfollowUserAC>
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalCountAC>
+    | ReturnType<typeof setPageSizeAC>
 
 export const usersPageReducer = (state: UsersPageType = initialState, action: UsersPageActionTypes): UsersPageType => {
     switch (action.type) {
@@ -49,6 +57,16 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Us
             return {
                 ...state,
                 currentPage: action.currentPage
+            }
+        case  "SET-TOTAL-COUNT":
+            return {
+                ...state,
+                totalCount: action.totalCount
+            }
+        case  "SET-PAGE-SIZE":
+            return {
+                ...state,
+                pageSize: action.pageSize
             }
         default:
             return state
