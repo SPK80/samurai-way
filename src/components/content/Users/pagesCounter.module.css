@@ -1,0 +1,8 @@
+.currentPage {
+    font-weight: bold;
+}
+
+.page {
+    margin: 0 4px;
+    cursor: pointer;
+}

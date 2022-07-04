@@ -22,7 +22,7 @@ export type UserType = {
 const initialState = {
     usersList: [] as Array<UserType>,
     pageSize: 5,
-    currentPage: 1,
+    currentPage: 5,
     totalCount: 0,
 }
 
@@ -51,7 +51,7 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Us
         case "SET-USERS":
             return {
                 ...state,
-                usersList: [...state.usersList, ...action.usersList]
+                usersList: [...action.usersList]
             }
         case  "SET-CURRENT-PAGE":
             return {
