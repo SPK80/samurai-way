@@ -1,6 +1,7 @@
 import {UserType} from "../../../redux/reducers/usersPageReducer";
 import React from "react";
-import s from './User.module.css'
+import s from './user.module.css'
+import defaultAvatar from "../../../assets/avatar.png";
 
 type UserPropsType = {
     userData: UserType
@@ -22,7 +23,7 @@ export const User: React.FC<UserPropsType> =
         return (
             <div className={s.user}>
                 <div className={s.avatarAndFollowContainer}>
-                    <img src={userData.avatarUrl} alt="avatar"/>
+                    <img src={userData.avatarUrl ?? defaultAvatar} alt="avatar"/>
                     <button
                         onClick={onButtonClickHandler}
                     >{userData.following ? "Unfollow" : "Follow"}</button>
