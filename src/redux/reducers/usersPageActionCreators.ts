@@ -11,6 +11,12 @@ export const unfollowUserAC = (userId: string) => ({
 } as const)
 
 export const setUsersAC = (usersList: Array<UserType>) => ({
-    type: "SETUSERS",
+    type: "SET-USERS",
     usersList
 } as const)
+
+export const setCurrentPageAC = (currentPage: number) => ({
+    type: "SET-CURRENT-PAGE",
+    currentPage
+} as const)
+

@@ -1,5 +1,5 @@
-import {followUserAC, setUsersAC, unfollowUserAC} from "./usersPageActionCreators";
-import avatar from '../../avatar.png'
+import {followUserAC, setCurrentPageAC, setUsersAC, unfollowUserAC} from "./usersPageActionCreators";
+import avatar from '../../assets/avatar.png'
 
 export type UserType = {
     id: string
@@ -14,7 +14,10 @@ export type UserType = {
 }
 
 const initialState = {
-    usersList: [] as Array<UserType>
+    usersList: [] as Array<UserType>,
+    pageSize: 5,
+    currentPage: 1,
+    totalCount: 0,
 }
 
 export type UsersPageType = typeof initialState
@@ -23,6 +26,7 @@ type UsersPageActionTypes =
     ReturnType<typeof followUserAC>
     | ReturnType<typeof unfollowUserAC>
     | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
 
 export const usersPageReducer = (state: UsersPageType = initialState, action: UsersPageActionTypes): UsersPageType => {
     switch (action.type) {
@@ -36,10 +40,15 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Us
                 ...state,
                 usersList: state.usersList.map(u => u.id === action.userId ? {...u, following: false} : u)
             }
-        case "SETUSERS":
+        case "SET-USERS":
             return {
                 ...state,
                 usersList: [...state.usersList, ...action.usersList]
+            }
+        case  "SET-CURRENT-PAGE":
+            return {
+                ...state,
+                currentPage: action.currentPage
             }
         default:
             return state
