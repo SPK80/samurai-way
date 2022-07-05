@@ -16,6 +16,10 @@ export const PagesCounter: React.FC<PagesCounterPropsType> =
      }) => {
         
         const pagesCount = Math.ceil(totalCount / pageSize)
+        console.log('pagesCount:', pagesCount)
+        console.log('totalCount:', totalCount)
+        console.log('pageSize:', pageSize)
+
         const pages = []
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i)
