@@ -61,7 +61,7 @@ export const UsersList: React.FC = () => {
     return (
         <div className={s.usersList}>
             <PagesCounter
-                pageSize={pageSize}
+                pageSizeIndex={pageSize}
                 currentPage={currentPage}
                 totalCount={totalCount}
                 onPageSizeChanged={(newSize) => dispatch(setPageSizeAC(newSize))}

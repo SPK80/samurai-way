@@ -3,7 +3,9 @@ import s from "../content/Users/pagesCounter.module.css"
 
 type PagesCounterPropsType = {
     totalCount: number
-    pageSize: number
+    pageSizeIndex: number
+    pageSizeVariants?: Array<number>
+    defaultPageSizeIndex?: number
     currentPage: number
     onPageSizeChanged: (newSize: number) => void
     onCurrentPageChanged: (newCurrentPage: number) => void
@@ -11,31 +13,34 @@ type PagesCounterPropsType = {
 
 export const PagesCounter: React.FC<PagesCounterPropsType> =
     ({
-         pageSize, currentPage, totalCount,
-         onPageSizeChanged, onCurrentPageChanged
+         pageSizeIndex, currentPage, totalCount,
+         onPageSizeChanged, onCurrentPageChanged,
+         pageSizeVariants = [5, 10, 50],
+         defaultPageSizeIndex = 0,
      }) => {
-        
-        const pagesCount = Math.ceil(totalCount / pageSize)
-        console.log('pagesCount:', pagesCount)
-        console.log('totalCount:', totalCount)
-        console.log('pageSize:', pageSize)
 
+        let pageSize = pageSizeVariants[pageSizeIndex]
+        if (!pageSize) {
+            pageSize = pageSizeVariants[defaultPageSizeIndex];
+            onPageSizeChanged(defaultPageSizeIndex)
+        }
+        const pagesCount = Math.ceil(totalCount / pageSize)
         const pages = []
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i)
         }
-        
+
         const onChangePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
             onPageSizeChanged(+e.currentTarget.value)
         }
-        
+
         return (
             <div className={s.container}>
                 {pages.map(p => {
-                        
+
                         const pageClassName = s.page + ' ' + (currentPage === p ? s.currentPage : '');
                         const onClickPageHandler = () => onCurrentPageChanged(p)
-                        
+
                         return (
                             <span
                                 key={'page-' + p}
@@ -45,13 +50,11 @@ export const PagesCounter: React.FC<PagesCounterPropsType> =
                                 {p}
                             </span>
                         )
-                        
+
                     }
                 )}
                 <select onChange={onChangePageSize} value={pageSize}>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="50">50</option>
+                    {pageSizeVariants?.map(ps => <option value={ps}>{ps}</option>)}
                 </select>
             </div>
         )

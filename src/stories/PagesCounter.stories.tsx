@@ -8,26 +8,31 @@ export default {
 }
 
 export const WelcomeMessage = () => {
-    
-    const [pageSize, setPageSize] = useState(10);
+
+    const [pageSizeIndex, setPageSizeIndex] = useState(6);
     const [currentPage, setCurrentPage] = useState(1);
-    
+
+    console.log(pageSizeIndex)
+    console.log(currentPage)
+
     const onCurrentPageChangedHandler = (newCurrentPage: number) => {
         setCurrentPage(newCurrentPage)
         action(`Current page changed on ${newCurrentPage}`)
     }
-    
+
     const onPageSizeChangedHandler = (newSize: number) => {
-        setPageSize(newSize)
+        setPageSizeIndex(newSize)
         action(`Page size changed on ${newSize}`)
     }
-    
+
     return (
         <PagesCounter
-            pageSize={pageSize}
+            pageSizeIndex={pageSizeIndex}
             currentPage={currentPage}
             totalCount={26}
             onCurrentPageChanged={onCurrentPageChangedHandler}
             onPageSizeChanged={onPageSizeChangedHandler}
+            defaultPageSizeIndex={1}
+            pageSizeVariants={[1, 10, 20, 100]}
         />)
 }
