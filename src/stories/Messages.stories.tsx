@@ -1,23 +1,14 @@
 import React from "react";
 import {Messages} from "../components/content/Dialogs/Messages";
+import {ComponentMeta, ComponentStory} from "@storybook/react";
+import {ReduxStoreProviderDecorator} from "./decorators/ReduxStoreProviderDecorator";
 
 export default {
     title: 'Messages',
     component: Messages,
-}
+    decorators: [ReduxStoreProviderDecorator]
+} as ComponentMeta<typeof Messages>
 
-export const ThreeMessages = () => (
-    <Messages
-        // messages={[
-        //     {id: '1', text: 'First message'},
-        //     {id: '2', text: 'This is second message'},
-        //     {id: '3', text: 'And last message'},
-        // ]}
-    />
-)
+const Template: ComponentStory<typeof Messages> = (args) => <Messages/>
 
-export const EmptyMessages = () => (
-    <Messages
-        // messages={[]}
-    />
-)
+export const MessagesStory = Template.bind({})
