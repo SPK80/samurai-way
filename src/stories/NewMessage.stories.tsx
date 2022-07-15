@@ -1,19 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 import {NewMessage} from "../components/content/Dialogs/NewMessage";
-import {action} from "@storybook/addon-actions";
+import {ComponentMeta, ComponentStory} from "@storybook/react";
+import {ReduxStoreProviderDecorator} from "./decorators/ReduxStoreProviderDecorator";
 
 export default {
     title: 'NewMessage',
     component: NewMessage,
-}
+    decorators: [ReduxStoreProviderDecorator]
+} as ComponentMeta<typeof NewMessage>;
 
-export const TestNewMessage = () => {
-    // const [messageText, setMessageText] = useState('')
-    return (
-        <NewMessage
-            // newMessageText={messageText}
-            // changeMessage={setMessageText}
-            // addMessage={action("addMessage")}
-        />
-    )
-}
+const Template: ComponentStory<typeof NewMessage> = (args) => <NewMessage/>
+
+export const NewMessageStory = Template.bind({});
+NewMessageStory.args = {};
