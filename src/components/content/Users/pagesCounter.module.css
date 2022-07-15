@@ -1,19 +1,26 @@
 .container {
     border: 1px solid #ccc;
     width: fit-content;
-    padding: 2px 5px;
+    padding: 3px;
 }
 
 .container > select {
     display: block;
+    margin: 3px;
 }
 
 .currentPage {
-    font-weight: bold;
+    background-color: #cccccc;
 }
 
 .page {
-    margin: 0 4px;
+    padding: 2px;
+    display: inline-block;
+    margin: 3px 2px;
     cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    min-width: 0.7em;
+    text-align: center;
 }
 

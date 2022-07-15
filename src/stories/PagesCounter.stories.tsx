@@ -1,38 +1,34 @@
 import React, {useState} from "react";
 import {PagesCounter} from "../components/common/PagesCounter";
+import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {action} from "@storybook/addon-actions";
 
 export default {
     title: 'PagesCounter',
     component: PagesCounter,
+    args: {
+        pageSizeVariants: [1, 5, 10, 50, 100],
+        defaultPageSizeIndex: 1,
+        currentPage: 1,
+        totalCount: 23,
+    }
+} as ComponentMeta<typeof PagesCounter>;
+
+const Template: ComponentStory<typeof PagesCounter> = (args) => {
+    const [currentPage, setCurrentPage] = useState(1)
+    
+    return <PagesCounter
+        defaultPageSizeIndex={args.defaultPageSizeIndex}
+        currentPage={currentPage}
+        totalCount={args.totalCount}
+        pageSizeVariants={args.pageSizeVariants}
+        onCurrentPageChanged={cp => {
+            setCurrentPage(cp)
+            action('onCurrentPageChanged')(cp)
+        }}
+        onPageSizeSelected={args.onPageSizeSelected}
+    />
 }
 
-export const WelcomeMessage = () => {
-
-    const [pageSizeIndex, setPageSizeIndex] = useState(6);
-    const [currentPage, setCurrentPage] = useState(1);
-
-    console.log(pageSizeIndex)
-    console.log(currentPage)
-
-    const onCurrentPageChangedHandler = (newCurrentPage: number) => {
-        setCurrentPage(newCurrentPage)
-        action(`Current page changed on ${newCurrentPage}`)
-    }
-
-    const onPageSizeChangedHandler = (newSize: number) => {
-        setPageSizeIndex(newSize)
-        action(`Page size changed on ${newSize}`)
-    }
-
-    return (
-        <PagesCounter
-            pageSizeIndex={pageSizeIndex}
-            currentPage={currentPage}
-            totalCount={26}
-            onCurrentPageChanged={onCurrentPageChangedHandler}
-            onPageSizeChanged={onPageSizeChangedHandler}
-            defaultPageSizeIndex={1}
-            pageSizeVariants={[1, 10, 20, 100]}
-        />)
-}
+export const PagesCounterStory = Template.bind({});
+PagesCounterStory.args = {}
