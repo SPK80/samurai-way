@@ -14,18 +14,16 @@ import axios from "axios";
 import {PagesCounter} from "../../common/PagesCounter";
 
 export const UsersList: React.FC = () => {
-
+    
     const usersListState = useSelector<AppStateType, Array<UserType>>(state => state.usersPage.usersList)
     const pageSize = useSelector<AppStateType, number>(state => state.usersPage.pageSize)
     const currentPage = useSelector<AppStateType, number>(state => state.usersPage.currentPage)
     const totalCount = useSelector<AppStateType, number>(state => state.usersPage.totalCount)
-
+    
     const dispatch = useDispatch()
-    const dispatchFollow = (userId: string) => dispatch(followUserAC(userId))
-    const dispatchUnfollow = (userId: string) => dispatch(unfollowUserAC(userId))
     const dispatchSetUsers = (usersList: Array<UserType>) => dispatch(setUsersAC(usersList))
     const dispatchSetTotalCount = (totalCount: number) => dispatch(setTotalCountAC(totalCount))
-
+    
     const getUsers = () => {
         const url = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`
         axios.get(url).then(response => {
@@ -43,36 +41,35 @@ export const UsersList: React.FC = () => {
             )
         })
     }
-
+    
     useEffect(() => {
         console.log('UsersList did mount')
         getUsers()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
+    
     useEffect(() => {
         console.log('changed currentPage:', currentPage)
         console.log('changed pageSize:', pageSize)
-
+        
         getUsers()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, pageSize])
-
+    
     return (
         <div className={s.usersList}>
             <PagesCounter
-                pageSizeIndex={pageSize}
+                defaultPageSizeIndex={1}
+                pageSizeVariants={[5, 10, 100]}
                 currentPage={currentPage}
                 totalCount={totalCount}
-                onPageSizeChanged={(newSize) => dispatch(setPageSizeAC(newSize))}
+                onPageSizeSelected={(pageSize) => dispatch(setPageSizeAC(pageSize))}
                 onCurrentPageChanged={(newCurrentPage) => dispatch(setCurrentPageAC(newCurrentPage))}
             />
             {usersListState.map(u =>
                 <User
                     key={u.id}
-                    userData={u}
-                    follow={dispatchFollow}
-                    unfollow={dispatchUnfollow}
+                    id={u.id}
                 />)}
             <button>Show more</button>
         </div>
