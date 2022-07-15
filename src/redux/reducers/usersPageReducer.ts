@@ -28,7 +28,7 @@ const initialState = {
 
 export type UsersPageType = typeof initialState
 
-type UsersPageActionTypes =
+export type UsersPageActionTypes =
     ReturnType<typeof followUserAC>
     | ReturnType<typeof unfollowUserAC>
     | ReturnType<typeof setUsersAC>

@@ -1,34 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 import {User} from "../components/content/Users/User";
-import {UserType} from "../redux/reducers/usersPageReducer";
-import {action} from "@storybook/addon-actions";
+import {ReduxStoreProviderDecorator} from "./decorators/ReduxStoreProviderDecorator";
+import {ComponentMeta, ComponentStory} from "@storybook/react";
 
 export default {
     title: 'User',
     component: User,
-}
+    decorators: [ReduxStoreProviderDecorator]
+} as ComponentMeta<typeof User>
 
-export const PavelUser = () => {
-    const [userData, setUserData] = useState<UserType>({
-        id: '1',
-        avatarUrl: 'https://avatars.githubusercontent.com/u/36849366?v=4',
-        following: false,
-        location: {country: "Rus", city: "Moscow"},
-        status: 'Study React-Redux',
-        name: 'Pavel',
-    })
-    
-    return (
-        <User
-            userData={userData}
-            follow={(id) => {
-                setUserData({...userData, following: true})
-                action("follow")
-            }}
-            unfollow={(id) => {
-                setUserData({...userData, following: false})
-                action("unfollow")
-            }}
-        />
-    )
-}
+const Template: ComponentStory<typeof User> = (args) => <User id={args.id}/>
+
+export const UserStory = Template.bind({})
+UserStory.args = {id: '1'}
