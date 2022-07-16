@@ -31,7 +31,7 @@ export const UsersList: React.FC = () => {
         api.getUsers(currentPage, pageSize)
             .then(res => {
                 setTotalCount(res.totalCount)
-                setUsers(res.users)
+                setUsers(res.items)
                 setStatus('success')
             })
             .catch(err => {
