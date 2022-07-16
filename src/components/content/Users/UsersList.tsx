@@ -1,5 +1,5 @@
 import {UserType} from "../../../redux/reducers/usersPageReducer";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import s from "./usersList.module.css"
 import {User} from "./User";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,6 +12,8 @@ import {
 import {PagesCounter} from "../../common/PagesCounter";
 import {api} from "./api";
 
+type StatusType = 'idle' | 'progress' | 'error' | 'success'
+
 export const UsersList: React.FC = () => {
     
     const usersListState = useSelector<AppStateType, Array<UserType>>(state => state.usersPage.usersList)
@@ -23,12 +25,19 @@ export const UsersList: React.FC = () => {
     const setUsers = (usersList: Array<UserType>) => dispatch(setUsersAC(usersList))
     const setTotalCount = (totalCount: number) => dispatch(setTotalCountAC(totalCount))
     
+    const [status, setStatus] = useState<StatusType>('idle')
     const getUsers = () => {
+        setStatus('progress')
         api.getUsers(currentPage, pageSize)
             .then(res => {
                 setTotalCount(res.totalCount)
                 setUsers(res.users)
+                setStatus('success')
             })
+            .catch(err => {
+                    setStatus('error')
+                }
+            )
     }
     
     useEffect(() => {
@@ -47,6 +56,11 @@ export const UsersList: React.FC = () => {
     
     return (
         <div className={s.usersList}>
+            
+            {status === "progress" && <h3>Progress</h3>}
+            {status === "error" && <h3>Error</h3>}
+            {status === "success" && <h3>Success</h3>}
+            
             <PagesCounter
                 defaultPageSizeIndex={1}
                 pageSizeVariants={[5, 10, 100]}
