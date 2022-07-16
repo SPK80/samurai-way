@@ -5,13 +5,13 @@ import {User} from "./User";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {
-    followUserAC, setCurrentPageAC, setPageSizeAC,
+    setCurrentPageAC, setPageSizeAC,
     setTotalCountAC,
     setUsersAC,
-    unfollowUserAC
 } from "../../../redux/reducers/usersPageActionCreators";
 import axios from "axios";
 import {PagesCounter} from "../../common/PagesCounter";
+import {api} from "./api";
 
 export const UsersList: React.FC = () => {
     
@@ -25,21 +25,11 @@ export const UsersList: React.FC = () => {
     const dispatchSetTotalCount = (totalCount: number) => dispatch(setTotalCountAC(totalCount))
     
     const getUsers = () => {
-        const url = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`
-        axios.get(url).then(response => {
-            response.data.error && console.error(response.data.error)
-            dispatchSetTotalCount(response.data.totalCount)
-            dispatchSetUsers(response.data.items.map((it: any): UserType =>
-                ({
-                    id: it.id,
-                    name: it.name,
-                    avatarUrl: it.photos.small,
-                    status: "",
-                    following: false,
-                    location: {country: "", city: ""},
-                }))
-            )
-        })
+        api.getUsers(currentPage, pageSize)
+            .then(res => {
+                dispatchSetTotalCount(res.totalCount)
+                dispatchSetUsers(res.users)
+            })
     }
     
     useEffect(() => {
