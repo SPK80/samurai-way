@@ -4,7 +4,6 @@ import {Provider} from "react-redux";
 import {DialogsPageActionTypes, dialogsPageReducer, DialogsPageType} from "../../redux/reducers/dialogsPageReducer";
 import {action as storybookAction} from "@storybook/addon-actions";
 import {UsersPageActionTypes, usersPageReducer, UsersPageType} from "../../redux/reducers/usersPageReducer";
-import userAvatar from "../../assets/avatar.png"
 
 const storyDialogsPageReducer = (state: DialogsPageType, action: DialogsPageActionTypes): DialogsPageType => {
     switch (action.type) {
@@ -26,35 +25,35 @@ const usersPageInitialState = {
         {
             id: '1',
             name: 'Dmitry K.',
-            avatarUrl: userAvatar,
-            following: false,
+            followed: false,
+            uniqueUrlName: "",
+            photos: {
+                small: "",
+                large: "",
+            },
             status: 'I am looking for a Job right now..',
-            location: {
-                country: 'Belarus',
-                city: 'Minsk'
-            }
         },
         {
             id: '2',
             name: 'Svetlana D.',
-            avatarUrl: userAvatar,
-            following: false,
+            uniqueUrlName: "",
+            photos: {
+                small: "",
+                large: "",
+            },
+            followed: false,
             status: 'I am so pretty',
-            location: {
-                country: 'Belarus',
-                city: 'Minsk'
-            }
         },
         {
             id: '3',
             name: 'Sergei S.',
-            avatarUrl: userAvatar,
-            following: true,
+            uniqueUrlName: "",
+            photos: {
+                small: "",
+                large: "",
+            },
+            followed: true,
             status: 'I like football!',
-            location: {
-                country: 'Ukraine',
-                city: 'Kiev'
-            }
         },
     ]
 }

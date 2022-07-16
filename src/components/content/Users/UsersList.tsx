@@ -41,15 +41,11 @@ export const UsersList: React.FC = () => {
     }
     
     useEffect(() => {
-        console.log('UsersList did mount')
         getUsers()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     useEffect(() => {
-        console.log('changed currentPage:', currentPage)
-        console.log('changed pageSize:', pageSize)
-        
         getUsers()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, pageSize])

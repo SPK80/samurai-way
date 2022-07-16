@@ -11,32 +11,31 @@ type UserPropsType = {
 }
 
 export const User: React.FC<UserPropsType> = ({id}) => {
-    
     const userData = useSelector<AppStateType, UserType>(state => state.usersPage.usersList.find(u => u.id === id) ?? {} as UserType)
     const dispatch = useDispatch()
     
     const onButtonClickHandler = () => {
-        if (userData.following) dispatch(unfollowUserAC(userData.id))
+        if (userData.followed) dispatch(unfollowUserAC(userData.id))
         else dispatch(followUserAC(userData.id))
     }
-    
+    const avatarUrl = userData.photos.large ?? userData.photos.small ?? defaultAvatar
     return (
         <div className={s.user}>
             <div className={s.avatarAndFollowContainer}>
-                <img src={userData.avatarUrl ?? defaultAvatar} alt="avatar"/>
+                <img src={avatarUrl} alt="avatar"/>
                 <button
                     onClick={onButtonClickHandler}
-                >{userData.following ? "Unfollow" : "Follow"}</button>
+                >{userData.followed ? "Unfollow" : "Follow"}</button>
             </div>
             <div className={s.userDataContainer}>
                 <div className={s.nameAndStatus}>
                     <div className={s.name}>{userData.name}</div>
                     <div className={s.status}>{userData.status}</div>
                 </div>
-                <div className={s.location}>
-                    <div>{userData.location.country},</div>
-                    <div>{userData.location.city}</div>
-                </div>
+                {/*<div className={s.location}>*/}
+                {/*    <div>{userData.location.country},</div>*/}
+                {/*    <div>{userData.location.city}</div>*/}
+                {/*</div>*/}
             </div>
         </div>
     )

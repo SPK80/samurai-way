@@ -8,15 +8,15 @@ import {
 } from "./usersPageActionCreators";
 
 export type UserType = {
-    id: string
-    avatarUrl: string
     name: string
-    status: string
-    location: {
-        country: string
-        city: string
+    id: string
+    uniqueUrlName: string
+    photos: {
+        small: string
+        large: string
     }
-    following: boolean
+    status: string
+    followed: boolean
 }
 
 const initialState = {
@@ -41,12 +41,12 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Us
         case "FOLLOW":
             return {
                 ...state,
-                usersList: state.usersList.map(u => u.id === action.userId ? {...u, following: true} : u)
+                usersList: state.usersList.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
         case "UNFOLLOW":
             return {
                 ...state,
-                usersList: state.usersList.map(u => u.id === action.userId ? {...u, following: false} : u)
+                usersList: state.usersList.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
         case "SET-USERS":
             return {
