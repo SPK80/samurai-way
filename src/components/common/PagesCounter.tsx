@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
-import s from "../content/Users/pagesCounter.module.css"
+import s from "./pagesCounter.module.css"
 
 type PagesCounterPropsType = {
     totalCount: number

@@ -9,7 +9,6 @@ import {
     setTotalCountAC,
     setUsersAC,
 } from "../../../redux/reducers/usersPageActionCreators";
-import axios from "axios";
 import {PagesCounter} from "../../common/PagesCounter";
 import {api} from "./api";
 
@@ -21,14 +20,14 @@ export const UsersList: React.FC = () => {
     const totalCount = useSelector<AppStateType, number>(state => state.usersPage.totalCount)
     
     const dispatch = useDispatch()
-    const dispatchSetUsers = (usersList: Array<UserType>) => dispatch(setUsersAC(usersList))
-    const dispatchSetTotalCount = (totalCount: number) => dispatch(setTotalCountAC(totalCount))
+    const setUsers = (usersList: Array<UserType>) => dispatch(setUsersAC(usersList))
+    const setTotalCount = (totalCount: number) => dispatch(setTotalCountAC(totalCount))
     
     const getUsers = () => {
         api.getUsers(currentPage, pageSize)
             .then(res => {
-                dispatchSetTotalCount(res.totalCount)
-                dispatchSetUsers(res.users)
+                setTotalCount(res.totalCount)
+                setUsers(res.users)
             })
     }
     
