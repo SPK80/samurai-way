@@ -58,7 +58,7 @@ export const PagesCounter: React.FC<PagesCounterPropsType> = (props) => {
                 }
             )}
             <select onChange={onChangePageSize} value={pageSize}>
-                {props.pageSizeVariants?.map(ps => <option value={ps}>{ps}</option>)}
+                {props.pageSizeVariants?.map(ps => <option key={ps} value={ps}>{ps}</option>)}
             </select>
         </div>
     )
