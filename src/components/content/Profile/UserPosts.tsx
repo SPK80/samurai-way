@@ -1,14 +1,11 @@
 import React, {ChangeEvent} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import s from './Profile.module.css';
-import {UserPost} from "./UserPost";
-import {PostType} from "../../../redux/reducers/profilePageReducer";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {addPostAC, changeNewPostTextAC} from "../../../redux/reducers/profilePageActionCreators";
+import {UserPostsList} from "./UserPostsList";
 
 export const UserPosts: React.FC = () => {
-    
-    const postsState = useSelector<AppStateType, Array<PostType>>(state => state.profilePage.userPosts)
     const newPostTextState = useSelector<AppStateType, string>(state => state.profilePage.newPostText)
     
     const dispatch = useDispatch()
@@ -29,10 +26,7 @@ export const UserPosts: React.FC = () => {
                 >add post
                 </button>
             </div>
-            <div>
-                {postsState.map(userPost =>
-                    <UserPost key={userPost.id} {...userPost}/>)}
-            </div>
+            <UserPostsList/>
         </div>
     )
 }

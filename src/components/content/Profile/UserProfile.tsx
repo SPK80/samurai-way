@@ -1,10 +1,10 @@
-import React from "react"
+import React, {memo} from "react"
 import {useSelector} from "react-redux";
 import s from './Profile.module.css';
 import {UserProfileType} from "../../../redux/reducers/profilePageReducer";
 import {AppStateType} from "../../../redux/redux-store";
 
-export const UserProfile: React.FC = () => {
+export const UserProfile: React.FC = memo(() => {
     const {
         age,
         avatar,
@@ -28,4 +28,4 @@ export const UserProfile: React.FC = () => {
             </a>
         </div>
     )
-}
+})
