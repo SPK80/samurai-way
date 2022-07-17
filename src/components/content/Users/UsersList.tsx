@@ -11,6 +11,7 @@ import {
 } from "../../../redux/reducers/usersPageActionCreators";
 import {PagesCounter} from "../../common/PagesCounter";
 import {api} from "./api";
+import {Progress} from "../../common/Progress";
 
 type StatusType = 'idle' | 'progress' | 'error' | 'success'
 
@@ -53,7 +54,7 @@ export const UsersList: React.FC = () => {
     return (
         <div className={s.usersList}>
             
-            {status === "progress" && <h3>Progress</h3>}
+            {status === "progress" && <Progress/>}
             {status === "error" && <h3>Error</h3>}
             {status === "success" && <h3>Success</h3>}
             
