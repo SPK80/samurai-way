@@ -15,6 +15,7 @@ beforeEach(() => {
         currentPage: 1,
         totalCount: 0,
         pageSize: 10,
+        status: "idle",
         usersList: [
             {
                 id: '1',
@@ -86,7 +87,8 @@ test('Must set 3 users', () => {
         usersList: [],
         currentPage: 1,
         pageSize: 10,
-        totalCount: 0
+        totalCount: 0,
+        status: "idle"
     }
     const endState = usersPageReducer(emptyState, action)
     console.log(endState)

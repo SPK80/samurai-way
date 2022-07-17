@@ -1,4 +1,4 @@
-import {UserType} from "./usersPageReducer";
+import {StatusType, UserType} from "./usersPageReducer";
 
 export const followUserAC = (userId: string) => ({
     type: "FOLLOW",
@@ -30,3 +30,7 @@ export const setPageSizeAC = (pageSize: number) => ({
     pageSize
 } as const)
 
+export const setStatusAC = (status: StatusType) => ({
+    type: "SET-STATUS",
+    status
+} as const)

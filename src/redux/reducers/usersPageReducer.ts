@@ -1,7 +1,7 @@
 import {
     followUserAC,
     setCurrentPageAC,
-    setPageSizeAC,
+    setPageSizeAC, setStatusAC,
     setTotalCountAC,
     setUsersAC,
     unfollowUserAC
@@ -19,11 +19,14 @@ export type UserType = {
     followed: boolean
 }
 
+export type StatusType = 'idle' | 'progress' | 'error' | 'success'
+
 const initialState = {
     usersList: [] as Array<UserType>,
     pageSize: 5,
     currentPage: 1,
     totalCount: 0,
+    status: 'idle' as StatusType,
 }
 
 export type UsersPageType = typeof initialState
@@ -35,6 +38,7 @@ export type UsersPageActionTypes =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalCountAC>
     | ReturnType<typeof setPageSizeAC>
+    | ReturnType<typeof setStatusAC>
 
 export const usersPageReducer = (state: UsersPageType = initialState, action: UsersPageActionTypes): UsersPageType => {
     switch (action.type) {
@@ -67,6 +71,11 @@ export const usersPageReducer = (state: UsersPageType = initialState, action: Us
             return {
                 ...state,
                 pageSize: action.pageSize
+            }
+        case "SET-STATUS":
+            return {
+                ...state,
+                status: action.status
             }
         default:
             return state
