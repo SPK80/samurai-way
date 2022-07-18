@@ -1,10 +1,10 @@
-import {UserType} from "../../../redux/reducers/usersPageReducer";
+import {UserType} from "../../../bll/reducers/usersPageReducer";
 import React from "react";
 import s from './user.module.css'
 import defaultAvatar from "../../../assets/avatar.png";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/redux-store";
-import {followUserAC, unfollowUserAC} from "../../../redux/reducers/usersPageActionCreators";
+import {AppStateType} from "../../../bll/redux-store";
+import {followUserAC, unfollowUserAC} from "../../../bll/reducers/usersPageActionCreators";
 
 type UserPropsType = {
     id: string

@@ -1,7 +1,7 @@
 import React, {memo} from "react";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/redux-store";
-import {PostType} from "../../../redux/reducers/profilePageReducer";
+import {AppStateType} from "../../../bll/redux-store";
+import {PostType} from "../../../bll/reducers/profilePageReducer";
 import {UserPost} from "./UserPost";
 
 export const UserPostsList: React.FC = memo(() => {

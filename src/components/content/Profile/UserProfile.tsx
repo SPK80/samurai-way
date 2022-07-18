@@ -1,8 +1,8 @@
 import React, {memo} from "react"
 import {useSelector} from "react-redux";
 import s from './Profile.module.css';
-import {UserProfileType} from "../../../redux/reducers/profilePageReducer";
-import {AppStateType} from "../../../redux/redux-store";
+import {UserProfileType} from "../../../bll/reducers/profilePageReducer";
+import {AppStateType} from "../../../bll/redux-store";
 
 export const UserProfile: React.FC = memo(() => {
     const {

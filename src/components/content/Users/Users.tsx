@@ -1,13 +1,13 @@
 import React, {memo, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {StatusType, UsersPageType, UserType} from "../../../redux/reducers/usersPageReducer";
-import {AppStateType} from "../../../redux/redux-store";
+import {StatusType, UsersPageType, UserType} from "../../../bll/reducers/usersPageReducer";
+import {AppStateType} from "../../../bll/redux-store";
 import {
     setCurrentPageAC,
     setPageSizeAC, setStatusAC,
     setTotalCountAC,
     setUsersAC,
-} from "../../../redux/reducers/usersPageActionCreators";
+} from "../../../bll/reducers/usersPageActionCreators";
 import {api} from "./api";
 import {Progress} from "../../common/Progress";
 import {PagesCounter} from "../../common/PagesCounter";

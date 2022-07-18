@@ -1,6 +1,6 @@
 import s from "./Dialogs.module.css";
 import React from "react";
-import {MessageType} from "../../../redux/reducers/dialogsPageReducer";
+import {MessageType} from "../../../bll/reducers/dialogsPageReducer";
 
 type MessagePropsType = {
     message: MessageType

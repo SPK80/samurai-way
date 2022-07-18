@@ -1,9 +1,9 @@
 import React from "react"
 import {combineReducers, legacy_createStore as createStore} from "redux";
 import {Provider} from "react-redux";
-import {DialogsPageActionTypes, dialogsPageReducer, DialogsPageType} from "../../redux/reducers/dialogsPageReducer";
+import {DialogsPageActionTypes, dialogsPageReducer, DialogsPageType} from "../../bll/reducers/dialogsPageReducer";
 import {action as storybookAction} from "@storybook/addon-actions";
-import {UsersPageActionTypes, usersPageReducer, UsersPageType} from "../../redux/reducers/usersPageReducer";
+import {UsersPageActionTypes, usersPageReducer, UsersPageType} from "../../bll/reducers/usersPageReducer";
 
 const storyDialogsPageReducer = (state: DialogsPageType, action: DialogsPageActionTypes): DialogsPageType => {
     switch (action.type) {

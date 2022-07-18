@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {UserType} from "../../../redux/reducers/usersPageReducer";
+import {UserType} from "../../../bll/reducers/usersPageReducer";
 
 type UsersResponseType = {
     totalCount: number

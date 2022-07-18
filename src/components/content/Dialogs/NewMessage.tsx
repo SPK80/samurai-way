@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/redux-store";
-import {addMessageAC, changeNewMessageTextAC} from "../../../redux/reducers/dialogsPageActionCreators";
+import {AppStateType} from "../../../bll/redux-store";
+import {addMessageAC, changeNewMessageTextAC} from "../../../bll/reducers/dialogsPageActionCreators";
 
 export const NewMessage: React.FC = () => {
     

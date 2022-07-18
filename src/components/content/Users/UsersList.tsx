@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import {UserType} from "../../../redux/reducers/usersPageReducer";
+import {UserType} from "../../../bll/reducers/usersPageReducer";
 import {User} from "./User";
 
 type UsersListPropsType = {
