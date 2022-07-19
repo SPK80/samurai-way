@@ -31,7 +31,7 @@ export const Users: React.FC = memo(() => {
         setStatus('progress')
         api.getUsers(currentPage, pageSize)
             .then(res => {
-                setTotalCount(res.totalCount)
+                setTotalCount(res.totalCount ?? 0)
                 setUsers(res.items)
                 setStatus('success')
             })
