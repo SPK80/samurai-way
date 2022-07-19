@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import s from './Profile.module.css';
 import {UserProfile} from "./UserProfile";
 import {UserPosts} from "./UserPosts";
-import {api, ProfileType} from "../Users/api";
+import {usersApi, ProfileType} from "../Users/usersApi";
 
 export const ProfilePage: React.FC = () => (
     <div className={s.profile}>
@@ -19,7 +19,7 @@ const DimichProfile: React.FC = () => {
     const [userProfile, setUserProfile] = useState<ProfileType>()
     
     useEffect(() => {
-        api.getProfile(2).then(res => {
+        usersApi.getProfile(2).then(res => {
             setUserProfile(res as ProfileType)
         })
     }, [])

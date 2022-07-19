@@ -8,7 +8,7 @@ import {
     setTotalCountAC,
     setUsersAC,
 } from "../../../bll/reducers/usersPageActionCreators";
-import {api} from "./api";
+import {usersApi} from "./usersApi";
 import {Progress} from "../../common/Progress";
 import {PagesCounter} from "../../common/PagesCounter";
 import {UsersList} from "./UsersList";
@@ -29,7 +29,7 @@ export const Users: React.FC = memo(() => {
     
     const getUsers = () => {
         setStatus('progress')
-        api.getUsers(currentPage, pageSize)
+        usersApi.getUsers(currentPage, pageSize)
             .then(res => {
                 setTotalCount(res.totalCount ?? 0)
                 setUsers(res.items)
