@@ -5,6 +5,7 @@ import defaultAvatar from "../../../assets/avatar.png";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../bll/redux-store";
 import {followUserAC, unfollowUserAC} from "../../../bll/reducers/usersPageActionCreators";
+import {NavLink} from "react-router-dom";
 
 type UserPropsType = {
     id: string
@@ -22,7 +23,9 @@ export const User: React.FC<UserPropsType> = ({id}) => {
     return (
         <div className={s.user}>
             <div className={s.avatarAndFollowContainer}>
-                <img src={avatarUrl} alt="avatar"/>
+                <NavLink to={'/profile/' + id}>
+                    <img src={avatarUrl} alt="avatar"/>
+                </NavLink>
                 <button
                     onClick={onButtonClickHandler}
                 >{userData.followed ? "Unfollow" : "Follow"}</button>

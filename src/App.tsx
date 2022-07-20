@@ -15,7 +15,7 @@ export const App: React.FC = () => {
             <div className={s.wrapperContent}>
                 <Routes>
                     <Route
-                        path={'/profile'}
+                        path={'/profile/:userId'}
                         element={<ProfilePage/>}
                     />
                     <Route

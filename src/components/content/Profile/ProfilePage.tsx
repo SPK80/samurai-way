@@ -5,12 +5,14 @@ import {UserPosts} from "./UserPosts";
 import {profileApi} from "../../../dal/profileApi";
 import {useDispatch} from "react-redux";
 import {setUserProfileAC} from "../../../bll/reducers/profilePageActionCreators";
+import {useParams} from "react-router-dom";
 
 export const ProfilePage: React.FC = () => {
+    const {userId} = useParams()
     const dispatch = useDispatch()
     
     useEffect(() => {
-        profileApi.getProfile(2).then((res) => {
+        profileApi.getProfile(Number(userId)).then((res) => {
             dispatch(setUserProfileAC(res))
         })
     }, [])
