@@ -5,27 +5,14 @@ import {UserProfileType} from "../../../bll/reducers/profilePageReducer";
 import {AppStateType} from "../../../bll/redux-store";
 
 export const UserProfile: React.FC = memo(() => {
-    const {
-        age,
-        avatar,
-        birthday,
-        description,
-        gender,
-        name,
-        website
-    } = useSelector<AppStateType, UserProfileType>(state => state.profilePage.userProfile)
-    
-    return (
+    const userProfile = useSelector<AppStateType, UserProfileType | null>(state => state.profilePage.userProfile)
+    if (!userProfile) return (<div></div>)
+    else return (
         <div className={s.userProfile}>
-            <img src={avatar} alt="avatar"/>
-            <div>{name}</div>
-            <div>{gender}</div>
-            <div>age - {age}</div>
-            <div>birthday - {birthday}</div>
-            <div>{description}</div>
-            <a href={website} target="_blank" rel="noreferrer">
-                {website}
-            </a>
+            <img src={userProfile.photos.large || userProfile.photos.small} alt="avatar"/>
+            <div>{userProfile.fullName}</div>
+            {userProfile.lookingForAJob && <div>{userProfile.lookingForAJobDescription}</div>}
+        
         </div>
     )
 })

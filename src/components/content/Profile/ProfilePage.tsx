@@ -1,37 +1,27 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import s from './Profile.module.css';
 import {UserProfile} from "./UserProfile";
 import {UserPosts} from "./UserPosts";
-import {usersApi, ProfileType} from "../Users/usersApi";
+import {profileApi} from "../../../dal/profileApi";
+import {useDispatch} from "react-redux";
+import {setUserProfileAC} from "../../../bll/reducers/profilePageActionCreators";
 
-export const ProfilePage: React.FC = () => (
-    <div className={s.profile}>
-        <img
-            src="https://png.pngtree.com/thumb_back/fh260/back_our/20200630/ourmid/pngtree-blue-technology-digital-electronics-cool-beam-background-image_340977.jpg"
-            alt="banner"
-        />
-        <DimichProfile/>
-        <UserPosts/>
-    </div>
-)
-
-const DimichProfile: React.FC = () => {
-    const [userProfile, setUserProfile] = useState<ProfileType>()
+export const ProfilePage: React.FC = () => {
+    const dispatch = useDispatch()
     
     useEffect(() => {
-        usersApi.getProfile(2).then(res => {
-            setUserProfile(res as ProfileType)
+        profileApi.getProfile(2).then((res) => {
+            dispatch(setUserProfileAC(res))
         })
     }, [])
-    return (<>
-            <div>{userProfile?.userId}</div>
-            {/*<div>{userProfile?.contacts}</div>*/}
-            <div>{userProfile?.fullName}</div>
-            {/*<div>{userProfile?.photos}</div>*/}
-            <div>{userProfile?.lookingForAJob}</div>
-            <div>{userProfile?.lookingForAJobDescription}</div>
-        
-        </>
     
-    )
+    return (
+        <div className={s.profile}>
+            <img
+                src="https://png.pngtree.com/thumb_back/fh260/back_our/20200630/ourmid/pngtree-blue-technology-digital-electronics-cool-beam-background-image_340977.jpg"
+                alt="banner"
+            />
+            <UserProfile/>
+            <UserPosts/>
+        </div>)
 }

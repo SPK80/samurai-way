@@ -1,27 +1,18 @@
 import {v1} from "uuid";
-import {PostType, profilePageReducer, ProfilePageType, UserProfileType} from "./profilePageReducer";
+import {profilePageReducer, ProfilePageType} from "./profilePageReducer";
 import {addPostAC, changeNewPostTextAC} from "./profilePageActionCreators";
 
 let initialState: ProfilePageType;
 
 beforeEach(() => {
     initialState = {
-        userProfile: {
-            avatar: "https://avatars.githubusercontent.com/u/36849366?v=4",
-            name: 'Pavel',
-            age: 41,
-            birthday: 'June 24',
-            gender: 'male',
-            website: 'https://github.com/SPK80',
-            description: 'FrontEnd developer',
-        } as UserProfileType,
-        newPostText: '' as string,
+        userProfile: null,
+        newPostText: '',
         userPosts: [
             {id: v1(), text: 'Hello', likesCount: 3},
             {id: v1(), text: 'Yo Yo Yo!', likesCount: 5},
-        ] as Array<PostType>
-    }
-    
+        ]
+    } as ProfilePageType
 })
 
 test('new post must be added', () => {

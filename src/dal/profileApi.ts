@@ -1,29 +1,9 @@
 import {instance} from "./instance";
-
-type  ProfileResponseType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
-    photos: {
-        small?: string
-        large?: string
-    }
-} | { message: string }
+import {UserProfileType} from "../bll/reducers/profilePageReducer";
 
 export const profileApi = {
     async getProfile(userId: number) {
-        return instance.get<ProfileResponseType>(`profile/${userId}`,)
-            .then(res => res.data)
+        return instance.get<UserProfileType>(`profile/${userId}`,)
+            .then(value => value.data)
     },
 }

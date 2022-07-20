@@ -19,7 +19,7 @@ export type UserType = {
     followed: boolean
 }
 
-export type StatusType = 'idle' | 'progress' | 'error' | 'success'
+export type StatusType = 'idle' | 'progress' | 'error'
 
 const initialState = {
     usersList: [] as Array<UserType>,

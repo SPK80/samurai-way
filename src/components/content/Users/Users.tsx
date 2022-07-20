@@ -8,7 +8,7 @@ import {
     setTotalCountAC,
     setUsersAC,
 } from "../../../bll/reducers/usersPageActionCreators";
-import {usersApi} from "./usersApi";
+import {usersApi} from "../../../dal/usersApi";
 import {Progress} from "../../common/Progress";
 import {PagesCounter} from "../../common/PagesCounter";
 import {UsersList} from "./UsersList";
@@ -33,7 +33,7 @@ export const Users: React.FC = memo(() => {
             .then(res => {
                 setTotalCount(res.totalCount ?? 0)
                 setUsers(res.items)
-                setStatus('success')
+                setStatus('idle')
             })
             .catch(() => {
                     setStatus('error')
@@ -64,7 +64,7 @@ export const Users: React.FC = memo(() => {
             />
             {status === "progress" && <Progress/>}
             {status === "error" && <h3 color={'red'}>Error</h3>}
-            {status === "success" && <UsersList usersList={usersList}/>}
+            {status === "idle" && <UsersList usersList={usersList}/>}
         </>
     )
 })
