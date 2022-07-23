@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import s from './Profile.module.css';
 import {UserProfile} from "./UserProfile";
 import {UserPosts} from "./UserPosts";
-import {profileApi} from "../../../dal/profileApi";
+import {profileApi} from "../../../api/profileApi";
 import {useDispatch} from "react-redux";
 import {setUserProfileAC} from "../../../bll/reducers/profilePageActionCreators";
 import {useParams} from "react-router-dom";

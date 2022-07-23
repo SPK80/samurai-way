@@ -8,7 +8,7 @@ import {
     setTotalCountAC,
     setUsersAC,
 } from "../../../bll/reducers/usersPageActionCreators";
-import {usersApi} from "../../../dal/usersApi";
+import {usersApi} from "../../../api/usersApi";
 import {Progress} from "../../common/Progress";
 import {PagesCounter} from "../../common/PagesCounter";
 import {UsersList} from "./UsersList";
