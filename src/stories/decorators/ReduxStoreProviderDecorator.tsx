@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import {DialogsPageActionTypes, dialogsPageReducer, DialogsPageType} from "../../bll/reducers/dialogsPageReducer";
 import {action as storybookAction} from "@storybook/addon-actions";
 import {UsersPageActionTypes, usersPageReducer, UsersPageType} from "../../bll/reducers/usersPageReducer";
+import {authReducer} from "../../bll/reducers/authReducer";
 
 const storyDialogsPageReducer = (state: DialogsPageType, action: DialogsPageActionTypes): DialogsPageType => {
     switch (action.type) {
@@ -76,7 +77,8 @@ const storyUsersPageReducer = (
 
 const rootReducer = combineReducers({
     dialogsPage: storyDialogsPageReducer,
-    usersPage: storyUsersPageReducer
+    usersPage: storyUsersPageReducer,
+    auth: authReducer,
 })
 const storyBookStore = createStore(rootReducer)
 
