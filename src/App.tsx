@@ -18,11 +18,9 @@ export const App: React.FC = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         console.log('authApi.me')
-        authApi.me().then(({data, messages, resultCode}) => {
-            if (resultCode === 0)
-                dispatch(setAuthUserDataAC(data.id, data.login, data.email))
-            else console.log(messages)
-        })
+        authApi.me()
+            .then(data => dispatch(setAuthUserDataAC(data.id, data.login, data.email)))
+            .catch(console.log)
     }, [])
     
     const userId = useSelector<AppStateType, number | null>(state => state.auth.userId)

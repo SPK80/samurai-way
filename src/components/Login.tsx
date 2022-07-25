@@ -19,13 +19,13 @@ export const Login = () => {
     const onClickSignInHandler = () => {
         dispatch(toggleIsFetchingAC(true))
         authApi.login(email, password)
-            .then(({data, messages, resultCode}) => {
-                if (resultCode === 0)
-                    authApi.me().then(({data, messages, resultCode}) => {
-                        dispatch(setAuthUserDataAC(data.id, data.login, data.email))
-                    })
-                else console.log(messages)
+            .then(data => {
+                console.log('login.then', data)
+                authApi.me()
+                    .then(data => dispatch(setAuthUserDataAC(data.id, data.login, data.email)))
+                    .catch(console.log)
             })
+            .catch(console.log)
             .finally(() => dispatch(toggleIsFetchingAC(false)))
     }
     
