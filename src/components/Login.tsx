@@ -1,21 +1,23 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../bll/redux-store";
-import {setAuthUserDataAC, setEmailAC} from "../bll/reducers/authReducer";
+import {setAuthUserDataAC, setEmailAC, toggleIsFetchingAC} from "../bll/reducers/authReducer";
 import {authApi} from "../api/authApi";
 import s from './login.module.css'
 
 export const Login = () => {
     const email = useSelector<AppStateType, string | null>(state => state.auth.email) ?? ''
+    const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const dispatch = useDispatch()
-
+    
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) =>
         dispatch(setEmailAC(e.currentTarget.value))
-
+    
     const [password, setPassword] = useState('')
     const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)
-
+    
     const onClickSignInHandler = () => {
+        dispatch(toggleIsFetchingAC(true))
         authApi.login(email, password)
             .then(({data, messages, resultCode}) => {
                 if (resultCode === 0)
@@ -24,8 +26,9 @@ export const Login = () => {
                     })
                 else console.log(messages)
             })
+            .finally(() => dispatch(toggleIsFetchingAC(false)))
     }
-
+    
     return (
         <div className={s.login}>
             <h2>Login</h2>
@@ -47,7 +50,9 @@ export const Login = () => {
             </div>
             <button
                 onClick={onClickSignInHandler}
-            >Sign In
+                disabled={isFetching}
+            >
+                {isFetching ? 'fetching...' : 'Sign In'}
             </button>
         </div>
     )

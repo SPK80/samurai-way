@@ -1,5 +1,12 @@
 import {v1} from "uuid";
-import {authReducer, setAuthUserDataAC, AuthUserDataType, setLoginAC, setEmailAC} from "./authReducer";
+import {
+    authReducer,
+    setAuthUserDataAC,
+    AuthUserDataType,
+    setLoginAC,
+    setEmailAC,
+    toggleIsFetchingAC
+} from "./authReducer";
 
 let initialState: AuthUserDataType;
 
@@ -8,6 +15,7 @@ beforeEach(() => {
         userId: null,
         login: null,
         email: null,
+        isFetching: false,
     }
 })
 
@@ -27,5 +35,10 @@ test('login must be seted', () => {
 
 test('email must be seted', () => {
     const newState = authReducer(initialState, setEmailAC('test@test.com'))
-    expect(newState.email).toBe('test@test.com',)
+    expect(newState.email).toBe('test@test.com')
+})
+
+test('isFetching must be toggled', () => {
+    const newState = authReducer(initialState, toggleIsFetchingAC(true))
+    expect(newState.isFetching).toBe(true)
 })

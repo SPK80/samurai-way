@@ -2,12 +2,14 @@ export type AuthUserDataType = {
     userId: number | null
     login: string | null
     email: string | null
+    isFetching: boolean
 }
 
 const initialState: AuthUserDataType = {
     userId: null,
     login: null,
     email: null,
+    isFetching: false,
 }
 
 export const setAuthUserDataAC = (userId: number, login: string, email: string) => ({
@@ -27,10 +29,17 @@ export const setEmailAC = (email: string) => ({
     email
 } as const)
 
+export const toggleIsFetchingAC = (isFetching: boolean) => ({
+    type: 'TOGGLE-IS-FETCHING',
+    isFetching
+} as const)
+
+
 type AuthActionsType =
     ReturnType<typeof setAuthUserDataAC>
     | ReturnType<typeof setLoginAC>
     | ReturnType<typeof setEmailAC>
+    | ReturnType<typeof toggleIsFetchingAC>
 
 export const authReducer = (state = initialState, action: AuthActionsType): AuthUserDataType => {
     switch (action.type) {
@@ -45,6 +54,8 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
             return {...state, login: action.login}
         case "SET-EMAIL":
             return {...state, email: action.email}
+        case "TOGGLE-IS-FETCHING":
+            return {...state, isFetching: action.isFetching}
         default:
             return state
     }
