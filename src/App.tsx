@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./bll/redux-store";
 import {authApi} from "./api/authApi";
 import {setAuthUserDataAC} from "./bll/reducers/authReducer";
+import {Login} from "./components/Login";
 
 export const App: React.FC = () => {
     console.log('App')
@@ -34,6 +35,10 @@ export const App: React.FC = () => {
                     <Route
                         path={'*'}
                         element={<Navigate to={`/profile/${userId ?? ''}`}/>}
+                    />
+                    <Route
+                        path={'/login'}
+                        element={<Login/>}
                     />
                     <Route
                         path={'/profile'}

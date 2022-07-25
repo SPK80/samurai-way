@@ -1,10 +1,11 @@
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../bll/redux-store";
-import {UserDataType} from "../../bll/reducers/authReducer";
+import {AuthUserDataType} from "../../bll/reducers/authReducer";
 import React, {memo} from "react";
+import {NavLink} from "react-router-dom";
 
 export const Auth = memo(() => {
-    const userData = useSelector<AppStateType, UserDataType>(state => state.auth)
+    const userData = useSelector<AppStateType, AuthUserDataType>(state => state.auth)
     return (
         <div>
             {
@@ -16,8 +17,8 @@ export const Auth = memo(() => {
                             <div>{userData.email}</div>
                         </>
                     )
-                    : <span>not authorised</span>
+                    : <NavLink to={'/login'}>Login</NavLink>
             }
         </div>
-    )
+    );
 })

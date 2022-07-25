@@ -25,9 +25,7 @@ export const authApi = {
             rememberMe, captcha
         }
         
-        return instance.post<AuthResponseType<{
-            userId: number
-        }>>('auth/login', body, config)
+        return instance.post<AuthResponseType<{ userId: number }>>('auth/login', body, config)
             .then(res => res.data)
     },
 }

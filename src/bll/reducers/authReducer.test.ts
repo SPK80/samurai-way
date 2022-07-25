@@ -1,7 +1,7 @@
 import {v1} from "uuid";
-import {authReducer, setAuthUserDataAC, UserDataType} from "./authReducer";
+import {authReducer, setAuthUserDataAC, AuthUserDataType, setLoginAC, setEmailAC} from "./authReducer";
 
-let initialState: UserDataType;
+let initialState: AuthUserDataType;
 
 beforeEach(() => {
     initialState = {
@@ -18,4 +18,14 @@ test('user auth data must be seted', () => {
         login: 'test',
         email: 'test@test.com',
     })
+})
+
+test('login must be seted', () => {
+    const newState = authReducer(initialState, setLoginAC('test'))
+    expect(newState.login).toBe('test')
+})
+
+test('email must be seted', () => {
+    const newState = authReducer(initialState, setEmailAC('test@test.com'))
+    expect(newState.email).toBe('test@test.com',)
 })
