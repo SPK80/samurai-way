@@ -1,0 +1,26 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.login > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.login > div > span {
+    display: inline-block;
+    font-weight: bold;
+    width: 5em;
+}
+
+.login > div > input {
+    width: 15em;
+}
+
+
+.login button {
+    margin-top: 10px;
+}

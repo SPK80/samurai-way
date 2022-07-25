@@ -1,19 +1,20 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../bll/redux-store";
-import {setAuthUserDataAC, setEmailAC, setLoginAC} from "../bll/reducers/authReducer";
+import {setAuthUserDataAC, setEmailAC} from "../bll/reducers/authReducer";
 import {authApi} from "../api/authApi";
+import s from './login.module.css'
 
 export const Login = () => {
     const email = useSelector<AppStateType, string | null>(state => state.auth.email) ?? ''
     const dispatch = useDispatch()
-    
+
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) =>
         dispatch(setEmailAC(e.currentTarget.value))
-    
+
     const [password, setPassword] = useState('')
     const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => setPassword(e.currentTarget.value)
-    
+
     const onClickSignInHandler = () => {
         authApi.login(email, password)
             .then(({data, messages, resultCode}) => {
@@ -24,9 +25,9 @@ export const Login = () => {
                 else console.log(messages)
             })
     }
-    
+
     return (
-        <div>
+        <div className={s.login}>
             <h2>Login</h2>
             <div>
                 <span>email</span>
