@@ -5,7 +5,7 @@ import {
     AuthUserDataType,
     setLoginAC,
     setEmailAC,
-    toggleIsFetchingAC
+    toggleIsFetchingAC, logOutAC
 } from "./authReducer";
 
 let initialState: AuthUserDataType;
@@ -41,4 +41,20 @@ test('email must be seted', () => {
 test('isFetching must be toggled', () => {
     const newState = authReducer(initialState, toggleIsFetchingAC(true))
     expect(newState.isFetching).toBe(true)
+})
+
+test('all fields must be null and rest isFetching is false', () => {
+    initialState = {
+        userId: 1,
+        login: 'test',
+        email: 'test@test.com',
+        isFetching: true,
+    }
+    const newState = authReducer(initialState, logOutAC())
+    expect(newState).toEqual({
+        userId: null,
+        login: null,
+        email: null,
+        isFetching: false,
+    })
 })

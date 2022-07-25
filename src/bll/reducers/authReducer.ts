@@ -34,12 +34,17 @@ export const toggleIsFetchingAC = (isFetching: boolean) => ({
     isFetching
 } as const)
 
+export const logOutAC = () => ({
+    type: 'LOGOUT'
+} as const)
+
 
 type AuthActionsType =
     ReturnType<typeof setAuthUserDataAC>
     | ReturnType<typeof setLoginAC>
     | ReturnType<typeof setEmailAC>
     | ReturnType<typeof toggleIsFetchingAC>
+    | ReturnType<typeof logOutAC>
 
 export const authReducer = (state = initialState, action: AuthActionsType): AuthUserDataType => {
     switch (action.type) {
@@ -56,6 +61,8 @@ export const authReducer = (state = initialState, action: AuthActionsType): Auth
             return {...state, email: action.email}
         case "TOGGLE-IS-FETCHING":
             return {...state, isFetching: action.isFetching}
+        case "LOGOUT":
+            return {...initialState}
         default:
             return state
     }
