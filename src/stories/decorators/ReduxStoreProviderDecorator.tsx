@@ -6,12 +6,21 @@ import {action as storybookAction} from "@storybook/addon-actions";
 import {usersPageReducer, UsersPageType} from "../../bll/reducers/usersPageReducer";
 import {authReducer, AuthUserDataType} from "../../bll/reducers/authReducer";
 
-const storyReducer = <ST, AT extends { type: string }>(reducer: (state: ST, action: AT) => ST, initialState?: ST) =>
+
+const getObjWithoutType = <AT extends { type: string }>(action: AT) =>
+    Object.fromEntries(Object.entries(action).filter(([key]) => key !== 'type'))
+
+const getObjWithoutType2 = <AT extends { type: string }>(action: AT) => {
+    const obj = {...action}
+    // @ts-ignore
+    delete obj.type
+    return obj
+}
+
+
+const storyActionsReducerWrap = <ST, AT extends { type: string }>(reducer: (state: ST, action: AT) => ST, initialState?: ST) =>
     (state: ST, action: AT) => {
-        const args = {...action}
-        // @ts-ignore
-        delete args.type
-        storybookAction(action.type)(args)
+        storybookAction(action.type)(getObjWithoutType(action))
         return reducer(initialState ? initialState : state, action)
     }
 
@@ -65,9 +74,9 @@ const usersPageInitialState: UsersPageType = {
 }
 
 const rootReducer = combineReducers({
-    dialogsPage: storyReducer(dialogsPageReducer),
-    usersPage: storyReducer(usersPageReducer, usersPageInitialState),
-    auth: storyReducer(authReducer, authInitialState),
+    dialogsPage: storyActionsReducerWrap(dialogsPageReducer),
+    usersPage: storyActionsReducerWrap(usersPageReducer, usersPageInitialState),
+    auth: storyActionsReducerWrap(authReducer, authInitialState),
 })
 const storyBookStore = createStore(rootReducer)
 
