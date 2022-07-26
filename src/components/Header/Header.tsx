@@ -7,7 +7,7 @@ type HeaderPropsType = {
 }
 
 export const Header = memo((props: HeaderPropsType) => {
-    console.log('Header')
+    // console.log('Header')
     return (
         <header className={s.Header}>
             <h1> {props.title} </h1>

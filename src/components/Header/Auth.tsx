@@ -13,7 +13,7 @@ export const Auth = memo(() => {
     const onclickLogOutHandler = () => {
         authApi.logOut()
             .then(data => {
-                console.log('logOutAC', data)
+                // console.log('logOutAC', data)
                 navigate('login')
                 dispatch(logOutAC())
             })

@@ -10,16 +10,16 @@ import {AppStateType} from "../../../bll/redux-store";
 
 export const ProfilePage: React.FC = memo(() => {
     let {userId} = useParams()
-    console.log('userId', userId)
+    // console.log('userId', userId)
     
     const authUserId = useSelector<AppStateType, number | null>(state => state.auth.userId)
-    console.log('authUserId', authUserId)
+    // console.log('authUserId', authUserId)
     
     const dispatch = useDispatch()
     useEffect(() => {
         if (!userId && !authUserId) return
         const uid = Number(userId ?? authUserId)
-        console.log('uid', uid)
+        // console.log('uid', uid)
         profileApi.getProfile(uid).then((res) =>
             dispatch(setUserProfileAC(res)))
     }, [authUserId])

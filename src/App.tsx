@@ -13,11 +13,11 @@ import {setAuthUserDataAC} from "./bll/reducers/authReducer";
 import {Login} from "./components/Login";
 
 export const App: React.FC = () => {
-    console.log('App')
+    // console.log('App')
     
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log('authApi.me')
+        // console.log('authApi.me')
         authApi.me()
             .then(data => dispatch(setAuthUserDataAC(data.id, data.login, data.email)))
             .catch(console.log)
