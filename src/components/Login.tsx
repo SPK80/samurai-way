@@ -4,11 +4,13 @@ import {AppStateType} from "../bll/redux-store";
 import {setAuthUserDataAC, setEmailAC, toggleIsFetchingAC} from "../bll/reducers/authReducer";
 import {authApi} from "../api/authApi";
 import s from './login.module.css'
+import {useNavigate} from "react-router-dom";
 
 export const Login = () => {
     const email = useSelector<AppStateType, string | null>(state => state.auth.email) ?? ''
     const isFetching = useSelector<AppStateType, boolean>(state => state.auth.isFetching)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) =>
         dispatch(setEmailAC(e.currentTarget.value))
@@ -21,6 +23,7 @@ export const Login = () => {
         authApi.login(email, password)
             .then(data => {
                 console.log('login.then', data)
+                navigate('profile')
                 authApi.me()
                     .then(data => dispatch(setAuthUserDataAC(data.id, data.login, data.email)))
                     .catch(console.log)
