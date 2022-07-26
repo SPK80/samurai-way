@@ -1,21 +1,25 @@
 import React from "react"
 import {combineReducers, legacy_createStore as createStore} from "redux";
 import {Provider} from "react-redux";
-import {DialogsPageActionTypes, dialogsPageReducer, DialogsPageType} from "../../bll/reducers/dialogsPageReducer";
+import {dialogsPageReducer} from "../../bll/reducers/dialogsPageReducer";
 import {action as storybookAction} from "@storybook/addon-actions";
-import {UsersPageActionTypes, usersPageReducer, UsersPageType} from "../../bll/reducers/usersPageReducer";
-import {authReducer} from "../../bll/reducers/authReducer";
+import {usersPageReducer, UsersPageType} from "../../bll/reducers/usersPageReducer";
+import {authReducer, AuthUserDataType} from "../../bll/reducers/authReducer";
 
-const storyDialogsPageReducer = (state: DialogsPageType, action: DialogsPageActionTypes): DialogsPageType => {
-    switch (action.type) {
-        case "ADD-MESSAGE":
-            storybookAction(action.type)(null)
-            break
-        case "CHANGE-NEW-MESSAGE-TEXT":
-            storybookAction(action.type)(action.messageText)
-            break
+const storyReducer = <ST, AT extends { type: string }>(reducer: (state: ST, action: AT) => ST, initialState?: ST) =>
+    (state: ST, action: AT) => {
+        const args = {...action}
+        // @ts-ignore
+        delete args.type
+        storybookAction(action.type)(args)
+        return reducer(initialState ? initialState : state, action)
     }
-    return dialogsPageReducer(state, action)
+
+const authInitialState: AuthUserDataType = {
+    userId: null,
+    login: null,
+    email: null,
+    isFetching: false,
 }
 
 const usersPageInitialState: UsersPageType = {
@@ -60,25 +64,10 @@ const usersPageInitialState: UsersPageType = {
     ]
 }
 
-const storyUsersPageReducer = (
-    state: UsersPageType = usersPageInitialState,
-    action: UsersPageActionTypes
-): UsersPageType => {
-    switch (action.type) {
-        case "FOLLOW":
-            storybookAction(action.type)(action.userId)
-            break
-        case "UNFOLLOW":
-            storybookAction(action.type)(action.userId)
-            break
-    }
-    return usersPageReducer(state, action)
-}
-
 const rootReducer = combineReducers({
-    dialogsPage: storyDialogsPageReducer,
-    usersPage: storyUsersPageReducer,
-    auth: authReducer,
+    dialogsPage: storyReducer(dialogsPageReducer),
+    usersPage: storyReducer(usersPageReducer, usersPageInitialState),
+    auth: storyReducer(authReducer, authInitialState),
 })
 const storyBookStore = createStore(rootReducer)
 

@@ -39,7 +39,7 @@ export const logOutAC = () => ({
 } as const)
 
 
-type AuthActionsType =
+export type AuthActionsType =
     ReturnType<typeof setAuthUserDataAC>
     | ReturnType<typeof setLoginAC>
     | ReturnType<typeof setEmailAC>
