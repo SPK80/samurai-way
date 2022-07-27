@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../bll/redux-store";
 import {followUserAC, unfollowUserAC} from "../../../bll/reducers/usersPageActionCreators";
 import {NavLink} from "react-router-dom";
+import {followApi} from "../../../api/followApi";
 
 type UserPropsType = {
     id: number
@@ -15,10 +16,16 @@ export const User: React.FC<UserPropsType> = ({id}) => {
     const userData = useSelector<AppStateType, UserType>(state => state.usersPage.usersList.find(u => u.id === id) ?? {} as UserType)
     const dispatch = useDispatch()
     
-    const onButtonClickHandler = () => {
-        if (userData.followed) dispatch(unfollowUserAC(userData.id))
-        else dispatch(followUserAC(userData.id))
+    const onClickFollowHandler = () => {
+        if (userData.followed) followApi.unfollow(userData.id).then(data => {
+            dispatch(unfollowUserAC(userData.id))
+        }).catch(console.log)
+        
+        if (!userData.followed) followApi.follow(userData.id).then(data => {
+            dispatch(followUserAC(userData.id))
+        }).catch(console.log)
     }
+    
     const avatarUrl = userData.photos.large ?? userData.photos.small ?? defaultAvatar
     return (
         <div className={s.user}>
@@ -27,7 +34,7 @@ export const User: React.FC<UserPropsType> = ({id}) => {
                     <img src={avatarUrl} alt="avatar"/>
                 </NavLink>
                 <button
-                    onClick={onButtonClickHandler}
+                    onClick={onClickFollowHandler}
                 >{userData.followed ? "Unfollow" : "Follow"}</button>
             </div>
             <div className={s.userDataContainer}>
