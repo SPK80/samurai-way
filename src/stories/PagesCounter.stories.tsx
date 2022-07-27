@@ -8,17 +8,18 @@ export default {
     component: PagesCounter,
     args: {
         pageSizeVariants: [1, 5, 10, 50, 100],
-        defaultPageSizeIndex: 1,
+        pageSize: 10,
         currentPage: 1,
-        totalCount: 23,
+        totalCount: 123,
     }
 } as ComponentMeta<typeof PagesCounter>;
 
 const Template: ComponentStory<typeof PagesCounter> = (args) => {
-    const [currentPage, setCurrentPage] = useState(1)
-    
+    const [currentPage, setCurrentPage] = useState(args.currentPage)
+    const [pageSize, setPageSize] = useState(args.pageSize)
+
     return <PagesCounter
-        defaultPageSizeIndex={args.defaultPageSizeIndex}
+        pageSize={pageSize}
         currentPage={currentPage}
         totalCount={args.totalCount}
         pageSizeVariants={args.pageSizeVariants}
@@ -26,7 +27,10 @@ const Template: ComponentStory<typeof PagesCounter> = (args) => {
             setCurrentPage(cp)
             action('onCurrentPageChanged')(cp)
         }}
-        onPageSizeSelected={args.onPageSizeSelected}
+        onPageSizeSelected={ps => {
+            setPageSize(ps)
+            action('onPageSizeSelected')(ps)
+        }}
     />
 }
 

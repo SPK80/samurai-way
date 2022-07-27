@@ -21,12 +21,12 @@ export const Users: React.FC = memo(() => {
         usersList,
         status,
     } = useSelector<AppStateType, UsersPageType>(state => state.usersPage)
-    
+
     const dispatch = useDispatch()
     const setUsers = (usersList: Array<UserType>) => dispatch(setUsersAC(usersList))
     const setTotalCount = (totalCount: number) => dispatch(setTotalCountAC(totalCount))
     const setStatus = (newStatus: StatusType) => dispatch(setStatusAC(newStatus))
-    
+
     const getUsers = () => {
         setStatus('progress')
         usersApi.getUsers(currentPage, pageSize)
@@ -40,22 +40,22 @@ export const Users: React.FC = memo(() => {
                 }
             )
     }
-    
+
     useEffect(() => {
         getUsers()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, pageSize])
-    
+
     const onPageSizeSelectedHandler = (pageSize: number) =>
         dispatch(setPageSizeAC(pageSize))
-    
+
     const onCurrentPageChangedHandler = (newCurrentPage: number) =>
         dispatch(setCurrentPageAC(newCurrentPage))
-    
+
     return (
         <>
             <PagesCounter
-                defaultPageSizeIndex={1}
+                pageSize={pageSize}
                 pageSizeVariants={[5, 10, 100]}
                 currentPage={currentPage}
                 totalCount={totalCount}

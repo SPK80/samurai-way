@@ -1,20 +1,17 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import s from "./pagesCounter.module.css"
 
 type PagesCounterPropsType = {
     totalCount: number
     currentPage: number
-    defaultPageSizeIndex: number
+    pageSize: number
     pageSizeVariants: Array<number>
     onCurrentPageChanged: (newCurrentPage: number) => void
     onPageSizeSelected: (pageSize: number) => void
 }
 
 export const PagesCounter: React.FC<PagesCounterPropsType> = (props) => {
-    const defaultPageSize = props.pageSizeVariants[props.defaultPageSizeIndex]
-    const [pageSize, setPageSize] = useState(defaultPageSize)
-    
-    const pagesCount = Math.ceil(props.totalCount / pageSize)
+    const pagesCount = Math.ceil(props.totalCount / props.pageSize)
     const amplitude = 3
     const pages = []
     let startPage = 1
@@ -32,15 +29,14 @@ export const PagesCounter: React.FC<PagesCounterPropsType> = (props) => {
         }
     }
     for (let i = startPage; i <= endPage; i++) pages.push(i)
-    
+
     const onChangePageSize = (e: ChangeEvent<HTMLSelectElement>) => {
         const newPageSize: number = +e.currentTarget.value;
-        setPageSize(newPageSize)
         props.onPageSizeSelected(newPageSize)
-        const newCurrentPage = Math.ceil((props.currentPage * pageSize - pageSize + 1) / newPageSize);
+        const newCurrentPage = Math.ceil((props.currentPage * props.pageSize - props.pageSize + 1) / newPageSize);
         props.onCurrentPageChanged(newCurrentPage)
     }
-    
+
     return (
         <div className={s.container}>
             {pages.map(p => {
@@ -57,7 +53,7 @@ export const PagesCounter: React.FC<PagesCounterPropsType> = (props) => {
                     )
                 }
             )}
-            <select onChange={onChangePageSize} value={pageSize}>
+            <select onChange={onChangePageSize} value={props.pageSize}>
                 {props.pageSizeVariants?.map(ps => <option key={ps} value={ps}>{ps}</option>)}
             </select>
         </div>
