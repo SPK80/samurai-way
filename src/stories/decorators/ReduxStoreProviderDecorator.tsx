@@ -41,7 +41,6 @@ const usersPageInitialState: UsersPageType = {
             id: 1,
             name: 'Dmitry K.',
             followed: false,
-            uniqueUrlName: "",
             photos: {
                 small: "",
                 large: "",
@@ -51,7 +50,6 @@ const usersPageInitialState: UsersPageType = {
         {
             id: 2,
             name: 'Svetlana D.',
-            uniqueUrlName: "",
             photos: {
                 small: "",
                 large: "",
@@ -62,7 +60,6 @@ const usersPageInitialState: UsersPageType = {
         {
             id: 3,
             name: 'Sergei S.',
-            uniqueUrlName: "",
             photos: {
                 small: "",
                 large: "",

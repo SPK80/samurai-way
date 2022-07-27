@@ -21,46 +21,31 @@ beforeEach(() => {
                 id: 1,
                 name: 'Dmitry K.',
                 followed: false,
-                uniqueUrlName: "",
                 photos: {
                     small: "",
                     large: "",
                 },
                 status: 'I am looking for a Job right now..',
-                // location: {
-                //     country: 'Belarus',
-                //     city: 'Minsk'
-                // }
             },
             {
                 id: 2,
                 name: 'Svetlana D.',
-                uniqueUrlName: "",
                 photos: {
                     small: "",
                     large: "",
                 },
                 followed: false,
                 status: 'I am so pretty',
-                // location: {
-                //     country: 'Belarus',
-                //     city: 'Minsk'
-                // }
             },
             {
                 id: 3,
                 name: 'Sergei S.',
-                uniqueUrlName: "",
                 photos: {
                     small: "",
                     large: "",
                 },
                 followed: true,
                 status: 'I like football!',
-                // location: {
-                //     country: 'Ukraine',
-                //     city: 'Kiev'
-                // }
             },
         ]
     }

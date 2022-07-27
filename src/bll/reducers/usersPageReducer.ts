@@ -10,7 +10,6 @@ import {
 export type UserType = {
     name: string
     id: number
-    uniqueUrlName: string
     photos: {
         small: string
         large: string

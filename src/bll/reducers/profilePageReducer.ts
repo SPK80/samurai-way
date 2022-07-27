@@ -26,14 +26,6 @@ export type UserProfileType = {
         small?: string
         large?: string
     }
-    
-    // avatar: string
-    // name: string
-    // age: number
-    // birthday: string
-    // gender: 'male' | 'female'
-    // website: string
-    // description: string
 }
 
 const addPost = (state: ProfilePageType): ProfilePageType => {
