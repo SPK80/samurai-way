@@ -6,8 +6,7 @@ export type PostType = {
     text: string
     likesCount: number
 }
-
-export type UserProfileType = {
+export type UserProfileWithoutPhotosType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
@@ -22,6 +21,9 @@ export type UserProfileType = {
         youtube: string
         mainLink: string
     }
+}
+
+export type UserProfileType = UserProfileWithoutPhotosType & {
     photos: {
         small?: string
         large?: string
@@ -72,13 +74,13 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
     switch (action.type) {
         case "ADD-POST":
             return addPost(state)
-        
+
         case "CHANGE-NEW-POST-TEXT":
             return changeNewPostText(state, action.postText)
-        
+
         case "SET-USER-PROFILE":
             return {...state, userProfile: action.userProfile}
-        
+
         default:
             return state
     }
