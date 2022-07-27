@@ -1,28 +1,13 @@
 import {instance} from "./instance";
-import {AxiosRequestConfig, AxiosResponse} from "axios";
-
-type AuthResponseType<DT> = {
-    resultCode: number
-    messages: string[]
-    data: DT
-}
-const config: AxiosRequestConfig = {
-    withCredentials: true
-}
-
-const parseResponse = <DT>(res: AxiosResponse<AuthResponseType<DT>>): Promise<DT> => {
-    const {data, messages, resultCode} = res.data;
-    if (resultCode === 0) return Promise.resolve(data)
-    else return Promise.reject(messages)
-}
+import {parseResponse, ResponseType} from "./parseResponse";
 
 export const authApi = {
     async me() {
-        return instance.get<AuthResponseType<{
+        return instance.get<ResponseType<{
             id: number
             email: string
             login: string
-        }>>('auth/me', config)
+        }>>('auth/me')
             .then(parseResponse)
     },
     async login(email: string, password: string, rememberMe: boolean = false, captcha: boolean = false) {
@@ -30,12 +15,12 @@ export const authApi = {
             email, password,
             rememberMe, captcha
         }
-        return instance.post<AuthResponseType<{ userId: number }>>('auth/login', body, config)
+        return instance.post<ResponseType<{ userId: number }>>('auth/login', body)
             .then(parseResponse)
     },
     
     async logOut() {
-        return instance.delete<AuthResponseType<{}>>('auth/login', config)
+        return instance.delete<ResponseType<{}>>('auth/login')
             .then(parseResponse)
     },
     
