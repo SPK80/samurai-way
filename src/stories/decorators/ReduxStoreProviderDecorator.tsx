@@ -38,7 +38,7 @@ const usersPageInitialState: UsersPageType = {
     status: "idle",
     usersList: [
         {
-            id: '1',
+            id: 1,
             name: 'Dmitry K.',
             followed: false,
             uniqueUrlName: "",
@@ -49,7 +49,7 @@ const usersPageInitialState: UsersPageType = {
             status: 'I am looking for a Job right now..',
         },
         {
-            id: '2',
+            id: 2,
             name: 'Svetlana D.',
             uniqueUrlName: "",
             photos: {
@@ -60,7 +60,7 @@ const usersPageInitialState: UsersPageType = {
             status: 'I am so pretty',
         },
         {
-            id: '3',
+            id: 3,
             name: 'Sergei S.',
             uniqueUrlName: "",
             photos: {

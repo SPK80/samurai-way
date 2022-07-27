@@ -13,4 +13,4 @@ export default {
 const Template: ComponentStory<typeof User> = (args) => <User id={args.id}/>
 
 export const UserStory = Template.bind({})
-UserStory.args = {id: '1'}
+UserStory.args = {id: 1}

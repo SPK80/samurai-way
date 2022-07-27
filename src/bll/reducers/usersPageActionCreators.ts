@@ -1,11 +1,11 @@
 import {StatusType, UserType} from "./usersPageReducer";
 
-export const followUserAC = (userId: string) => ({
+export const followUserAC = (userId: number) => ({
     type: "FOLLOW",
     userId
 } as const)
 
-export const unfollowUserAC = (userId: string) => ({
+export const unfollowUserAC = (userId: number) => ({
     type: "UNFOLLOW",
     userId
 } as const)

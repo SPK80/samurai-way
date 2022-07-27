@@ -8,7 +8,7 @@ import {followUserAC, unfollowUserAC} from "../../../bll/reducers/usersPageActio
 import {NavLink} from "react-router-dom";
 
 type UserPropsType = {
-    id: string
+    id: number
 }
 
 export const User: React.FC<UserPropsType> = ({id}) => {

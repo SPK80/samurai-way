@@ -18,7 +18,7 @@ beforeEach(() => {
         status: "idle",
         usersList: [
             {
-                id: '1',
+                id: 1,
                 name: 'Dmitry K.',
                 followed: false,
                 uniqueUrlName: "",
@@ -33,7 +33,7 @@ beforeEach(() => {
                 // }
             },
             {
-                id: '2',
+                id: 2,
                 name: 'Svetlana D.',
                 uniqueUrlName: "",
                 photos: {
@@ -48,7 +48,7 @@ beforeEach(() => {
                 // }
             },
             {
-                id: '3',
+                id: 3,
                 name: 'Sergei S.',
                 uniqueUrlName: "",
                 photos: {
@@ -67,14 +67,14 @@ beforeEach(() => {
 })
 
 test('Must follow 2nd user', () => {
-    const action = followUserAC('2')
+    const action = followUserAC(2)
     const endState = usersPageReducer(initialState, action)
     console.log(endState)
     expect(endState.usersList[1].followed).toBeTruthy()
 })
 
 test('Must unfollow 3nd user', () => {
-    const action = unfollowUserAC('3')
+    const action = unfollowUserAC(3)
     const endState = usersPageReducer(initialState, action)
     console.log(endState)
     expect(endState.usersList[2].followed).toBeFalsy()
