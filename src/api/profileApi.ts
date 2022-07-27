@@ -7,6 +7,10 @@ export const profileApi = {
         return instance.get<UserProfileType>(`profile/${userId}`)
             .then(value => value.data)
     },
+    async setProfile(profile: UserProfileWithoutPhotosType) {
+        return instance.put<ResponseType>(`profile`, profile)
+            .then(parseResponse)
+    },
     async getStatus(userId: number) {
         return instance.get<string | null>(`profile/status/${userId}`)
             .then(value => value.data)
