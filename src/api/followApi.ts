@@ -8,11 +8,11 @@ export const followApi = {
             .then(res => res.data)
     },
     async follow(userId: number) {
-        return instance.post<ResponseType<{}>>('follow/' + userId)
+        return instance.post<ResponseType>('follow/' + userId)
             .then(parseResponse)
     },
     async unfollow(userId: number) {
-        return instance.delete<ResponseType<{}>>('follow/' + userId)
+        return instance.delete<ResponseType>('follow/' + userId)
             .then(parseResponse)
     },
 }

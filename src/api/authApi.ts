@@ -18,10 +18,10 @@ export const authApi = {
         return instance.post<ResponseType<{ userId: number }>>('auth/login', body)
             .then(parseResponse)
     },
-    
+
     async logOut() {
-        return instance.delete<ResponseType<{}>>('auth/login')
+        return instance.delete<ResponseType>('auth/login')
             .then(parseResponse)
     },
-    
+
 }
