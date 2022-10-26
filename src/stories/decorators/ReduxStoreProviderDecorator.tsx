@@ -1,16 +1,16 @@
 import React from 'react'
 import { combineReducers, legacy_createStore as createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { dialogsPageReducer } from '../../features/dialogsPage/bll/dialogsPageReducer'
+import { dialogsPageReducer } from 'features/dialogsPage/bll/dialogsPageReducer'
 import { action as storybookAction } from '@storybook/addon-actions'
 import {
     usersPageReducer,
     UsersPageType,
-} from '../../features/usersPage/bll/usersPageReducer'
+} from 'features/usersPage/bll/usersPageReducer'
 import {
     authReducer,
     AuthUserDataType,
-} from '../../app/bll/reducers/authReducer'
+} from 'features/loginPage/bll/authReducer'
 
 const getObjWithoutType = <AT extends { type: string }>(action: AT) =>
     Object.fromEntries(Object.entries(action).filter(([key]) => key !== 'type'))

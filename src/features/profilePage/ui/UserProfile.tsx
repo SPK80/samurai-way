@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 import s from './Profile.module.css'
 import { UserProfileType } from '../bll/profilePageReducer'
-import { AppStateType } from '../../../app/bll/redux-store'
+import { AppStateType } from 'app/bll/store'
 
 export const UserProfile: React.FC = memo(() => {
     const userProfile = useSelector<AppStateType, UserProfileType | null>(

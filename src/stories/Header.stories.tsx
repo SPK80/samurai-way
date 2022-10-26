@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header } from '../common/components/Header/Header'
+import { Header } from 'app/ui/Header/Header'
 import { ComponentStory } from '@storybook/react'
 import { ReduxStoreProviderDecorator } from './decorators/ReduxStoreProviderDecorator'
 import { BrowserRouterDecorator } from './decorators/BrowserRouterDecorator'

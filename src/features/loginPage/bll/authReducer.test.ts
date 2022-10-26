@@ -1,14 +1,14 @@
-import {v1} from "uuid";
 import {
     authReducer,
-    setAuthUserDataAC,
     AuthUserDataType,
-    setLoginAC,
+    logOutAC,
+    setAuthUserDataAC,
     setEmailAC,
-    toggleIsFetchingAC, logOutAC
-} from "./authReducer";
+    setLoginAC,
+    toggleIsFetchingAC,
+} from './authReducer'
 
-let initialState: AuthUserDataType;
+let initialState: AuthUserDataType
 
 beforeEach(() => {
     initialState = {
@@ -20,7 +20,10 @@ beforeEach(() => {
 })
 
 test('user auth data must be seted', () => {
-    const newState = authReducer(initialState, setAuthUserDataAC(2, 'test', 'test@test.com'))
+    const newState = authReducer(
+        initialState,
+        setAuthUserDataAC(2, 'test', 'test@test.com')
+    )
     expect(newState).toEqual({
         userId: 2,
         login: 'test',
@@ -28,7 +31,7 @@ test('user auth data must be seted', () => {
     })
 })
 
-test('login must be seted', () => {
+test('loginPage must be seted', () => {
     const newState = authReducer(initialState, setLoginAC('test'))
     expect(newState.login).toBe('test')
 })

@@ -1,15 +1,15 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import { Login } from '../common/components/Login'
+import { LoginPage } from 'features/loginPage'
 import { ReduxStoreProviderDecorator } from './decorators/ReduxStoreProviderDecorator'
 import { BrowserRouterDecorator } from './decorators/BrowserRouterDecorator'
 
 export default {
     title: 'Login',
-    component: Login,
+    component: LoginPage,
     decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator],
-} as ComponentMeta<typeof Login>
+} as ComponentMeta<typeof LoginPage>
 
-const Template: ComponentStory<typeof Login> = () => <Login />
+const Template: ComponentStory<typeof LoginPage> = () => <LoginPage />
 
 export const LoginStory = Template.bind({})

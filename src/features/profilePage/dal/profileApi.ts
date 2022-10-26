@@ -1,9 +1,9 @@
-import { instance } from './instance'
+import { instance } from 'common/api/instance'
 import {
     UserProfileType,
     UserProfileWithoutPhotosType,
-} from '../../features/profilePage/bll/profilePageReducer'
-import { parseResponse, ResponseType } from './parseResponse'
+} from '../bll/profilePageReducer'
+import { parseResponse, ResponseType } from 'common/api/parseResponse'
 
 export const profileApi = {
     async getProfile(userId: number) {

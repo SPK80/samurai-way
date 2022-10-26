@@ -1,9 +1,9 @@
 import React, { memo } from 'react'
 import s from './Dialogs.module.css'
+import { useSelector } from 'react-redux'
 import { Dialog } from './Dialog'
 import { DialogType } from '../bll/dialogsPageReducer'
-import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../app/bll/redux-store'
+import { AppStateType } from 'app/bll/store'
 
 export const Dialogs: React.FC = memo(() => {
     const dialogsState = useSelector<AppStateType, Array<DialogType>>(

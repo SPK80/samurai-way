@@ -1,4 +1,4 @@
-import { UserType } from '../../features/usersPage/bll/usersPageReducer'
+import { UserType } from 'features/usersPage/bll/usersPageReducer'
 import { instance } from './instance'
 
 type UsersResponseType = {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NewMessage } from '../features/dialogsPage/ui/NewMessage'
+import { NewMessage } from 'features/dialogsPage/ui/NewMessage'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { ReduxStoreProviderDecorator } from './decorators/ReduxStoreProviderDecorator'
 

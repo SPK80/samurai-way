@@ -1,5 +1,5 @@
 import React from 'react'
-import { User } from '../features/usersPage/ui/User'
+import { User } from 'features/usersPage/ui/User'
 import { ReduxStoreProviderDecorator } from './decorators/ReduxStoreProviderDecorator'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { BrowserRouterDecorator } from './decorators/BrowserRouterDecorator'

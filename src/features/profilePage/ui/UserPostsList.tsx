@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../app/bll/redux-store'
+import { AppStateType } from 'app/bll/store'
 import { PostType } from '../bll/profilePageReducer'
 import { UserPost } from './UserPost'
 

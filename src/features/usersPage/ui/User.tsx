@@ -1,12 +1,12 @@
 import { UserType } from '../bll/usersPageReducer'
 import React from 'react'
 import s from './user.module.css'
-import defaultAvatar from '../../../common/assets/avatar.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from '../../../app/bll/redux-store'
-import { followUserAC, unfollowUserAC } from '../bll/usersPageActionCreators'
 import { NavLink } from 'react-router-dom'
-import { followApi } from '../../../common/api/followApi'
+import defaultAvatar from 'common/assets/avatar.png'
+import { AppStateType } from 'app/bll/store'
+import { followUserAC, unfollowUserAC } from '../bll/usersPageActionCreators'
+import { followApi } from 'common/api/followApi'
 
 type UserPropsType = {
     id: number

@@ -1,16 +1,16 @@
 import React, { ChangeEvent, useState } from 'react'
+import s from './login.module.css'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from '../../app/bll/redux-store'
+import { AppStateType } from 'app/bll/store'
 import {
     setAuthUserDataAC,
     setEmailAC,
     toggleIsFetchingAC,
-} from '../../app/bll/reducers/authReducer'
-import { authApi } from '../api/authApi'
-import s from './login.module.css'
-import { useNavigate } from 'react-router-dom'
+} from 'features/loginPage/bll/authReducer'
+import { authApi } from '../dal/authApi'
 
-export const Login = () => {
+export const LoginPage = () => {
     const email =
         useSelector<AppStateType, string | null>((state) => state.auth.email) ??
         ''
@@ -32,7 +32,6 @@ export const Login = () => {
         authApi
             .login(email, password)
             .then((data) => {
-                // console.log('login.then', data)
                 navigate('profile')
                 authApi
                     .me()

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PagesCounter } from '../common/components/PagesCounter'
+import { PagesCounter } from 'common/components/PagesCounter/PagesCounter'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 

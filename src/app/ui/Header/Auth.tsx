@@ -1,13 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from '../../../app/bll/redux-store'
-import {
-    AuthUserDataType,
-    logOutAC,
-    setAuthUserDataAC,
-} from '../../../app/bll/reducers/authReducer'
+import { AppStateType } from 'app/bll/store'
+import { AuthUserDataType, logOutAC } from 'features/loginPage/bll/authReducer'
 import React, { memo } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { authApi } from '../../api/authApi'
+import { authApi } from 'features/loginPage/dal/authApi'
 
 export const Auth = memo(() => {
     const userData = useSelector<AppStateType, AuthUserDataType>(
@@ -36,7 +32,7 @@ export const Auth = memo(() => {
                     <button onClick={onclickLogOutHandler}>LogOut</button>
                 </>
             ) : (
-                <NavLink to={'/login'}>Login</NavLink>
+                <NavLink to={'/loginPage'}>Login</NavLink>
             )}
         </div>
     )

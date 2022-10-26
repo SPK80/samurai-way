@@ -1,5 +1,5 @@
 import React from 'react'
-import { Message } from '../features/dialogsPage/ui/Message'
+import { Message } from 'features/dialogsPage/ui/Message'
 
 export default {
     title: 'Message',

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import s from './Dialogs.module.css'
 import { Message } from './Message'
 import { MessageType } from '../bll/dialogsPageReducer'
-import { AppStateType } from '../../../app/bll/redux-store'
+import { AppStateType } from 'app/bll/store'
 
 export const Messages: React.FC = memo(() => {
     const messagesState = useSelector<AppStateType, Array<MessageType>>(
