@@ -1,5 +1,5 @@
-import React from "react";
-import {Message} from "../components/content/Dialogs/Message";
+import React from 'react'
+import { Message } from '../features/dialogsPage/ui/Message'
 
 export default {
     title: 'Message',
@@ -7,7 +7,5 @@ export default {
 }
 
 export const WelcomeMessage = () => (
-    <Message
-        message={{id: '1', text: 'Welcome'}}
-    />
+    <Message message={{ id: '1', text: 'Welcome' }} />
 )

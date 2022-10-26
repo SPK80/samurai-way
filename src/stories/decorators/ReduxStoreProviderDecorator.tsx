@@ -1,24 +1,32 @@
-import React from "react"
-import {combineReducers, legacy_createStore as createStore} from "redux";
-import {Provider} from "react-redux";
-import {dialogsPageReducer} from "../../bll/reducers/dialogsPageReducer";
-import {action as storybookAction} from "@storybook/addon-actions";
-import {usersPageReducer, UsersPageType} from "../../bll/reducers/usersPageReducer";
-import {authReducer, AuthUserDataType} from "../../bll/reducers/authReducer";
-
+import React from 'react'
+import { combineReducers, legacy_createStore as createStore } from 'redux'
+import { Provider } from 'react-redux'
+import { dialogsPageReducer } from '../../features/dialogsPage/bll/dialogsPageReducer'
+import { action as storybookAction } from '@storybook/addon-actions'
+import {
+    usersPageReducer,
+    UsersPageType,
+} from '../../features/usersPage/bll/usersPageReducer'
+import {
+    authReducer,
+    AuthUserDataType,
+} from '../../app/bll/reducers/authReducer'
 
 const getObjWithoutType = <AT extends { type: string }>(action: AT) =>
     Object.fromEntries(Object.entries(action).filter(([key]) => key !== 'type'))
 
 const getObjWithoutType2 = <AT extends { type: string }>(action: AT) => {
-    const obj = {...action}
+    const obj = { ...action }
     // @ts-ignore
     delete obj.type
     return obj
 }
 
-
-const storyActionsReducerWrap = <ST, AT extends { type: string }>(reducer: (state: ST, action: AT) => ST, initialState?: ST) =>
+const storyActionsReducerWrap =
+    <ST, AT extends { type: string }>(
+        reducer: (state: ST, action: AT) => ST,
+        initialState?: ST
+    ) =>
     (state: ST, action: AT) => {
         storybookAction(action.type)(getObjWithoutType(action))
         return reducer(initialState ? initialState : state, action)
@@ -35,15 +43,15 @@ const usersPageInitialState: UsersPageType = {
     currentPage: 1,
     totalCount: 0,
     pageSize: 10,
-    status: "idle",
+    status: 'idle',
     usersList: [
         {
             id: 1,
             name: 'Dmitry K.',
             followed: false,
             photos: {
-                small: "",
-                large: "",
+                small: '',
+                large: '',
             },
             status: 'I am looking for a Job right now..',
         },
@@ -51,8 +59,8 @@ const usersPageInitialState: UsersPageType = {
             id: 2,
             name: 'Svetlana D.',
             photos: {
-                small: "",
-                large: "",
+                small: '',
+                large: '',
             },
             followed: false,
             status: 'I am so pretty',
@@ -61,13 +69,13 @@ const usersPageInitialState: UsersPageType = {
             id: 3,
             name: 'Sergei S.',
             photos: {
-                small: "",
-                large: "",
+                small: '',
+                large: '',
             },
             followed: true,
             status: 'I like football!',
         },
-    ]
+    ],
 }
 
 const rootReducer = combineReducers({
@@ -77,7 +85,6 @@ const rootReducer = combineReducers({
 })
 const storyBookStore = createStore(rootReducer)
 
-export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) =>
-    <Provider store={storyBookStore}>
-        {storyFn()}
-    </Provider>
+export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => (
+    <Provider store={storyBookStore}>{storyFn()}</Provider>
+)
