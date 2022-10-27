@@ -15,11 +15,10 @@ export const ProfilePage: React.FC = memo(() => {
     const dispatch = useDispatch()
     useEffect(() => {
         if (!userId && !authUserId) return
-        const uid = Number(userId ?? authUserId)
         profileApi
-            .getProfile(uid)
+            .getProfile(Number(userId ?? authUserId))
             .then((res) => dispatch(setUserProfileAC(res)))
-    }, [authUserId])
+    }, [authUserId, userId])
 
     return (
         <div className={s.profile}>

@@ -1,5 +1,10 @@
 import { instance } from './instance'
-import { parseResponse, ResponseWithResultCodeType } from './parseResponse'
+import { DataResponseType } from './responseTypes'
+import {
+    axiosErrorToString,
+    parseAxiosResponse,
+    parseDataResponse,
+} from './responseParsers'
 
 export const followApi = {
     async getFollow(userId: number) {
@@ -7,12 +12,16 @@ export const followApi = {
     },
     async follow(userId: number) {
         return instance
-            .post<ResponseWithResultCodeType>('follow/' + userId)
-            .then(parseResponse)
+            .post<DataResponseType>('follow/' + userId)
+            .then(parseAxiosResponse)
+            .catch(axiosErrorToString)
+            .then(parseDataResponse)
     },
     async unfollow(userId: number) {
         return instance
-            .delete<ResponseWithResultCodeType>('follow/' + userId)
-            .then(parseResponse)
+            .delete<DataResponseType>('follow/' + userId)
+            .then(parseAxiosResponse)
+            .catch(axiosErrorToString)
+            .then(parseDataResponse)
     },
 }
