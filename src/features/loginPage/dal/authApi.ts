@@ -1,36 +1,46 @@
 import { instance } from 'common/api/instance'
-import { parseResponse, ResponseType } from 'common/api/parseResponse'
+import {
+    axiosErrorToString,
+    checkResultCodeAndGetData,
+    getDataFromAxiosResponse,
+    ResponseWithResultCodeType,
+} from 'common/api/parseResponse'
+
+export type LoginDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
+}
+
+export type AuthUserDataType = {
+    id: number
+    email: string
+    login: string
+}
 
 export const authApi = {
     async me() {
         return instance
-            .get<
-                ResponseType<{
-                    id: number
-                    email: string
-                    login: string
-                }>
-            >('auth/me')
-            .then(parseResponse)
+            .get<ResponseWithResultCodeType<AuthUserDataType>>('auth/me')
+            .then(getDataFromAxiosResponse)
+            .catch(axiosErrorToString)
+            .then(checkResultCodeAndGetData)
     },
-    async login(
-        email: string,
-        password: string,
-        rememberMe: boolean = false,
-        captcha: boolean = false
-    ) {
-        const body = {
-            email,
-            password,
-            rememberMe,
-            captcha,
-        }
+    async login(data: LoginDataType) {
         return instance
-            .post<ResponseType<{ userId: number }>>('auth/login', body)
-            .then(parseResponse)
+            .post<ResponseWithResultCodeType<AuthUserDataType>>(
+                'auth/login',
+                data
+            )
+            .then(getDataFromAxiosResponse)
+            .catch(axiosErrorToString)
+            .then(checkResultCodeAndGetData)
     },
-
-    async logOut() {
-        return instance.delete<ResponseType>('auth/login').then(parseResponse)
+    async logout() {
+        return instance
+            .delete<ResponseWithResultCodeType>('auth/login')
+            .then(getDataFromAxiosResponse)
+            .catch(axiosErrorToString)
+            .then(checkResultCodeAndGetData)
     },
 }

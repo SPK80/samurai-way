@@ -3,7 +3,10 @@ import {
     UserProfileType,
     UserProfileWithoutPhotosType,
 } from '../bll/profilePageReducer'
-import { parseResponse, ResponseType } from 'common/api/parseResponse'
+import {
+    parseResponse,
+    ResponseWithResultCodeType,
+} from 'common/api/parseResponse'
 
 export const profileApi = {
     async getProfile(userId: number) {
@@ -13,7 +16,7 @@ export const profileApi = {
     },
     async setProfile(profile: UserProfileWithoutPhotosType) {
         return instance
-            .put<ResponseType>(`profile`, profile)
+            .put<ResponseWithResultCodeType>(`profile`, profile)
             .then(parseResponse)
     },
     async getStatus(userId: number) {
@@ -22,6 +25,8 @@ export const profileApi = {
             .then((value) => value.data)
     },
     async setStatus() {
-        return instance.put<ResponseType>(`profile/status`).then(parseResponse)
+        return instance
+            .put<ResponseWithResultCodeType>(`profile/status`)
+            .then(parseResponse)
     },
 }
