@@ -1,19 +1,16 @@
 import React, { memo, useEffect } from 'react'
 import s from './Profile.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { profileApi } from '../dal/profileApi'
 import { UserProfile } from './UserProfile'
 import { UserPosts } from './UserPosts'
 import { setUserProfileAC } from '../bll/profilePageActionCreators'
-import { AppStateType } from 'app/bll/store'
+import { useAppSelector } from 'app/bll/store'
 
 export const ProfilePage: React.FC = memo(() => {
     let { userId } = useParams()
-
-    const authUserId = useSelector<AppStateType, number | null>(
-        (state) => state.auth.userId
-    )
+    const authUserId = useAppSelector((state) => state.auth.userData?.id)
 
     const dispatch = useDispatch()
     useEffect(() => {

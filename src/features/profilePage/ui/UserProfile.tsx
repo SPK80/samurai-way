@@ -1,13 +1,9 @@
 import React, { memo } from 'react'
-import { useSelector } from 'react-redux'
 import s from './Profile.module.css'
-import { UserProfileType } from '../bll/profilePageReducer'
-import { AppStateType } from 'app/bll/store'
+import { useAppSelector } from 'app/bll/store'
 
 export const UserProfile: React.FC = memo(() => {
-    const userProfile = useSelector<AppStateType, UserProfileType | null>(
-        (state) => state.profilePage.userProfile
-    )
+    const userProfile = useAppSelector((state) => state.profilePage.userProfile)
     if (!userProfile) return <div></div>
     else
         return (

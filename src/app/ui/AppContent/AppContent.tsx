@@ -1,31 +1,24 @@
 import React, { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import s from './AppContent.module.css'
-import { AppStateType } from '../../bll/store'
-import { authApi } from 'features/loginPage/dal/authApi'
+import { useAppDispatch, useAppSelector } from '../../bll/store'
 import { DialogsPage } from 'features/dialogsPage'
 import { ProfilePage } from 'features/profilePage'
 import { UsersPage } from 'features/usersPage'
-import { useDispatch, useSelector } from 'react-redux'
-import { setAuthUserDataAC } from 'features/loginPage/bll/authReducer'
+import { useSelector } from 'react-redux'
 import { LoginPage } from 'features/loginPage'
 import { Navbar } from '../Navbar/Navbar'
 import { Header } from '../Header/Header'
+import { AppStateType, initializeAppTC } from '../../bll/appReducer'
 
 export const AppContent: React.FC = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     useEffect(() => {
-        authApi
-            .me()
-            .then((data) =>
-                dispatch(setAuthUserDataAC(data.id, data.login, data.email))
-            )
-            .catch(console.log)
+        dispatch(initializeAppTC())
     }, [])
 
-    const userId = useSelector<AppStateType, number | null>(
-        (state) => state.auth.userId
-    )
+    const userId = useAppSelector((state) => state.auth.userData?.id)
+
     return (
         <div className={s.app}>
             <Header title={"Hello, samurai! Let's go!"} />

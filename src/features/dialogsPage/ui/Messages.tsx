@@ -1,14 +1,10 @@
 import React, { memo } from 'react'
-import { useSelector } from 'react-redux'
 import s from './Dialogs.module.css'
 import { Message } from './Message'
-import { MessageType } from '../bll/dialogsPageReducer'
-import { AppStateType } from 'app/bll/store'
+import { useAppSelector } from 'app/bll/store'
 
 export const Messages: React.FC = memo(() => {
-    const messagesState = useSelector<AppStateType, Array<MessageType>>(
-        (state) => state.dialogsPage.messages
-    )
+    const messagesState = useAppSelector((state) => state.dialogsPage.messages)
     return (
         <div className={s.messages}>
             {messagesState.map((m) => (

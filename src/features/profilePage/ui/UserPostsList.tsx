@@ -1,13 +1,9 @@
 import React, { memo } from 'react'
-import { useSelector } from 'react-redux'
-import { AppStateType } from 'app/bll/store'
-import { PostType } from '../bll/profilePageReducer'
 import { UserPost } from './UserPost'
+import { useAppSelector } from 'app/bll/store'
 
 export const UserPostsList: React.FC = memo(() => {
-    const postsState = useSelector<AppStateType, Array<PostType>>(
-        (state) => state.profilePage.userPosts
-    )
+    const postsState = useAppSelector((state) => state.profilePage.userPosts)
     return (
         <div>
             {postsState.map((userPost) => (

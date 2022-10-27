@@ -1,15 +1,15 @@
 import React, { ChangeEvent } from 'react'
 import s from './Profile.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from 'app/bll/store'
+import { useDispatch } from 'react-redux'
 import {
     addPostAC,
     changeNewPostTextAC,
 } from '../bll/profilePageActionCreators'
 import { UserPostsList } from './UserPostsList'
+import { useAppSelector } from 'app/bll/store'
 
 export const UserPosts: React.FC = () => {
-    const newPostTextState = useSelector<AppStateType, string>(
+    const newPostTextState = useAppSelector(
         (state) => state.profilePage.newPostText
     )
 

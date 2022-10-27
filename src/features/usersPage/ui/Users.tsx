@@ -1,7 +1,6 @@
 import React, { memo, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { StatusType, UsersPageType, UserType } from '../bll/usersPageReducer'
-import { AppStateType } from 'app/bll/store'
+import { useDispatch } from 'react-redux'
+import { StatusType, UserType } from '../bll/usersPageReducer'
 import {
     setCurrentPageAC,
     setPageSizeAC,
@@ -13,10 +12,11 @@ import { usersApi } from 'common/api/usersApi'
 import { Progress } from 'common/components/Progress/Progress'
 import { PagesCounter } from 'common/components/PagesCounter/PagesCounter'
 import { UsersList } from './UsersList'
+import { useAppSelector } from 'app/bll/store'
 
 export const Users: React.FC = memo(() => {
     const { totalCount, pageSize, currentPage, usersList, status } =
-        useSelector<AppStateType, UsersPageType>((state) => state.usersPage)
+        useAppSelector((state) => state.usersPage)
 
     const dispatch = useDispatch()
     const setUsers = (usersList: Array<UserType>) =>

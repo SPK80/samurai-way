@@ -1,19 +1,19 @@
-import { UserType } from '../bll/usersPageReducer'
 import React from 'react'
 import s from './user.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import defaultAvatar from 'common/assets/avatar.png'
-import { AppStateType } from 'app/bll/store'
+import { UserType } from '../bll/usersPageReducer'
 import { followUserAC, unfollowUserAC } from '../bll/usersPageActionCreators'
 import { followApi } from 'common/api/followApi'
+import { useAppSelector } from 'app/bll/store'
 
 type UserPropsType = {
     id: number
 }
 
 export const User: React.FC<UserPropsType> = ({ id }) => {
-    const userData = useSelector<AppStateType, UserType>(
+    const userData = useAppSelector(
         (state) =>
             state.usersPage.usersList.find((u) => u.id === id) ??
             ({} as UserType)

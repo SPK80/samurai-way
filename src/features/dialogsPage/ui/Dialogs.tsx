@@ -1,14 +1,10 @@
 import React, { memo } from 'react'
 import s from './Dialogs.module.css'
-import { useSelector } from 'react-redux'
 import { Dialog } from './Dialog'
-import { DialogType } from '../bll/dialogsPageReducer'
-import { AppStateType } from 'app/bll/store'
+import { useAppSelector } from 'app/bll/store'
 
 export const Dialogs: React.FC = memo(() => {
-    const dialogsState = useSelector<AppStateType, Array<DialogType>>(
-        (state) => state.dialogsPage.dialogs
-    )
+    const dialogsState = useAppSelector((state) => state.dialogsPage.dialogs)
 
     return (
         <div className={s.dialogsItems}>
