@@ -2,14 +2,13 @@ import React, { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import s from './AppContent.module.css'
 import { useAppDispatch, useAppSelector } from '../../bll/store'
+import { initializeAppTC } from '../../bll/appReducer'
 import { DialogsPage } from 'features/dialogsPage'
 import { ProfilePage } from 'features/profilePage'
 import { UsersPage } from 'features/usersPage'
-import { useSelector } from 'react-redux'
-import { LoginPage } from 'features/loginPage'
+import { AuthPage } from 'features/loginPage'
 import { Navbar } from '../Navbar/Navbar'
 import { Header } from '../Header/Header'
-import { AppStateType, initializeAppTC } from '../../bll/appReducer'
 
 export const AppContent: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -29,7 +28,7 @@ export const AppContent: React.FC = () => {
                         path={'*'}
                         element={<Navigate to={`/profile/${userId ?? ''}`} />}
                     />
-                    <Route path={'/loginPage'} element={<LoginPage />} />
+                    <Route path={'/loginPage'} element={<AuthPage />} />
                     <Route path={'/profile'} element={<ProfilePage />} />
                     <Route
                         path={'/profile/:userId'}
