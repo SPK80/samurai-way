@@ -8,7 +8,7 @@ import {
     setTotalCountAC,
     setUsersAC,
 } from '../bll/usersPageActionCreators'
-import { usersApi } from 'common/api/usersApi'
+import { usersApi } from 'features/usersPage/dal/usersApi'
 import { Progress } from 'common/components/Progress/Progress'
 import { PagesCounter } from 'common/components/PagesCounter/PagesCounter'
 import { UsersList } from './UsersList'

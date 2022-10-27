@@ -1,5 +1,5 @@
 import { UserType } from 'features/usersPage/bll/usersPageReducer'
-import { instance } from './instance'
+import { instance } from 'common/api/instance'
 
 type UsersResponseType = {
     items: Array<UserType> //| UserType
