@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux'
 import { authApi } from 'features/loginPage/dal/authApi'
+import { setIsLoggedInAC } from 'features/loginPage/bll/authReducer'
 
 /*============TYPES===================================================================================================*/
 
@@ -58,9 +59,9 @@ export const setAppInitializedAC = (isInitialized: boolean) =>
 /*==============TunkCreators==========================================================================================*/
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-    // authApi
-    //     .me()
-    //     .then(() => dispatch(setIsLoggedInAC(true)))
-    //     .catch((res) => dispatch(setAppErrorAC(res)))
-    //     .finally(() => dispatch(setAppInitializedAC(true)))
+    authApi
+        .me()
+        .then(() => dispatch(setIsLoggedInAC(true)))
+        .catch((res) => dispatch(setAppErrorAC(res)))
+        .finally(() => dispatch(setAppInitializedAC(true)))
 }

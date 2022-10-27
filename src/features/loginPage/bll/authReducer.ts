@@ -1,69 +1,79 @@
-export type AuthUserDataType = {
-    userId: number | null
-    login: string | null
-    email: string | null
-    isFetching: boolean
-}
-
-const initialState: AuthUserDataType = {
-    userId: null,
-    login: null,
-    email: null,
-    isFetching: false,
-}
-
-export const setAuthUserDataAC = (userId: number, login: string, email: string) => ({
-    type: 'SET-AUTH-USER-DATA',
-    userId,
-    login,
-    email
-} as const)
-
-export const setLoginAC = (login: string) => ({
-    type: 'SET-LOGIN',
-    login
-} as const)
-
-export const setEmailAC = (email: string) => ({
-    type: 'SET-EMAIL',
-    email
-} as const)
-
-export const toggleIsFetchingAC = (isFetching: boolean) => ({
-    type: 'TOGGLE-IS-FETCHING',
-    isFetching
-} as const)
-
-export const logOutAC = () => ({
-    type: 'LOGOUT'
-} as const)
-
+import { authApi, AuthUserDataType, LoginDataType } from '../dal/authApi'
+import { Dispatch } from 'redux'
+import {
+    AppActionsType,
+    RequestStatusType,
+    setAppErrorAC,
+    setAppStatusAC,
+} from 'app/bll/appReducer'
 
 export type AuthActionsType =
-    ReturnType<typeof setAuthUserDataAC>
-    | ReturnType<typeof setLoginAC>
-    | ReturnType<typeof setEmailAC>
-    | ReturnType<typeof toggleIsFetchingAC>
-    | ReturnType<typeof logOutAC>
+    | ReturnType<typeof setIsLoggedInAC>
+    | ReturnType<typeof setUserDataAC>
 
-export const authReducer = (state = initialState, action: AuthActionsType): AuthUserDataType => {
+export type AuthStateType = typeof initialState
+
+const initialState = {
+    isLoggedIn: false,
+    userData: null as AuthUserDataType | null,
+}
+
+export const authReducer = (
+    state: AuthStateType = initialState,
+    action: AuthActionsType
+): AuthStateType => {
     switch (action.type) {
-        case "SET-AUTH-USER-DATA":
-            return {
-                ...state,
-                email: action.email,
-                login: action.login,
-                userId: action.userId,
-            }
-        case "SET-LOGIN":
-            return {...state, login: action.login}
-        case "SET-EMAIL":
-            return {...state, email: action.email}
-        case "TOGGLE-IS-FETCHING":
-            return {...state, isFetching: action.isFetching}
-        case "LOGOUT":
-            return {...initialState}
+        case 'login/SET-IS-LOGGED-IN':
+            return { ...state, isLoggedIn: action.isLoggedIn }
+        case 'login/SET-USER-DATA':
+            return { ...state, userData: action.userData }
         default:
             return state
     }
 }
+
+// actions
+export const setIsLoggedInAC = (isLoggedIn: boolean) =>
+    ({
+        type: 'login/SET-IS-LOGGED-IN',
+        isLoggedIn,
+    } as const)
+
+export const setUserDataAC = (userData: AuthUserDataType | null) =>
+    ({
+        type: 'login/SET-USER-DATA',
+        userData,
+    } as const)
+
+// thunks
+export const loginTC =
+    (data: LoginDataType) =>
+    (dispatch: Dispatch<AuthActionsType | AppActionsType>) => {
+        dispatch(setAppStatusAC(RequestStatusType.loading))
+        authApi
+            .login(data)
+            .then(() => {
+                authApi
+                    .me()
+                    .then((res) => {
+                        dispatch(setUserDataAC(res))
+                        dispatch(setIsLoggedInAC(true))
+                    })
+                    .catch((res) => dispatch(setAppErrorAC(res)))
+            })
+            .catch((res) => dispatch(setAppErrorAC(res)))
+            .finally(() => dispatch(setAppStatusAC(RequestStatusType.idle)))
+    }
+
+export const logoutTC =
+    () => (dispatch: Dispatch<AuthActionsType | AppActionsType>) => {
+        dispatch(setAppStatusAC(RequestStatusType.loading))
+        authApi
+            .logout()
+            .then(() => {
+                dispatch(setIsLoggedInAC(false))
+                dispatch(setUserDataAC(null))
+            })
+            .catch((res) => dispatch(setAppErrorAC(res)))
+            .finally(() => dispatch(setAppStatusAC(RequestStatusType.idle)))
+    }

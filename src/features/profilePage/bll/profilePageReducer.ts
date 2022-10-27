@@ -1,5 +1,9 @@
-import {v1} from "uuid";
-import {addPostAC, changeNewPostTextAC, setUserProfileAC} from "./profilePageActionCreators";
+import { v1 } from 'uuid'
+import {
+    addPostAC,
+    changeNewPostTextAC,
+    setUserProfileAC,
+} from './profilePageActionCreators'
 
 export type PostType = {
     id: string
@@ -40,16 +44,19 @@ const addPost = (state: ProfilePageType): ProfilePageType => {
             {
                 id: v1(),
                 text: newPostText,
-                likesCount: 0
-            }
-        ]
+                likesCount: 0,
+            },
+        ],
     }
 }
 
-const changeNewPostText = (state: ProfilePageType, newPostText: string): ProfilePageType => {
+const changeNewPostText = (
+    state: ProfilePageType,
+    newPostText: string
+): ProfilePageType => {
     return {
         ...state,
-        newPostText
+        newPostText,
     }
 }
 
@@ -65,21 +72,24 @@ const initialState: ProfilePageType = {
     userPosts: [],
 }
 
-type ProfilePageActionTypes =
-    ReturnType<typeof addPostAC>
+export type ProfilePageActionTypes =
+    | ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewPostTextAC>
     | ReturnType<typeof setUserProfileAC>
 
-export const profilePageReducer = (state: ProfilePageType = initialState, action: ProfilePageActionTypes): ProfilePageType => {
+export const profilePageReducer = (
+    state: ProfilePageType = initialState,
+    action: ProfilePageActionTypes
+): ProfilePageType => {
     switch (action.type) {
-        case "ADD-POST":
+        case 'ADD-POST':
             return addPost(state)
 
-        case "CHANGE-NEW-POST-TEXT":
+        case 'CHANGE-NEW-POST-TEXT':
             return changeNewPostText(state, action.postText)
 
-        case "SET-USER-PROFILE":
-            return {...state, userProfile: action.userProfile}
+        case 'SET-USER-PROFILE':
+            return { ...state, userProfile: action.userProfile }
 
         default:
             return state
