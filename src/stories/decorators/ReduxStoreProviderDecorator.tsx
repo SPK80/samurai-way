@@ -7,10 +7,7 @@ import {
     usersPageReducer,
     UsersPageType,
 } from 'features/usersPage/bll/usersPageReducer'
-import {
-    authReducer,
-    AuthUserDataType,
-} from 'features/loginPage/bll/authReducer'
+import { authReducer, AuthStateType } from 'features/loginPage/bll/authReducer'
 
 const getObjWithoutType = <AT extends { type: string }>(action: AT) =>
     Object.fromEntries(Object.entries(action).filter(([key]) => key !== 'type'))
@@ -32,11 +29,9 @@ const storyActionsReducerWrap =
         return reducer(initialState ? initialState : state, action)
     }
 
-const authInitialState: AuthUserDataType = {
-    userId: null,
-    login: null,
-    email: null,
-    isFetching: false,
+const authInitialState: AuthStateType = {
+    isLoggedIn: false,
+    userData: null,
 }
 
 const usersPageInitialState: UsersPageType = {
