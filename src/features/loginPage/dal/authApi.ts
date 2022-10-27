@@ -1,15 +1,16 @@
 import { instance } from 'common/api/instance'
+import { DataResponseType } from 'common/api/responseTypes'
 import {
     axiosErrorToString,
-    checkResultCodeAndGetData,
-    getDataFromAxiosResponse,
-    ResponseWithResultCodeType,
-} from 'common/api/parseResponse'
+    parseAxiosResponse,
+    parseDataResponse,
+} from 'common/api/responseParsers'
 
 export type LoginDataType = {
     email: string
     password: string
-    rememberMe: boolean
+    rememberMe?: boolean
+    captcha?: boolean
 }
 
 export type AuthUserDataType = {
@@ -21,26 +22,23 @@ export type AuthUserDataType = {
 export const authApi = {
     async me() {
         return instance
-            .get<ResponseWithResultCodeType<AuthUserDataType>>('auth/me')
-            .then(getDataFromAxiosResponse)
+            .get<DataResponseType<AuthUserDataType>>('auth/me')
+            .then(parseAxiosResponse)
             .catch(axiosErrorToString)
-            .then(checkResultCodeAndGetData)
+            .then(parseDataResponse)
     },
     async login(data: LoginDataType) {
         return instance
-            .post<ResponseWithResultCodeType<AuthUserDataType>>(
-                'auth/login',
-                data
-            )
-            .then(getDataFromAxiosResponse)
+            .post<DataResponseType<{ userId: number }>>('auth/login', data)
+            .then(parseAxiosResponse)
             .catch(axiosErrorToString)
-            .then(checkResultCodeAndGetData)
+            .then(parseDataResponse)
     },
     async logout() {
         return instance
-            .delete<ResponseWithResultCodeType>('auth/login')
-            .then(getDataFromAxiosResponse)
+            .delete<DataResponseType>('auth/login')
+            .then(parseAxiosResponse)
             .catch(axiosErrorToString)
-            .then(checkResultCodeAndGetData)
+            .then(parseDataResponse)
     },
 }
