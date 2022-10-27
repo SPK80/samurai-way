@@ -6,12 +6,13 @@ import { initializeAppTC } from '../../bll/appReducer'
 import { DialogsPage } from 'features/dialogsPage'
 import { ProfilePage } from 'features/profilePage'
 import { UsersPage } from 'features/usersPage'
-import { AuthPage } from 'features/loginPage'
 import { Navbar } from '../Navbar/Navbar'
 import { Header } from '../Header/Header'
+import { AuthPage } from 'features/loginPage'
 
 export const AppContent: React.FC = () => {
     const dispatch = useAppDispatch()
+
     useEffect(() => {
         dispatch(initializeAppTC())
     }, [])

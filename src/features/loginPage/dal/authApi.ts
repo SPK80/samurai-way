@@ -1,10 +1,10 @@
 import { instance } from 'common/api/instance'
-import { DataResponseType } from 'common/api/responseTypes'
 import {
     axiosErrorToString,
     parseAxiosResponse,
     parseDataResponse,
 } from 'common/api/responseParsers'
+import { DataResponseType } from 'common/api/responseTypes'
 
 export type LoginDataType = {
     email: string

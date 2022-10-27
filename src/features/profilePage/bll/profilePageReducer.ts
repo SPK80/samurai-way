@@ -4,36 +4,13 @@ import {
     changeNewPostTextAC,
     setUserProfileAC,
 } from './profilePageActionCreators'
+import { UserProfileWithPhotosType } from '../dal/profileApi'
 
 export type PostType = {
     id: string
     text: string
     likesCount: number
 }
-export type UserProfileWithoutPhotosType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
-}
-
-export type UserProfileType = UserProfileWithoutPhotosType & {
-    photos: {
-        small?: string
-        large?: string
-    }
-}
-
 const addPost = (state: ProfilePageType): ProfilePageType => {
     const newPostText = state.newPostText
     return {
@@ -61,7 +38,7 @@ const changeNewPostText = (
 }
 
 export type ProfilePageType = {
-    userProfile: UserProfileType | null
+    userProfile: UserProfileWithPhotosType | null
     newPostText: string
     userPosts: Array<PostType>
 }

@@ -45,24 +45,28 @@ export const setUserDataAC = (userData: AuthUserDataType | null) =>
         userData,
     } as const)
 
+export const authMe = async (
+    dispatch: Dispatch<AuthActionsType | AppActionsType>
+) => {
+    return authApi
+        .me()
+        .then((res) => {
+            dispatch(setUserDataAC(res))
+            dispatch(setIsLoggedInAC(true))
+        })
+        .catch((res) => dispatch(setAppErrorAC(res)))
+        .finally(() => dispatch(setAppStatusAC(RequestStatusType.idle)))
+}
+
 // thunks
+
 export const loginTC =
     (data: LoginDataType) =>
     (dispatch: Dispatch<AuthActionsType | AppActionsType>) => {
         dispatch(setAppStatusAC(RequestStatusType.loading))
-        authApi
-            .login(data)
-            .then(() => {
-                authApi
-                    .me()
-                    .then((res) => {
-                        dispatch(setUserDataAC(res))
-                        dispatch(setIsLoggedInAC(true))
-                    })
-                    .catch((res) => dispatch(setAppErrorAC(res)))
-            })
-            .catch((res) => dispatch(setAppErrorAC(res)))
-            .finally(() => dispatch(setAppStatusAC(RequestStatusType.idle)))
+        authApi.login(data).then(() => authMe(dispatch))
+        // .catch((res) => dispatch(setAppErrorAC(res)))
+        // .finally(() => dispatch(setAppStatusAC(RequestStatusType.idle)))
     }
 
 export const logoutTC =

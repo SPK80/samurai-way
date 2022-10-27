@@ -9,7 +9,6 @@ export const AuthPage = () => {
     const [password, setPassword] = useState('')
     const appStatus = useAppSelector((state) => state.app.status)
     const dispatch = useAppDispatch()
-    // const navigate = useNavigate()
 
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
@@ -19,28 +18,9 @@ export const AuthPage = () => {
         setPassword(e.currentTarget.value)
 
     const onSubmitHandler = () => {
-        dispatch(
-            loginTC({ email, password, rememberMe: false, captcha: false })
-        )
+        dispatch(loginTC({ email, password, rememberMe: false }))
         setPassword('')
         setEmail('')
-
-        // dispatch(toggleIsFetchingAC(true))
-        // authApi
-        //     .login({ email, password, rememberMe: false })
-        //     .then((data) => {
-        //         navigate('profile')
-        //         authApi
-        //             .me()
-        //             .then((data) =>
-        //                 dispatch(
-        //                     setAuthUserDataAC(data.id, data.login, data.email)
-        //                 )
-        //             )
-        //             .catch(console.log)
-        //     })
-        //     .catch(console.log)
-        //     .finally(() => dispatch(toggleIsFetchingAC(false)))
     }
 
     return (

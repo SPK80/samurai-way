@@ -1,29 +1,63 @@
 import { instance } from 'common/api/instance'
 import {
-    UserProfileType,
-    UserProfileWithoutPhotosType,
-} from '../bll/profilePageReducer'
-import { responseParsers, DataResponseType } from 'common/api/responseParsers'
+    axiosErrorToString,
+    parseAxiosResponse,
+    parseDataResponse,
+} from '../../../common/api/responseParsers'
+import { DataResponseType } from '../../../common/api/responseTypes'
+
+export type UserProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+}
+
+export type UserProfileWithPhotosType = UserProfileType & {
+    photos: {
+        small?: string
+        large?: string
+    }
+}
 
 export const profileApi = {
     async getProfile(userId: number) {
         return instance
-            .get<UserProfileType>(`profile/${userId}`)
-            .then((value) => value.data)
+            .get<UserProfileWithPhotosType>(`profile/${userId}`)
+            .then(parseAxiosResponse)
+            .catch(axiosErrorToString)
     },
-    async setProfile(profile: UserProfileWithoutPhotosType) {
+
+    async setProfile(profile: UserProfileType) {
         return instance
             .put<DataResponseType>(`profile`, profile)
-            .then(responseParsers)
+            .then(parseAxiosResponse)
+            .catch(axiosErrorToString)
+            .then(parseDataResponse)
     },
+
     async getStatus(userId: number) {
         return instance
             .get<string | null>(`profile/status/${userId}`)
-            .then((value) => value.data)
+            .then(parseAxiosResponse)
+            .catch(axiosErrorToString)
     },
-    async setStatus() {
+
+    async setStatus(status: string) {
         return instance
-            .put<DataResponseType>(`profile/status`)
-            .then(responseParsers)
+            .put<DataResponseType>(`profile/status`, { status })
+            .then(parseAxiosResponse)
+            .catch(axiosErrorToString)
+            .then(parseDataResponse)
     },
 }
