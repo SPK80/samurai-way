@@ -1,22 +1,14 @@
-import { useDispatch } from 'react-redux'
 import React, { memo } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useAppSelector } from '../../bll/store'
+import { NavLink } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../../bll/store'
+import { logoutTC } from 'features/loginPage/bll/authReducer'
 
 export const Auth = memo(() => {
     const auth = useAppSelector((state) => state.auth)
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     const onclickLogOutHandler = () => {
-        // authApi
-        //     .logOut()
-        //     .then((data) => {
-        //         // console.log('logOutAC', data)
-        //         navigate('login')
-        //         dispatch(logOutAC())
-        //     })
-        //     .catch(console.log)
+        dispatch(logoutTC())
     }
 
     return (

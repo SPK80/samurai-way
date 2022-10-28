@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import s from './authPage.module.css'
 import { useAppDispatch, useAppSelector } from 'app/bll/store'
 import { RequestStatusType } from 'app/bll/appReducer'
@@ -17,10 +17,11 @@ export const AuthPage = () => {
     const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) =>
         setPassword(e.currentTarget.value)
 
-    const onSubmitHandler = () => {
+    const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
         dispatch(loginTC({ email, password, rememberMe: false }))
         setPassword('')
         setEmail('')
+        e.preventDefault()
     }
 
     return (
