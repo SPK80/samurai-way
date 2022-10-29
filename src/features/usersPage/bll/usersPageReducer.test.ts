@@ -1,29 +1,28 @@
-import {usersPageReducer, UsersPageType} from "./usersPageReducer";
+import { usersPageReducer, UsersPageType } from './usersPageReducer'
 import {
     followUserAC,
     setCurrentPageAC,
     setPageSizeAC,
     setTotalCountAC,
     setUsersAC,
-    unfollowUserAC
-} from "./usersPageActionCreators";
+    unfollowUserAC,
+} from './usersPageActionCreators'
 
-let initialState: UsersPageType;
+let initialState: UsersPageType
 
 beforeEach(() => {
     initialState = {
         currentPage: 1,
         totalCount: 0,
         pageSize: 10,
-        status: "idle",
         usersList: [
             {
                 id: 1,
                 name: 'Dmitry K.',
                 followed: false,
                 photos: {
-                    small: "",
-                    large: "",
+                    small: '',
+                    large: '',
                 },
                 status: 'I am looking for a Job right now..',
             },
@@ -31,8 +30,8 @@ beforeEach(() => {
                 id: 2,
                 name: 'Svetlana D.',
                 photos: {
-                    small: "",
-                    large: "",
+                    small: '',
+                    large: '',
                 },
                 followed: false,
                 status: 'I am so pretty',
@@ -41,13 +40,13 @@ beforeEach(() => {
                 id: 3,
                 name: 'Sergei S.',
                 photos: {
-                    small: "",
-                    large: "",
+                    small: '',
+                    large: '',
                 },
                 followed: true,
                 status: 'I like football!',
             },
-        ]
+        ],
     }
 })
 
@@ -73,7 +72,6 @@ test('Must set 3 users', () => {
         currentPage: 1,
         pageSize: 10,
         totalCount: 0,
-        status: "idle"
     }
     const endState = usersPageReducer(emptyState, action)
     console.log(endState)

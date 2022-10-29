@@ -1,4 +1,4 @@
-import { UsersPageActionTypes } from './usersPageActionCreators'
+import {UsersPageActionTypes} from './usersPageActionCreators'
 
 export type UserType = {
     name: string
@@ -11,35 +11,32 @@ export type UserType = {
     followed: boolean
 }
 
-export type StatusType = 'idle' | 'progress' | 'error'
-
 const initialState = {
     usersList: [] as Array<UserType>,
     pageSize: 5,
     currentPage: 1,
     totalCount: 0,
-    status: 'idle' as StatusType,
 }
 
 export type UsersPageType = typeof initialState
 
 export const usersPageReducer = (
-    state: UsersPageType = initialState,
-    action: UsersPageActionTypes
+  state: UsersPageType = initialState,
+  action: UsersPageActionTypes
 ): UsersPageType => {
     switch (action.type) {
         case 'FOLLOW':
             return {
                 ...state,
                 usersList: state.usersList.map((u) =>
-                    u.id === action.userId ? { ...u, followed: true } : u
+                  u.id === action.userId ? {...u, followed: true} : u
                 ),
             }
         case 'UNFOLLOW':
             return {
                 ...state,
                 usersList: state.usersList.map((u) =>
-                    u.id === action.userId ? { ...u, followed: false } : u
+                  u.id === action.userId ? {...u, followed: false} : u
                 ),
             }
         case 'SET-USERS':
@@ -61,11 +58,6 @@ export const usersPageReducer = (
             return {
                 ...state,
                 pageSize: action.pageSize,
-            }
-        case 'SET-STATUS':
-            return {
-                ...state,
-                status: action.status,
             }
         default:
             return state

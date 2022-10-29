@@ -1,48 +1,21 @@
 import React, { memo, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { StatusType, UserType } from '../bll/usersPageReducer'
-import {
-    setCurrentPageAC,
-    setPageSizeAC,
-    setStatusAC,
-    setTotalCountAC,
-    setUsersAC,
-} from '../bll/usersPageActionCreators'
-import { usersApi } from 'features/usersPage/dal/usersApi'
+import { setCurrentPageAC, setPageSizeAC } from '../bll/usersPageActionCreators'
 import { Progress } from 'common/components/Progress/Progress'
 import { PagesCounter } from 'common/components/PagesCounter/PagesCounter'
 import { UsersList } from './UsersList'
-import { useAppSelector } from 'app/bll/store'
+import { useAppDispatch, useAppSelector } from 'app/bll/store'
+import { fetchUsersTC } from '../bll/thunks'
+import { RequestStatusType } from 'app/bll/appReducer'
 
 export const Users: React.FC = memo(() => {
-    const { totalCount, pageSize, currentPage, usersList, status } =
-        useAppSelector((state) => state.usersPage)
-
-    const dispatch = useDispatch()
-    const setUsers = (usersList: Array<UserType>) =>
-        dispatch(setUsersAC(usersList))
-    const setTotalCount = (totalCount: number) =>
-        dispatch(setTotalCountAC(totalCount))
-    const setStatus = (newStatus: StatusType) =>
-        dispatch(setStatusAC(newStatus))
-
-    const getUsers = () => {
-        setStatus('progress')
-        usersApi
-            .getUsers(currentPage, pageSize)
-            .then((res) => {
-                setTotalCount(res.totalCount ?? 0)
-                setUsers(res.items)
-                setStatus('idle')
-            })
-            .catch(() => {
-                setStatus('error')
-            })
-    }
+    const { totalCount, pageSize, currentPage, usersList } = useAppSelector(
+        (state) => state.usersPage
+    )
+    const { status, error } = useAppSelector((state) => state.app)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
-        getUsers()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        dispatch(fetchUsersTC(currentPage, pageSize))
     }, [currentPage, pageSize])
 
     const onPageSizeSelectedHandler = (pageSize: number) =>
@@ -61,9 +34,11 @@ export const Users: React.FC = memo(() => {
                 onPageSizeSelected={onPageSizeSelectedHandler}
                 onCurrentPageChanged={onCurrentPageChangedHandler}
             />
-            {status === 'progress' && <Progress />}
-            {status === 'error' && <h3 color={'red'}>Error</h3>}
-            {status === 'idle' && <UsersList usersList={usersList} />}
+            {status === RequestStatusType.loading && <Progress />}
+            {error && <h3 color={'red'}>{error}</h3>}
+            {status === RequestStatusType.idle && (
+                <UsersList usersList={usersList} />
+            )}
         </>
     )
 })

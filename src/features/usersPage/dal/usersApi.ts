@@ -1,16 +1,18 @@
 import { UserType } from 'features/usersPage/bll/usersPageReducer'
 import { instance } from 'common/api/instance'
-
-type UsersResponseType = {
-    items: Array<UserType> //| UserType
-    totalCount?: number
-    error?: string
-}
+import {
+    parseAxiosResponse,
+    parseItemsResponse,
+} from 'common/api/responseParsers'
+import { ItemsResponseType } from 'common/api/responseTypes'
 
 export const usersApi = {
     async getUsers(page: number = 1, count: number = 10) {
         return instance
-            .get<UsersResponseType>('users', { params: { page, count } })
-            .then((res) => res.data)
+            .get<ItemsResponseType<UserType>>('users', {
+                params: { page, count },
+            })
+            .then(parseAxiosResponse)
+            .then(parseItemsResponse)
     },
 }

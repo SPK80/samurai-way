@@ -38,7 +38,6 @@ const usersPageInitialState: UsersPageType = {
     currentPage: 1,
     totalCount: 0,
     pageSize: 10,
-    status: 'idle',
     usersList: [
         {
             id: 1,
