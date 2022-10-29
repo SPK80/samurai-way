@@ -43,7 +43,18 @@ export type ProfilePageStateType = {
 const initialState: ProfilePageStateType = {
     userProfile: null,
     newPostText: '',
-    userPosts: [],
+    userPosts: [
+        {
+            id: v1(),
+            text: 'Hi! Its my thirst post.\nI hope it will be cool ))',
+            likesCount: 1,
+        },
+        {
+            id: v1(),
+            text: 'Yo! This is second post.\nI nice too ))',
+            likesCount: 2,
+        },
+    ],
 }
 
 export const profilePageReducer = (
