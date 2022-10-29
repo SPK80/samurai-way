@@ -1,5 +1,5 @@
-import {v1} from "uuid";
-import {addMessageAC, changeNewMessageTextAC} from "./dialogsPageActionCreators";
+import { v1 } from 'uuid'
+import { DialogsPageActionTypes } from './dialogsPageActionCreators'
 
 export type DialogType = {
     id: string
@@ -20,16 +20,19 @@ const addMessage = (state: DialogsPageType): DialogsPageType => {
             ...state.messages,
             {
                 id: v1(),
-                text: newMessageText
-            }
-        ]
+                text: newMessageText,
+            },
+        ],
     }
 }
 
-const changeNewMessageText = (state: DialogsPageType, newMessageText: string): DialogsPageType => {
+const changeNewMessageText = (
+    state: DialogsPageType,
+    newMessageText: string
+): DialogsPageType => {
     return {
         ...state,
-        newMessageText
+        newMessageText,
     }
 }
 
@@ -38,30 +41,28 @@ export type DialogsPageType = typeof initialState
 const initialState = {
     newMessageText: '',
     dialogs: [
-        {id: v1(), name: 'Dimych'},
-        {id: v1(), name: 'Andrey'},
-        {id: v1(), name: 'Sveta'},
+        { id: v1(), name: 'Dimych' },
+        { id: v1(), name: 'Andrey' },
+        { id: v1(), name: 'Sveta' },
     ] as Array<DialogType>,
     messages: [
-        {id: v1(), text: 'Hi'},
-        {id: v1(), text: 'How is your?'},
-        {id: v1(), text: 'Yo'},
+        { id: v1(), text: 'Hi' },
+        { id: v1(), text: 'How is your?' },
+        { id: v1(), text: 'Yo' },
     ] as Array<MessageType>,
 }
 
-
-export type DialogsPageActionTypes =
-  | ReturnType<typeof changeNewMessageTextAC>
-  | ReturnType<typeof addMessageAC>
-
-export const dialogsPageReducer = (state: DialogsPageType = initialState, action: DialogsPageActionTypes): DialogsPageType => {
+export const dialogsPageReducer = (
+    state: DialogsPageType = initialState,
+    action: DialogsPageActionTypes
+): DialogsPageType => {
     switch (action.type) {
-        case "ADD-MESSAGE":
+        case 'ADD-MESSAGE':
             return addMessage(state)
-        
-        case "CHANGE-NEW-MESSAGE-TEXT":
+
+        case 'CHANGE-NEW-MESSAGE-TEXT':
             return changeNewMessageText(state, action.messageText)
-        
+
         default:
             return state
     }
