@@ -18,6 +18,8 @@ export const Users: React.FC = memo(() => {
         dispatch(fetchUsersTC(currentPage, pageSize))
     }, [currentPage, pageSize])
 
+    const onClickHandler = () => dispatch(setPageSizeAC(pageSize + 10))
+
     const onPageSizeSelectedHandler = (pageSize: number) =>
         dispatch(setPageSizeAC(pageSize))
 
@@ -39,6 +41,7 @@ export const Users: React.FC = memo(() => {
             {status === RequestStatus.idle && (
                 <UsersList usersList={usersList} />
             )}
+            <button onClick={onClickHandler}>Show more</button>
         </>
     )
 })
