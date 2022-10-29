@@ -19,3 +19,22 @@
 .posts {
     margin: 10px;
 }
+
+.post {
+    margin: 10px;
+}
+
+.post > div {
+    width: fit-content;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 5px 10px;
+    background-color: #ff8c0029;
+}
+
+.post > pre {
+    width: fit-content;
+    margin: 0;
+    padding: 5px 10px;
+    background-color: #7fff0033;
+}
