@@ -5,7 +5,7 @@ import {
 } from 'redux'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
-import { appReducer, AppActionsType } from './appReducer'
+import { appReducer } from './appReducer'
 import { authReducer, AuthActionsType } from 'features/authPage'
 import {
     profilePageReducer,
@@ -16,6 +16,7 @@ import {
     dialogsPageReducer,
 } from 'features/dialogsPage'
 import { UsersPageActionTypes, usersPageReducer } from 'features/usersPage'
+import { AppActionsType } from './actions'
 
 const rootReducer = combineReducers({
     app: appReducer,

@@ -2,10 +2,10 @@ import { Dispatch } from 'redux'
 import { AuthActionsType, setIsLoggedInAC, setUserDataAC } from './actions'
 import {
     AppActionsType,
-    RequestStatusType,
+    RequestStatus,
     setAppErrorAC,
     setAppStatusAC,
-} from 'app/bll/appReducer'
+} from 'app'
 import { authApi, LoginDataType } from '../dal/authApi'
 
 export const authMe = async (
@@ -17,27 +17,27 @@ export const authMe = async (
     } catch (err: any) {
         dispatch(setAppErrorAC(err))
     } finally {
-        dispatch(setAppStatusAC(RequestStatusType.idle))
+        dispatch(setAppStatusAC(RequestStatus.idle))
     }
 }
 
 export const loginTC =
     (data: LoginDataType) =>
     async (dispatch: Dispatch<AuthActionsType | AppActionsType>) => {
-        dispatch(setAppStatusAC(RequestStatusType.loading))
+        dispatch(setAppStatusAC(RequestStatus.loading))
         try {
             await authApi.login(data)
             await authMe(dispatch)
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
         } finally {
-            dispatch(setAppStatusAC(RequestStatusType.idle))
+            dispatch(setAppStatusAC(RequestStatus.idle))
         }
     }
 
 export const logoutTC =
     () => (dispatch: Dispatch<AuthActionsType | AppActionsType>) => {
-        dispatch(setAppStatusAC(RequestStatusType.loading))
+        dispatch(setAppStatusAC(RequestStatus.loading))
         authApi
             .logout()
             .then(() => {
@@ -45,5 +45,5 @@ export const logoutTC =
                 dispatch(setUserDataAC(null))
             })
             .catch((res) => dispatch(setAppErrorAC(res)))
-            .finally(() => dispatch(setAppStatusAC(RequestStatusType.idle)))
+            .finally(() => dispatch(setAppStatusAC(RequestStatus.idle)))
     }

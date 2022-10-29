@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import s from './Dialogs.module.css'
 import { useDispatch } from 'react-redux'
-import { useAppSelector } from 'app/bll/store'
+import { useAppSelector } from 'app'
 import {
     addMessageAC,
     changeNewMessageTextAC,

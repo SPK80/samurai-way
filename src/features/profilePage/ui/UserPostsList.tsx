@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { UserPost } from './UserPost'
-import { useAppSelector } from 'app/bll/store'
+import { useAppSelector } from 'app'
 
 export const UserPostsList: React.FC = memo(() => {
     const postsState = useAppSelector((state) => state.profilePage.userPosts)

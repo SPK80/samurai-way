@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux'
 import {
     AppActionsType,
-    RequestStatusType,
+    RequestStatus,
     setAppErrorAC,
     setAppStatusAC,
-} from 'app/bll/appReducer'
+} from 'app'
 import { usersApi } from '../dal/usersApi'
 import {
     setTotalCountAC,
@@ -15,7 +15,7 @@ import {
 export const fetchUsersTC =
     (page: number, count: number) =>
     async (dispatch: Dispatch<UsersPageActionTypes | AppActionsType>) => {
-        dispatch(setAppStatusAC(RequestStatusType.loading))
+        dispatch(setAppStatusAC(RequestStatus.loading))
         try {
             const users = await usersApi.getUsers(page, count)
             dispatch(setUsersAC(users.items))
@@ -23,6 +23,6 @@ export const fetchUsersTC =
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
         } finally {
-            dispatch(setAppStatusAC(RequestStatusType.idle))
+            dispatch(setAppStatusAC(RequestStatus.idle))
         }
     }

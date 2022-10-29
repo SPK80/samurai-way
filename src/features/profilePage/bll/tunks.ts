@@ -1,23 +1,23 @@
 import { Dispatch } from 'redux'
 import {
     AppActionsType,
-    RequestStatusType,
+    RequestStatus,
     setAppErrorAC,
     setAppStatusAC,
-} from 'app/bll/appReducer'
+} from 'app'
 import { profileApi } from '../dal/profileApi'
 import { ProfilePageActionTypes, setUserProfileAC } from './actions'
 
 export const fetchProfileTC =
     (userId: number) =>
     async (dispatch: Dispatch<ProfilePageActionTypes | AppActionsType>) => {
-        dispatch(setAppStatusAC(RequestStatusType.loading))
+        dispatch(setAppStatusAC(RequestStatus.loading))
         try {
             const profile = await profileApi.getProfile(userId)
             dispatch(setUserProfileAC(profile))
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
         } finally {
-            dispatch(setAppStatusAC(RequestStatusType.idle))
+            dispatch(setAppStatusAC(RequestStatus.idle))
         }
     }

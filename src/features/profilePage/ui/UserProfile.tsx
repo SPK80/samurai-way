@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react'
 import s from './Profile.module.css'
-import { useAppDispatch, useAppSelector } from 'app/bll/store'
 import { useParams } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from 'app'
 import { getValidIdNumber } from 'common/utils'
 import { fetchProfileTC } from '../bll/tunks'
 

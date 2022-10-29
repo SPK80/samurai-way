@@ -1,21 +1,21 @@
 import { Dispatch } from 'redux'
 import {
     AppActionsType,
-    RequestStatusType,
+    RequestStatus,
     setAppErrorAC,
     setAppStatusAC,
-} from 'app/bll/appReducer'
+} from 'app'
 
 export const commonThunk = async (
     dispatch: Dispatch<AppActionsType>,
     func: () => Promise<any>
 ) => {
-    dispatch(setAppStatusAC(RequestStatusType.loading))
+    dispatch(setAppStatusAC(RequestStatus.loading))
     try {
         await func()
     } catch (err: any) {
         dispatch(setAppErrorAC(err))
     } finally {
-        dispatch(setAppStatusAC(RequestStatusType.idle))
+        dispatch(setAppStatusAC(RequestStatus.idle))
     }
 }

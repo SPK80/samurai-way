@@ -1,7 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import s from './authPage.module.css'
-import { useAppDispatch, useAppSelector } from 'app/bll/store'
-import { RequestStatusType } from 'app/bll/appReducer'
+import { RequestStatus, useAppDispatch, useAppSelector } from 'app'
 import { loginTC } from '../bll/thunks'
 
 export const AuthPage = () => {
@@ -46,9 +45,9 @@ export const AuthPage = () => {
                 </div>
                 <button
                     type={'submit'}
-                    disabled={appStatus === RequestStatusType.loading}
+                    disabled={appStatus === RequestStatus.loading}
                 >
-                    {appStatus === RequestStatusType.loading
+                    {appStatus === RequestStatus.loading
                         ? 'fetching...'
                         : 'Sign In'}
                 </button>

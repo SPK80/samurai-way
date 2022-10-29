@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import s from './Dialogs.module.css'
 import { Message } from './Message'
-import { useAppSelector } from 'app/bll/store'
+import { useAppSelector } from 'app'
 
 export const Messages: React.FC = memo(() => {
     const messagesState = useAppSelector((state) => state.dialogsPage.messages)

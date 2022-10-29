@@ -6,7 +6,7 @@ import defaultAvatar from 'common/assets/avatar.png'
 import { UserType } from '../bll/usersPageReducer'
 import { followUserAC, unfollowUserAC } from '../bll/usersPageActionCreators'
 import { followApi } from 'common/api/followApi'
-import { useAppSelector } from 'app/bll/store'
+import { useAppSelector } from 'app'
 
 type UserPropsType = {
     id: number

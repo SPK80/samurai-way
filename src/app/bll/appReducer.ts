@@ -1,28 +1,17 @@
 import { Dispatch } from 'redux'
 import { authMe } from 'features/authPage'
+import { AppActionsType, RequestStatus } from './actions'
 
 /*============TYPES===================================================================================================*/
-
-export enum RequestStatusType {
-    idle,
-    loading,
-}
-
 export type AppStateType = {
-    status: RequestStatusType
+    status: RequestStatus
     error: string | null
     isInitialized: boolean
 }
-
-export type AppActionsType =
-    | ReturnType<typeof setAppErrorAC>
-    | ReturnType<typeof setAppStatusAC>
-    | ReturnType<typeof setAppInitializedAC>
-
 /*==========REDUCER===================================================================================================*/
 
 const initialState: AppStateType = {
-    status: RequestStatusType.idle,
+    status: RequestStatus.idle,
     error: null,
     isInitialized: false,
 }
@@ -41,22 +30,4 @@ export const appReducer = (
         default:
             return state
     }
-}
-
-/*============ActionCreators==========================================================================================*/
-
-export const setAppErrorAC = (error: string | null) =>
-    ({ type: 'APP/SET-ERROR', error } as const)
-export const setAppStatusAC = (status: RequestStatusType) =>
-    ({ type: 'APP/SET-STATUS', status } as const)
-export const setAppInitializedAC = (isInitialized: boolean) =>
-    ({
-        type: 'APP/SET-IS-INITIALIZED',
-        isInitialized,
-    } as const)
-
-/*==============TunkCreators==========================================================================================*/
-
-export const initializeAppTC = () => (dispatch: Dispatch) => {
-    authMe(dispatch).finally(() => dispatch(setAppInitializedAC(true)))
 }

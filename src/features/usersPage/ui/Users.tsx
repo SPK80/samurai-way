@@ -3,9 +3,9 @@ import { setCurrentPageAC, setPageSizeAC } from '../bll/usersPageActionCreators'
 import { Progress } from 'common/components/Progress/Progress'
 import { PagesCounter } from 'common/components/PagesCounter/PagesCounter'
 import { UsersList } from './UsersList'
-import { useAppDispatch, useAppSelector } from 'app/bll/store'
 import { fetchUsersTC } from '../bll/thunks'
-import { RequestStatusType } from 'app/bll/appReducer'
+import { useAppDispatch, useAppSelector } from 'app'
+import { RequestStatus } from 'app'
 
 export const Users: React.FC = memo(() => {
     const { totalCount, pageSize, currentPage, usersList } = useAppSelector(
@@ -34,9 +34,9 @@ export const Users: React.FC = memo(() => {
                 onPageSizeSelected={onPageSizeSelectedHandler}
                 onCurrentPageChanged={onCurrentPageChangedHandler}
             />
-            {status === RequestStatusType.loading && <Progress />}
+            {status === RequestStatus.loading && <Progress />}
             {error && <h3 color={'red'}>{error}</h3>}
-            {status === RequestStatusType.idle && (
+            {status === RequestStatus.idle && (
                 <UsersList usersList={usersList} />
             )}
         </>
