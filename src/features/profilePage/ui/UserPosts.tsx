@@ -1,10 +1,7 @@
 import React, { ChangeEvent } from 'react'
 import s from './Profile.module.css'
 import { useDispatch } from 'react-redux'
-import {
-    addPostAC,
-    changeNewPostTextAC,
-} from '../bll/profilePageActionCreators'
+import { addPostAC, changeNewPostTextAC } from '../bll/actions'
 import { UserPostsList } from './UserPostsList'
 import { useAppSelector } from 'app/bll/store'
 

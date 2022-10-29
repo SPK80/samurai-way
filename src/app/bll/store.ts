@@ -3,22 +3,22 @@ import {
     combineReducers,
     legacy_createStore as createStore,
 } from 'redux'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import {
     DialogsPageActionTypes,
     dialogsPageReducer,
 } from 'features/dialogsPage/bll/dialogsPageReducer'
 import {
-    ProfilePageActionTypes,
-    profilePageReducer,
-} from 'features/profilePage/bll/profilePageReducer'
-import {
     UsersPageActionTypes,
     usersPageReducer,
 } from 'features/usersPage/bll/usersPageReducer'
 import { authReducer, AuthActionsType } from 'features/authPage'
-import { AppActionsType, appReducer } from './appReducer'
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { appReducer, AppActionsType } from './appReducer'
+import {
+    profilePageReducer,
+    ProfilePageActionTypes,
+} from 'features/profilePage'
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -43,6 +43,7 @@ export type AppDispatch = ThunkDispatch<
     unknown,
     AllActionsType
 >
+
 export type AppThunk<ReturnType = void> = ThunkAction<
     ReturnType,
     AppRootStateType,

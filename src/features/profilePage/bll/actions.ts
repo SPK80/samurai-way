@@ -18,3 +18,8 @@ export const setUserProfileAC = (
         type: 'SET-USER-PROFILE',
         userProfile,
     } as const)
+
+export type ProfilePageActionTypes =
+    | ReturnType<typeof addPostAC>
+    | ReturnType<typeof changeNewPostTextAC>
+    | ReturnType<typeof setUserProfileAC>

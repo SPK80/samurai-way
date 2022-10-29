@@ -1,17 +1,14 @@
 import { v1 } from 'uuid'
-import {
-    addPostAC,
-    changeNewPostTextAC,
-    setUserProfileAC,
-} from './profilePageActionCreators'
 import { UserProfileWithPhotosType } from '../dal/profileApi'
+import { ProfilePageActionTypes } from './actions'
 
 export type PostType = {
     id: string
     text: string
     likesCount: number
 }
-const addPost = (state: ProfilePageType): ProfilePageType => {
+
+const addPost = (state: ProfilePageStateType): ProfilePageStateType => {
     const newPostText = state.newPostText
     return {
         ...state,
@@ -28,36 +25,31 @@ const addPost = (state: ProfilePageType): ProfilePageType => {
 }
 
 const changeNewPostText = (
-    state: ProfilePageType,
+    state: ProfilePageStateType,
     newPostText: string
-): ProfilePageType => {
+): ProfilePageStateType => {
     return {
         ...state,
         newPostText,
     }
 }
 
-export type ProfilePageType = {
+export type ProfilePageStateType = {
     userProfile: UserProfileWithPhotosType | null
     newPostText: string
     userPosts: Array<PostType>
 }
 
-const initialState: ProfilePageType = {
+const initialState: ProfilePageStateType = {
     userProfile: null,
     newPostText: '',
     userPosts: [],
 }
 
-export type ProfilePageActionTypes =
-    | ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewPostTextAC>
-    | ReturnType<typeof setUserProfileAC>
-
 export const profilePageReducer = (
-    state: ProfilePageType = initialState,
+    state: ProfilePageStateType = initialState,
     action: ProfilePageActionTypes
-): ProfilePageType => {
+): ProfilePageStateType => {
     switch (action.type) {
         case 'ADD-POST':
             return addPost(state)

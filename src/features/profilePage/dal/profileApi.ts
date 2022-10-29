@@ -3,8 +3,8 @@ import {
     axiosErrorToString,
     parseAxiosResponse,
     parseDataResponse,
-} from '../../../common/api/responseParsers'
-import { DataResponseType } from '../../../common/api/responseTypes'
+} from 'common/api/responseParsers'
+import { DataResponseType } from 'common/api/responseTypes'
 
 export type UserProfileType = {
     userId: number
