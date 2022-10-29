@@ -1,25 +1,9 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import s from './Profile.module.css'
-import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { profileApi } from '../dal/profileApi'
 import { UserProfile } from './UserProfile'
 import { UserPosts } from './UserPosts'
-import { setUserProfileAC } from '../bll/profilePageActionCreators'
-import { useAppSelector } from 'app/bll/store'
 
 export const ProfilePage: React.FC = memo(() => {
-    let { userId } = useParams()
-    const authUserId = useAppSelector((state) => state.auth.userData?.id)
-
-    const dispatch = useDispatch()
-    useEffect(() => {
-        if (!userId && !authUserId) return
-        profileApi
-            .getProfile(Number(userId ?? authUserId))
-            .then((res) => dispatch(setUserProfileAC(res)))
-    }, [authUserId, userId])
-
     return (
         <div className={s.profile}>
             <img
