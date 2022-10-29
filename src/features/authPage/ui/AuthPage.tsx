@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import s from './authPage.module.css'
 import { useAppDispatch, useAppSelector } from 'app/bll/store'
 import { RequestStatusType } from 'app/bll/appReducer'
-import { loginTC } from '../bll/authReducer'
+import { loginTC } from '../bll/thunks'
 
 export const AuthPage = () => {
     const [email, setEmail] = useState('')

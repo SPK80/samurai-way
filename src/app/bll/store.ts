@@ -3,6 +3,7 @@ import {
     combineReducers,
     legacy_createStore as createStore,
 } from 'redux'
+import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import {
     DialogsPageActionTypes,
     dialogsPageReducer,
@@ -15,13 +16,9 @@ import {
     UsersPageActionTypes,
     usersPageReducer,
 } from 'features/usersPage/bll/usersPageReducer'
-import {
-    AuthActionsType,
-    authReducer,
-} from 'features/loginPage/bll/authReducer'
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { authReducer, AuthActionsType } from 'features/authPage'
 import { AppActionsType, appReducer } from './appReducer'
-import thunkMiddleware, { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 
 const rootReducer = combineReducers({
     app: appReducer,

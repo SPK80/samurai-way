@@ -1,6 +1,5 @@
 import { Dispatch } from 'redux'
-import { authApi } from 'features/loginPage/dal/authApi'
-import { authMe, setIsLoggedInAC } from 'features/loginPage/bll/authReducer'
+import { authMe } from 'features/authPage'
 
 /*============TYPES===================================================================================================*/
 
@@ -60,9 +59,4 @@ export const setAppInitializedAC = (isInitialized: boolean) =>
 
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authMe(dispatch).finally(() => dispatch(setAppInitializedAC(true)))
-    // authApi
-    //     .me()
-    //     .then(() => dispatch(setIsLoggedInAC(true)))
-    //     .catch((res) => dispatch(setAppErrorAC(res)))
-    //     .finally(() => dispatch(setAppInitializedAC(true)))
 }

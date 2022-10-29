@@ -1,15 +1,13 @@
 import React, { memo } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../bll/store'
-import { logoutTC } from 'features/loginPage/bll/authReducer'
+import { logoutTC } from 'features/authPage'
 
 export const Auth = memo(() => {
     const auth = useAppSelector((state) => state.auth)
     const dispatch = useAppDispatch()
 
-    const onclickLogOutHandler = () => {
-        dispatch(logoutTC())
-    }
+    const onclickLogOutHandler = () => dispatch(logoutTC())
 
     return (
         <div>
@@ -20,7 +18,7 @@ export const Auth = memo(() => {
                     <button onClick={onclickLogOutHandler}>LogOut</button>
                 </>
             ) : (
-                <NavLink to={'/loginPage'}>Login</NavLink>
+                <NavLink to={'/authPage'}>Login</NavLink>
             )}
         </div>
     )

@@ -1,0 +1,5 @@
+export { AuthPage } from './ui/AuthPage'
+export { authReducer } from './bll/authReducer'
+export { authMe, logoutTC, loginTC } from './bll/thunks'
+export type { AuthActionsType } from './bll/actions'
+export type { AuthStateType } from './bll/authReducer'

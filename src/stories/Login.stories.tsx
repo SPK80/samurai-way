@@ -1,6 +1,6 @@
 import React from 'react'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
-import { AuthPage } from 'features/loginPage'
+import { AuthPage } from 'features/authPage'
 import { ReduxStoreProviderDecorator } from './decorators/ReduxStoreProviderDecorator'
 import { BrowserRouterDecorator } from './decorators/BrowserRouterDecorator'
 

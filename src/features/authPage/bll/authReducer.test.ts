@@ -1,4 +1,4 @@
-import { authReducer, AuthStateType } from './authReducer'
+import { AuthStateType } from './authReducer'
 import { AuthUserDataType } from '../dal/authApi'
 
 let initialState: AuthStateType
@@ -22,7 +22,7 @@ beforeEach(() => {
 //     })
 // })
 //
-// test('loginPage must be seted', () => {
+// test('authPage must be seted', () => {
 //     const newState = authReducer(initialState, setLoginAC('test'))
 //     expect(newState.login).toBe('test')
 // })

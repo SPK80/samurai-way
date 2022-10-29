@@ -8,7 +8,7 @@ import { ProfilePage } from 'features/profilePage'
 import { UsersPage } from 'features/usersPage'
 import { Navbar } from '../Navbar/Navbar'
 import { Header } from '../Header/Header'
-import { AuthPage } from 'features/loginPage'
+import { AuthPage } from 'features/authPage'
 
 export const AppContent: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -29,7 +29,7 @@ export const AppContent: React.FC = () => {
                         path={'*'}
                         element={<Navigate to={`/profile/${userId ?? ''}`} />}
                     />
-                    <Route path={'/loginPage'} element={<AuthPage />} />
+                    <Route path={'/authPage'} element={<AuthPage />} />
                     <Route path={'/profile'} element={<ProfilePage />} />
                     <Route
                         path={'/profile/:userId'}

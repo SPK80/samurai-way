@@ -7,7 +7,7 @@ import {
     usersPageReducer,
     UsersPageType,
 } from 'features/usersPage/bll/usersPageReducer'
-import { authReducer, AuthStateType } from 'features/loginPage/bll/authReducer'
+import { authReducer, AuthStateType } from 'features/authPage/bll/authReducer'
 
 const getObjWithoutType = <AT extends { type: string }>(action: AT) =>
     Object.fromEntries(Object.entries(action).filter(([key]) => key !== 'type'))
