@@ -1,5 +1,5 @@
 import { v1 } from 'uuid'
-import { DialogsPageActionTypes } from './dialogsPageActionCreators'
+import { DialogsPageActionTypes } from './actions'
 
 export type DialogType = {
     id: string

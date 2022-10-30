@@ -1,4 +1,4 @@
-import { UsersPageActionTypes } from './usersPageActionCreators'
+import { UsersPageActionTypes } from './actions'
 import { initialRequestingState, RequestingStateType } from 'common/types'
 
 export type UserType = {

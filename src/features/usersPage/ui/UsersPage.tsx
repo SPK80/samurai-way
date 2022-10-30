@@ -5,7 +5,7 @@ import { RequestStatus } from 'common/types'
 import { Progress } from 'common/components/Progress/Progress'
 import { UsersList } from './UsersList'
 import { fetchUsersTC } from '../bll/thunks'
-import { setCurrentPageAC, setPageSizeAC } from '../bll/usersPageActionCreators'
+import { setCurrentPageAC, setPageSizeAC } from '../bll/actions'
 
 export const UsersPage: React.FC = memo(() => {
     const { totalCount, pageSize, currentPage } = useAppSelector(

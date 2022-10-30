@@ -1,24 +1,28 @@
-import {v1} from "uuid";
-import {dialogsPageReducer, DialogsPageType, DialogType, MessageType} from "./dialogsPageReducer";
-import {addMessageAC, changeNewMessageTextAC} from "./dialogsPageActionCreators";
+import { v1 } from 'uuid'
+import {
+    dialogsPageReducer,
+    DialogsPageType,
+    DialogType,
+    MessageType,
+} from './dialogsPageReducer'
+import { addMessageAC, changeNewMessageTextAC } from './actions'
 
-let initialState: DialogsPageType;
+let initialState: DialogsPageType
 
 beforeEach(() => {
     initialState = {
         newMessageText: 'test message',
         dialogs: [
-            {id: v1(), name: 'Dimych'},
-            {id: v1(), name: 'Andrey'},
-            {id: v1(), name: 'Sveta'},
+            { id: v1(), name: 'Dimych' },
+            { id: v1(), name: 'Andrey' },
+            { id: v1(), name: 'Sveta' },
         ] as Array<DialogType>,
         messages: [
-            {id: v1(), text: 'Hi'},
-            {id: v1(), text: 'How is your?'},
-            {id: v1(), text: 'Yo'},
+            { id: v1(), text: 'Hi' },
+            { id: v1(), text: 'How is your?' },
+            { id: v1(), text: 'Yo' },
         ] as Array<MessageType>,
     }
-    
 })
 
 test('new message must be added', () => {

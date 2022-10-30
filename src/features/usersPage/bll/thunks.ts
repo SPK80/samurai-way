@@ -8,7 +8,7 @@ import {
     setUserRequestStatusAC,
     setUsersAC,
     UsersPageActionTypes,
-} from './usersPageActionCreators'
+} from './actions'
 import { followApi } from '../dal/followApi'
 import { RequestStatus } from 'common/types'
 

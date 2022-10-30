@@ -1,11 +1,11 @@
-import {usersPageReducer, UsersPageType} from './usersPageReducer'
+import { usersPageReducer, UsersPageType } from './usersPageReducer'
 import {
     setCurrentPageAC,
     setPageSizeAC,
     setTotalCountAC,
     setUsersAC,
-} from './usersPageActionCreators'
-import {initialRequestingState} from "../../../common/types";
+} from './actions'
+import { initialRequestingState } from 'common/types'
 
 let initialState: UsersPageType
 

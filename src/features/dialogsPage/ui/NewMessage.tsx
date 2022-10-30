@@ -2,10 +2,7 @@ import React, { ChangeEvent } from 'react'
 import s from './Dialogs.module.css'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from 'app'
-import {
-    addMessageAC,
-    changeNewMessageTextAC,
-} from '../bll/dialogsPageActionCreators'
+import { addMessageAC, changeNewMessageTextAC } from '../bll/actions'
 
 export const NewMessage: React.FC = () => {
     const newMessageTextState = useAppSelector(
