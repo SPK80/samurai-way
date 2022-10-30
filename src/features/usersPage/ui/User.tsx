@@ -1,41 +1,21 @@
-import React from 'react'
+import React, { memo } from 'react'
 import s from './user.module.css'
-import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import defaultAvatar from 'common/assets/avatar.png'
 import { UserType } from '../bll/usersPageReducer'
-import { followUserAC, unfollowUserAC } from '../bll/usersPageActionCreators'
-import { followApi } from 'common/api/followApi'
-import { useAppSelector } from 'app'
+import { useAppDispatch, useAppSelector } from 'app'
+import { setFollowTC } from '../bll/thunks'
 
-type UserPropsType = {
-    id: number
-}
-
-export const User: React.FC<UserPropsType> = ({ id }) => {
+export const User: React.FC<{ id: number }> = memo(({ id }) => {
     const userData = useAppSelector(
         (state) =>
             state.usersPage.usersList.find((u) => u.id === id) ??
             ({} as UserType)
     )
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const onClickFollowHandler = () => {
-        if (userData.followed)
-            followApi
-                .unfollow(userData.id)
-                .then((data) => {
-                    dispatch(unfollowUserAC(userData.id))
-                })
-                .catch(console.log)
-
-        if (!userData.followed)
-            followApi
-                .follow(userData.id)
-                .then((data) => {
-                    dispatch(followUserAC(userData.id))
-                })
-                .catch(console.log)
+        dispatch(setFollowTC(userData.id, !userData.followed))
     }
 
     const avatarUrl =
@@ -62,4 +42,4 @@ export const User: React.FC<UserPropsType> = ({ id }) => {
             </div>
         </div>
     )
-}
+})

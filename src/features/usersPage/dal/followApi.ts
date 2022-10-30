@@ -1,14 +1,16 @@
-import { instance } from './instance'
-import { DataResponseType } from './responseTypes'
+import { instance } from 'common/api/instance'
+import { DataResponseType } from 'common/api/responseTypes'
 import {
     axiosErrorToString,
     parseAxiosResponse,
     parseDataResponse,
-} from './responseParsers'
+} from 'common/api/responseParsers'
 
 export const followApi = {
-    async getFollow(userId: number) {
-        return instance.get<boolean>('follow/' + userId).then((res) => res.data)
+    async getFollowed(userId: number) {
+        return instance
+            .get<boolean>('follow/' + userId)
+            .then(parseAxiosResponse)
     },
     async follow(userId: number) {
         return instance

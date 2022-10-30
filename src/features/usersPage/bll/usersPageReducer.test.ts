@@ -1,11 +1,9 @@
 import { usersPageReducer, UsersPageType } from './usersPageReducer'
 import {
-    followUserAC,
     setCurrentPageAC,
     setPageSizeAC,
     setTotalCountAC,
     setUsersAC,
-    unfollowUserAC,
 } from './usersPageActionCreators'
 
 let initialState: UsersPageType
@@ -48,20 +46,6 @@ beforeEach(() => {
             },
         ],
     }
-})
-
-test('Must follow 2nd user', () => {
-    const action = followUserAC(2)
-    const endState = usersPageReducer(initialState, action)
-    console.log(endState)
-    expect(endState.usersList[1].followed).toBeTruthy()
-})
-
-test('Must unfollow 3nd user', () => {
-    const action = unfollowUserAC(3)
-    const endState = usersPageReducer(initialState, action)
-    console.log(endState)
-    expect(endState.usersList[2].followed).toBeFalsy()
 })
 
 test('Must set 3 users', () => {

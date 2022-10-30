@@ -1,4 +1,4 @@
-import {UsersPageActionTypes} from './usersPageActionCreators'
+import { UsersPageActionTypes } from './usersPageActionCreators'
 
 export type UserType = {
     name: string
@@ -21,22 +21,17 @@ const initialState = {
 export type UsersPageType = typeof initialState
 
 export const usersPageReducer = (
-  state: UsersPageType = initialState,
-  action: UsersPageActionTypes
+    state: UsersPageType = initialState,
+    action: UsersPageActionTypes
 ): UsersPageType => {
     switch (action.type) {
-        case 'FOLLOW':
+        case 'SET-FOLLOW':
             return {
                 ...state,
                 usersList: state.usersList.map((u) =>
-                  u.id === action.userId ? {...u, followed: true} : u
-                ),
-            }
-        case 'UNFOLLOW':
-            return {
-                ...state,
-                usersList: state.usersList.map((u) =>
-                  u.id === action.userId ? {...u, followed: false} : u
+                    u.id === action.userId
+                        ? { ...u, followed: action.followed }
+                        : u
                 ),
             }
         case 'SET-USERS':

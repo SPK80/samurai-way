@@ -1,15 +1,10 @@
 import { UserType } from './usersPageReducer'
 
-export const followUserAC = (userId: number) =>
+export const setFollowedAC = (userId: number, followed: boolean) =>
     ({
-        type: 'FOLLOW',
+        type: 'SET-FOLLOW',
         userId,
-    } as const)
-
-export const unfollowUserAC = (userId: number) =>
-    ({
-        type: 'UNFOLLOW',
-        userId,
+        followed,
     } as const)
 
 export const setUsersAC = (usersList: Array<UserType>) =>
@@ -37,9 +32,8 @@ export const setPageSizeAC = (pageSize: number) =>
     } as const)
 
 export type UsersPageActionTypes =
-    | ReturnType<typeof followUserAC>
-    | ReturnType<typeof unfollowUserAC>
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalCountAC>
     | ReturnType<typeof setPageSizeAC>
+    | ReturnType<typeof setFollowedAC>
