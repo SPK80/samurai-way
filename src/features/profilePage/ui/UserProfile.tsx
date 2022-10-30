@@ -24,10 +24,38 @@ export const UserProfile: React.FC = memo(() => {
                 src={userProfile.photos.large || userProfile.photos.small}
                 alt="avatar"
             />
-            <div>{userProfile.fullName}</div>
+            <FieldView text={userProfile.fullName} />
             {userProfile.lookingForAJob && (
-                <div>{userProfile.lookingForAJobDescription}</div>
+                <FieldView text={userProfile.lookingForAJobDescription} />
             )}
+            <ObjectView object={userProfile.contacts} />
         </div>
     )
 })
+
+const FieldView: React.FC<{ caption?: string; text: string | null }> = ({
+    caption,
+    text,
+}) => {
+    if (!text) return <></>
+    return (
+        <div>
+            {caption && <span>{caption}:</span>}
+            <span>{text}</span>
+        </div>
+    )
+}
+
+const ObjectView: React.FC<{ object: any }> = ({ object }) => {
+    const fields = Object.getOwnPropertyNames(object).filter(
+        (key) => object[key]
+    )
+    if (fields.length === 0) return <></>
+    return (
+        <div>
+            {fields.map((key) => (
+                <FieldView caption={key} text={object[key]} />
+            ))}
+        </div>
+    )
+}
