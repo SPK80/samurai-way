@@ -1,18 +1,16 @@
 import { Dispatch } from 'redux'
-import {
-    AppActionsType,
-    RequestStatus,
-    setAppErrorAC,
-    setAppStatusAC,
-} from 'app'
+import { AppActionsType, setAppErrorAC, setAppStatusAC } from 'app'
 import { usersApi } from '../dal/usersApi'
 import {
     setFollowedAC,
     setTotalCountAC,
+    setUserRequestErrorAC,
+    setUserRequestStatusAC,
     setUsersAC,
     UsersPageActionTypes,
 } from './usersPageActionCreators'
 import { followApi } from '../dal/followApi'
+import { RequestStatus } from 'common/types'
 
 export const fetchUsersTC =
     (page: number, count: number) =>
@@ -44,15 +42,17 @@ export const getFollowedTC =
     }
 
 export const setFollowTC =
-    (userId: number, followed: boolean) =>
+    (userId: number, follow: boolean) =>
     async (dispatch: Dispatch<UsersPageActionTypes | AppActionsType>) => {
-        dispatch(setAppStatusAC(RequestStatus.loading))
+        dispatch(setUserRequestStatusAC(userId, RequestStatus.loading))
         try {
-            await followApi.follow(userId)
-            dispatch(setFollowedAC(userId, followed))
+            if (follow) await followApi.follow(userId)
+            else await followApi.unfollow(userId)
+            dispatch(setFollowedAC(userId, follow))
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
+            dispatch(setUserRequestErrorAC(userId, err))
         } finally {
-            dispatch(setAppStatusAC(RequestStatus.idle))
+            dispatch(setUserRequestStatusAC(userId, RequestStatus.idle))
         }
     }

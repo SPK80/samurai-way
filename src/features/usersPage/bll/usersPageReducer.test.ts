@@ -1,10 +1,11 @@
-import { usersPageReducer, UsersPageType } from './usersPageReducer'
+import {usersPageReducer, UsersPageType} from './usersPageReducer'
 import {
     setCurrentPageAC,
     setPageSizeAC,
     setTotalCountAC,
     setUsersAC,
 } from './usersPageActionCreators'
+import {initialRequestingState} from "../../../common/types";
 
 let initialState: UsersPageType
 
@@ -23,6 +24,7 @@ beforeEach(() => {
                     large: '',
                 },
                 status: 'I am looking for a Job right now..',
+                request: initialRequestingState(),
             },
             {
                 id: 2,
@@ -33,6 +35,7 @@ beforeEach(() => {
                 },
                 followed: false,
                 status: 'I am so pretty',
+                request: initialRequestingState(),
             },
             {
                 id: 3,
@@ -43,6 +46,7 @@ beforeEach(() => {
                 },
                 followed: true,
                 status: 'I like football!',
+                request: initialRequestingState(),
             },
         ],
     }

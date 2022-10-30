@@ -1,4 +1,5 @@
 import { UserType } from './usersPageReducer'
+import { ErrorType, RequestStatus } from 'common/types'
 
 export const setFollowedAC = (userId: number, followed: boolean) =>
     ({
@@ -31,9 +32,25 @@ export const setPageSizeAC = (pageSize: number) =>
         pageSize,
     } as const)
 
+export const setUserRequestStatusAC = (id: number, status: RequestStatus) =>
+    ({
+        type: 'SET-USER-REQUEST-STATUS',
+        id,
+        status,
+    } as const)
+
+export const setUserRequestErrorAC = (id: number, error: ErrorType) =>
+    ({
+        type: 'SET-USER-REQUEST-ERROR',
+        id,
+        error,
+    } as const)
+
 export type UsersPageActionTypes =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setTotalCountAC>
     | ReturnType<typeof setPageSizeAC>
     | ReturnType<typeof setFollowedAC>
+    | ReturnType<typeof setUserRequestStatusAC>
+    | ReturnType<typeof setUserRequestErrorAC>

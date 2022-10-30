@@ -1,12 +1,8 @@
 import { Dispatch } from 'redux'
-import {
-    AppActionsType,
-    RequestStatus,
-    setAppErrorAC,
-    setAppStatusAC,
-} from 'app'
+import { AppActionsType, setAppErrorAC, setAppStatusAC } from 'app'
 import { profileApi } from '../dal/profileApi'
 import { ProfilePageActionTypes, setUserProfileAC } from './actions'
+import { RequestStatus } from 'common/types'
 
 export const fetchProfileTC =
     (userId: number) =>

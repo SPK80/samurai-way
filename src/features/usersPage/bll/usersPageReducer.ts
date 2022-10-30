@@ -1,4 +1,5 @@
 import { UsersPageActionTypes } from './usersPageActionCreators'
+import { initialRequestingState, RequestingStateType } from 'common/types'
 
 export type UserType = {
     name: string
@@ -12,7 +13,7 @@ export type UserType = {
 }
 
 const initialState = {
-    usersList: [] as Array<UserType>,
+    usersList: [] as Array<UserType & RequestingStateType>,
     pageSize: 5,
     currentPage: 1,
     totalCount: 0,
@@ -37,7 +38,10 @@ export const usersPageReducer = (
         case 'SET-USERS':
             return {
                 ...state,
-                usersList: [...action.usersList],
+                usersList: action.usersList.map((u) => ({
+                    ...u,
+                    request: initialRequestingState(),
+                })),
             }
         case 'SET-CURRENT-PAGE':
             return {
@@ -54,6 +58,32 @@ export const usersPageReducer = (
                 ...state,
                 pageSize: action.pageSize,
             }
+        case 'SET-USER-REQUEST-STATUS':
+            return {
+                ...state,
+                usersList: state.usersList.map((u) =>
+                    u.id === action.id
+                        ? {
+                              ...u,
+                              request: { ...u.request, status: action.status },
+                          }
+                        : u
+                ),
+            }
+
+        case 'SET-USER-REQUEST-ERROR':
+            return {
+                ...state,
+                usersList: state.usersList.map((u) =>
+                    u.id === action.id
+                        ? {
+                              ...u,
+                              request: { ...u.request, error: action.error },
+                          }
+                        : u
+                ),
+            }
+
         default:
             return state
     }

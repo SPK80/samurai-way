@@ -1,12 +1,13 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import s from './authPage.module.css'
-import { RequestStatus, useAppDispatch, useAppSelector } from 'app'
+import { useAppDispatch, useAppSelector } from 'app'
 import { loginTC } from '../bll/thunks'
+import { RequestStatus } from '../../../common/types'
 
 export const AuthPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const appStatus = useAppSelector((state) => state.app.status)
+    const appStatus = useAppSelector((state) => state.app.request.status)
     const dispatch = useAppDispatch()
 
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {

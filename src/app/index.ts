@@ -1,7 +1,6 @@
 export { App } from './ui/App'
 export { appReducer } from 'app/bll/appReducer'
 export {
-    RequestStatus,
     setAppStatusAC,
     setAppInitializedAC,
     setAppErrorAC,

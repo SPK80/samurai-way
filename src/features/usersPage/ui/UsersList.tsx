@@ -1,15 +1,14 @@
 import React, { memo } from 'react'
-import { UserType } from '../bll/usersPageReducer'
 import { User } from './User'
+import { useAppSelector } from 'app'
 
-type UsersListPropsType = {
-    usersList: Array<UserType>
-}
-
-export const UsersList: React.FC<UsersListPropsType> = memo(({ usersList }) => (
-    <>
-        {usersList.map((u) => (
-            <User key={u.id} id={u.id} />
-        ))}
-    </>
-))
+export const UsersList: React.FC = memo(() => {
+    const { usersList } = useAppSelector((state) => state.usersPage)
+    return (
+        <>
+            {usersList.map((u) => (
+                <User key={u.id} userData={u} />
+            ))}
+        </>
+    )
+})

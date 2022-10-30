@@ -1,12 +1,8 @@
 import { Dispatch } from 'redux'
 import { AuthActionsType, setIsLoggedInAC, setUserDataAC } from './actions'
-import {
-    AppActionsType,
-    RequestStatus,
-    setAppErrorAC,
-    setAppStatusAC,
-} from 'app'
+import { AppActionsType, setAppErrorAC, setAppStatusAC } from 'app'
 import { authApi, LoginDataType } from '../dal/authApi'
+import { RequestStatus } from 'common/types'
 
 export const authMe = async (
     dispatch: Dispatch<AuthActionsType | AppActionsType>

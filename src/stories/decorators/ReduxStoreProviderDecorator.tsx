@@ -8,6 +8,7 @@ import {
     UsersPageType,
 } from 'features/usersPage/bll/usersPageReducer'
 import { authReducer, AuthStateType } from 'features/authPage/bll/authReducer'
+import { initialRequestingState } from 'common/types'
 
 const getObjWithoutType = <AT extends { type: string }>(action: AT) =>
     Object.fromEntries(Object.entries(action).filter(([key]) => key !== 'type'))
@@ -48,6 +49,7 @@ const usersPageInitialState: UsersPageType = {
                 large: '',
             },
             status: 'I am looking for a Job right now..',
+            request: initialRequestingState(),
         },
         {
             id: 2,
@@ -58,6 +60,7 @@ const usersPageInitialState: UsersPageType = {
             },
             followed: false,
             status: 'I am so pretty',
+            request: initialRequestingState(),
         },
         {
             id: 3,
@@ -68,6 +71,7 @@ const usersPageInitialState: UsersPageType = {
             },
             followed: true,
             status: 'I like football!',
+            request: initialRequestingState(),
         },
     ],
 }

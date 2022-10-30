@@ -3,6 +3,7 @@ import { User } from 'features/usersPage/ui/User'
 import { ReduxStoreProviderDecorator } from './decorators/ReduxStoreProviderDecorator'
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import { BrowserRouterDecorator } from './decorators/BrowserRouterDecorator'
+import { initialRequestingState } from '../common/types'
 
 export default {
     title: 'User',
@@ -10,7 +11,18 @@ export default {
     decorators: [BrowserRouterDecorator, ReduxStoreProviderDecorator],
 } as ComponentMeta<typeof User>
 
-const Template: ComponentStory<typeof User> = (args) => <User id={args.id} />
+const Template: ComponentStory<typeof User> = (args) => (
+    <User userData={args.userData} />
+)
 
 export const UserStory = Template.bind({})
-UserStory.args = { id: 1 }
+UserStory.args = {
+    userData: {
+        id: 1,
+        status: 'status',
+        name: 'name',
+        followed: false,
+        photos: { small: '', large: '' },
+        request: initialRequestingState(),
+    },
+}

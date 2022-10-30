@@ -1,10 +1,6 @@
 import { Dispatch } from 'redux'
-import {
-    AppActionsType,
-    RequestStatus,
-    setAppErrorAC,
-    setAppStatusAC,
-} from 'app'
+import { AppActionsType, setAppErrorAC, setAppStatusAC } from 'app'
+import { RequestStatus } from './types'
 
 export const commonThunk = async (
     dispatch: Dispatch<AppActionsType>,

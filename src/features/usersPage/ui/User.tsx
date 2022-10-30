@@ -3,15 +3,15 @@ import s from './user.module.css'
 import { NavLink } from 'react-router-dom'
 import defaultAvatar from 'common/assets/avatar.png'
 import { UserType } from '../bll/usersPageReducer'
-import { useAppDispatch, useAppSelector } from 'app'
+import { useAppDispatch } from 'app'
 import { setFollowTC } from '../bll/thunks'
+import { RequestingStateType, RequestStatus } from 'common/types'
 
-export const User: React.FC<{ id: number }> = memo(({ id }) => {
-    const userData = useAppSelector(
-        (state) =>
-            state.usersPage.usersList.find((u) => u.id === id) ??
-            ({} as UserType)
-    )
+type PropsType = {
+    userData: UserType & RequestingStateType
+}
+
+export const User: React.FC<PropsType> = memo(({ userData }) => {
     const dispatch = useAppDispatch()
 
     const onClickFollowHandler = () => {
@@ -23,11 +23,15 @@ export const User: React.FC<{ id: number }> = memo(({ id }) => {
     return (
         <div className={s.user}>
             <div className={s.avatarAndFollowContainer}>
-                <NavLink to={'/profile/' + id}>
+                <NavLink to={'/profile/' + userData.id}>
                     <img src={avatarUrl} alt="avatar" />
                 </NavLink>
                 <button onClick={onClickFollowHandler}>
-                    {userData.followed ? 'Unfollow' : 'Follow'}
+                    {userData.request.status === RequestStatus.loading
+                        ? 'pending...'
+                        : userData.followed
+                        ? 'Unfollow'
+                        : 'Follow'}
                 </button>
             </div>
             <div className={s.userDataContainer}>
@@ -35,10 +39,6 @@ export const User: React.FC<{ id: number }> = memo(({ id }) => {
                     <div className={s.name}>{userData.name}</div>
                     <div className={s.status}>{userData.status}</div>
                 </div>
-                {/*<div className={s.location}>*/}
-                {/*    <div>{userData.location.country},</div>*/}
-                {/*    <div>{userData.location.city}</div>*/}
-                {/*</div>*/}
             </div>
         </div>
     )
