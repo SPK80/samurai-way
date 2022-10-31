@@ -4,10 +4,14 @@
   "private": true,
   "homepage": "https://spk80.github.io/samurai-way/",
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/material": "^5.10.1",
     "@testing-library/jest-dom": "5.16.4",
     "@testing-library/react": "13.3.0",
     "@testing-library/user-event": "14.3.0",
-    "antd": "4.21.7",
     "axios": "0.27.2",
     "classnames": "2.3.1",
     "formik": "2.2.9",
@@ -22,6 +26,7 @@
     "redux-form": "8.3.8",
     "redux-thunk": "2.4.1",
     "reselect": "4.1.6",
+    "styled-components": "^5.3.6",
     "typescript": "4.7.4",
     "uuid": "^8.3.2",
     "web-vitals": "2.1.4"
