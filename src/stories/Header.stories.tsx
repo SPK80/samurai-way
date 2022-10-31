@@ -10,8 +10,6 @@ export default {
     decorators: [ReduxStoreProviderDecorator, BrowserRouterDecorator],
 }
 
-const Template: ComponentStory<typeof Header> = (args) => (
-    <Header title={'Header Story'} />
-)
+const Template: ComponentStory<typeof Header> = () => <Header />
 
 export const HeaderStory = Template.bind({})
