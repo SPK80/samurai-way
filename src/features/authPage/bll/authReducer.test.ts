@@ -7,6 +7,7 @@ beforeEach(() => {
     initialState = {
         isLoggedIn: false,
         userData: null as AuthUserDataType | null,
+        avatar: null,
     }
 })
 

@@ -1,22 +1,19 @@
-import React, { useEffect } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
-import Container from '@mui/material/Container'
-import { CircularProgress, LinearProgress } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../bll/store'
-import { DialogsPage } from 'features/dialogsPage'
-import { ProfilePage } from 'features/profilePage'
-import { UsersPage } from 'features/usersPage'
-import { AuthPage } from 'features/authPage'
 import { initializeAppTC } from '../../bll/thunks'
-import { RequestStatus } from 'common/types'
-import { ErrorSnackbar } from 'common/components/ErrorSnackbar'
+import { theme } from '../theme'
 import { Header } from '../Header/Header'
+import { Navbar } from '../Navbar/Navbar'
+import { AppRoutes } from './AppRoutes'
+import { RequestStatus } from 'common/types'
+import { CircularProgress, LinearProgress } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
+import { ThemeProvider } from '@mui/material/styles'
 
 export const AppContent: React.FC = () => {
     const dispatch = useAppDispatch()
     const requestStatus = useAppSelector((state) => state.app.request.status)
-    const userId = useAppSelector((state) => state.auth.userData?.id)
     const isInitialized = useAppSelector((state) => state.app.isInitialized)
 
     useEffect(() => {
@@ -25,26 +22,29 @@ export const AppContent: React.FC = () => {
 
     if (!isInitialized) return <CircularProgress />
     return (
-        <Box sx={{ padding: '10px', flexGrow: 1 }}>
-            <ErrorSnackbar />
-            <Container fixed style={{ margin: 0 }}>
+        <ThemeProvider theme={theme}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    minHeight: '100%',
+                    flexDirection: 'column',
+                    bgcolor: '#eaeff1',
+                }}
+            >
+                <CssBaseline />
                 <Header />
                 {requestStatus === RequestStatus.loading && <LinearProgress />}
-                <Routes>
-                    <Route
-                        path={'*'}
-                        element={<Navigate to={`/profile/${userId ?? ''}`} />}
-                    />
-                    <Route path={'/authPage'} element={<AuthPage />} />
-                    <Route path={'/profile'} element={<ProfilePage />} />
-                    <Route
-                        path={'/profile/:userId'}
-                        element={<ProfilePage />}
-                    />
-                    <Route path={'/dialogs/*'} element={<DialogsPage />} />
-                    <Route path={'/users'} element={<UsersPage />} />
-                </Routes>
-            </Container>
-        </Box>
+
+                <Box sx={{ display: 'flex', flex: '1 1 auto' }}>
+                    <Navbar />
+                    <Box
+                        component="main"
+                        sx={{ flex: 1, py: 6, px: 4, mh: '100hv' }}
+                    >
+                        <AppRoutes />
+                    </Box>
+                </Box>
+            </Box>
+        </ThemeProvider>
     )
 }

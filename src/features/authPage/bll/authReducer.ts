@@ -6,6 +6,7 @@ export type AuthStateType = typeof initialState
 const initialState = {
     isLoggedIn: false,
     userData: null as AuthUserDataType | null,
+    avatar: null as string | null,
 }
 
 export const authReducer = (
@@ -13,10 +14,12 @@ export const authReducer = (
     action: AuthActionsType
 ): AuthStateType => {
     switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
+        case 'AUTH/SET-IS-LOGGED-IN':
             return { ...state, isLoggedIn: action.isLoggedIn }
-        case 'login/SET-USER-DATA':
+        case 'AUTH/SET-USER-DATA':
             return { ...state, userData: action.userData }
+        case 'AUTH/SET-AVATAR':
+            return { ...state, avatar: action.avatar }
         default:
             return state
     }

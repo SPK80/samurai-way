@@ -1,8 +1,14 @@
 import { Dispatch } from 'redux'
-import { AuthActionsType, setIsLoggedInAC, setUserDataAC } from './actions'
+import {
+    AuthActionsType,
+    setAvatarAC,
+    setIsLoggedInAC,
+    setUserDataAC,
+} from './actions'
 import { AppActionsType, setAppErrorAC, setAppStatusAC } from 'app'
 import { authApi, LoginDataType } from '../dal/authApi'
 import { RequestStatus } from 'common/types'
+import { profileApi } from 'features/profilePage/dal/profileApi'
 
 export const authMe = async (
     dispatch: Dispatch<AuthActionsType | AppActionsType>
@@ -42,4 +48,18 @@ export const logoutTC =
             })
             .catch((res) => dispatch(setAppErrorAC(res)))
             .finally(() => dispatch(setAppStatusAC(RequestStatus.idle)))
+    }
+
+export const fetchAvatarTC =
+    (userId: number) =>
+    async (dispatch: Dispatch<AuthActionsType | AppActionsType>) => {
+        dispatch(setAppStatusAC(RequestStatus.loading))
+        try {
+            const profile = await profileApi.getProfile(userId)
+            dispatch(setAvatarAC(profile.photos.small ?? null))
+        } catch (err: any) {
+            dispatch(setAppErrorAC(err))
+        } finally {
+            dispatch(setAppStatusAC(RequestStatus.idle))
+        }
     }

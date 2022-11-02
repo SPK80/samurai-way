@@ -1,23 +1,17 @@
 import React, { memo, useEffect } from 'react'
 import s from './Profile.module.css'
-import { useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from 'app'
-import { getValidIdNumber } from 'common/utils'
-import { fetchProfileTC } from '../bll/tunks'
+import { fetchProfileTC } from '../bll/thunks'
 
-export const UserProfile: React.FC = memo(() => {
+export const UserProfile: React.FC<{ userId: number }> = memo(({ userId }) => {
     const userProfile = useAppSelector((state) => state.profilePage.userProfile)
-    let { userId } = useParams()
-    const authUserId = useAppSelector((state) => state.auth.userData?.id)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const uid = getValidIdNumber(userId) ?? authUserId
-        if (uid) dispatch(fetchProfileTC(uid))
-    }, [authUserId, userId])
+        dispatch(fetchProfileTC(userId))
+    }, [userId])
 
-    if (!userProfile) return <div>Profile not found</div>
-
+    if (!userProfile) return <h1>Profile id:{userId} not found</h1>
     return (
         <div className={s.userProfile}>
             <img
@@ -54,7 +48,7 @@ const ObjectView: React.FC<{ object: any }> = ({ object }) => {
     return (
         <div>
             {fields.map((key) => (
-                <FieldView caption={key} text={object[key]} />
+                <FieldView key={key} caption={key} text={object[key]} />
             ))}
         </div>
     )

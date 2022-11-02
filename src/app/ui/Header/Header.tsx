@@ -1,50 +1,66 @@
-import React, { memo } from 'react'
-import { AppBar, Button, IconButton, Typography } from '@mui/material'
-import Toolbar from '@material-ui/core/Toolbar'
-import MenuIcon from '@material-ui/icons/Menu'
+import React, { memo, useEffect } from 'react'
+import Box from '@mui/material/Box'
+import AppBar from '@mui/material/AppBar'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
 import { useAppDispatch, useAppSelector } from '../../bll/store'
-import { useStyles } from './useStyles'
 import { logoutTC } from 'features/authPage'
+import defaultAvatar from 'common/assets/avatar.png'
+import background from 'common/assets/background.jpg'
+import { useNavigate } from 'react-router-dom'
+import { fetchAvatarTC } from 'features/authPage/bll/thunks'
 
 export const Header: React.FC = memo(() => {
-    const classes = useStyles()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const userData = useAppSelector((state) => state.auth.userData)
+    const userId = useAppSelector((state) => state.auth.userData?.id)
+    const avatar = useAppSelector((state) => state.auth.avatar)
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
     const logoutHandler = () => dispatch(logoutTC())
+    const loginHandler = () => navigate('/authPage')
+
+    useEffect(() => {
+        // if (!isLoggedIn || userData?.id === userProfile?.userId) return
+        if (userId) dispatch(fetchAvatarTC(userId))
+    }, [userId])
 
     return (
-        <AppBar position="static">
-            <Toolbar>
-                <IconButton
-                    edge="start"
-                    className={classes.menuButton}
-                    color="inherit"
-                    aria-label="menu"
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" className={classes.title}>
-                    Hello, samurai! Let's go!
-                </Typography>
-                {isLoggedIn && (
-                    <div className={classes.user}>
-                        <Typography variant="h6">{userData?.login}</Typography>
-                        <Button
-                            onClick={logoutHandler}
-                            color="inherit"
-                            variant={'outlined'}
-                        >
-                            LogOut
-                        </Button>
-                    </div>
+        <AppBar
+            component="div"
+            position="static"
+            elevation={0}
+            sx={{ zIndex: 0, bgcolor: 'primary.dark' }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    p: 2,
+                    backgroundImage: `url("${background}")`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                }}
+            >
+                <Avatar alt="User Name" src={avatar || defaultAvatar} />
+                {isLoggedIn ? (
+                    <Button
+                        variant="contained"
+                        color="info"
+                        onClick={logoutHandler}
+                    >
+                        Logout
+                    </Button>
+                ) : (
+                    <Button
+                        variant="contained"
+                        color="info"
+                        onClick={loginHandler}
+                    >
+                        Login
+                    </Button>
                 )}
-            </Toolbar>
+            </Box>
         </AppBar>
-        // <header className={s.Header}>
-        //     <h1> {props.title} </h1>
-        //     <Auth/>
-        // </header>
     )
 })

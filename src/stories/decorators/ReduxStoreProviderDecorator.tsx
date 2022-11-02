@@ -33,6 +33,7 @@ const storyActionsReducerWrap =
 const authInitialState: AuthStateType = {
     isLoggedIn: false,
     userData: null,
+    avatar: null,
 }
 
 const usersPageInitialState: UsersPageType = {
