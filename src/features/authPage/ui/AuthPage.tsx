@@ -3,11 +3,14 @@ import s from './authPage.module.css'
 import { useAppDispatch, useAppSelector } from 'app'
 import { loginTC } from '../bll/thunks'
 import { RequestStatus } from 'common/types'
+import { Navigate } from 'react-router-dom'
 
 export const AuthPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const appStatus = useAppSelector((state) => state.app.request.status)
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+
     const dispatch = useAppDispatch()
 
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +26,7 @@ export const AuthPage = () => {
         setEmail('')
         e.preventDefault()
     }
-
+    if (isLoggedIn) return <Navigate to={'/profile'} />
     return (
         <div className={s.login}>
             <h2>Login</h2>
