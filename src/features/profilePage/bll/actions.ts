@@ -1,4 +1,4 @@
-import { UserProfileWithPhotosType } from '../dal/profileApi'
+import { UserPhotosType, UserProfileWithPhotosType } from '../dal/profileApi'
 
 export const addPostAC = () =>
     ({
@@ -19,7 +19,14 @@ export const setUserProfileAC = (
         userProfile,
     } as const)
 
+export const setUserPhotosAC = (photos: UserPhotosType) =>
+    ({
+        type: 'SET-USER-PHOTOS',
+        photos: photos.photos,
+    } as const)
+
 export type ProfilePageActionTypes =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewPostTextAC>
     | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setUserPhotosAC>

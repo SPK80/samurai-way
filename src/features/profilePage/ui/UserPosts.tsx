@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from 'react'
-import s from './Profile.module.css'
 import { useDispatch } from 'react-redux'
 import { addPostAC, changeNewPostTextAC } from '../bll/actions'
 import { UserPostsList } from './UserPostsList'
 import { useAppSelector } from 'app'
+import Paper from '@mui/material/Paper'
 
 export const UserPosts: React.FC = () => {
     const newPostTextState = useAppSelector(
@@ -16,7 +16,7 @@ export const UserPosts: React.FC = () => {
         dispatch(changeNewPostTextAC(e.currentTarget.value))
 
     return (
-        <div className={s.posts}>
+        <Paper sx={{ p: 1, overflow: 'hidden' }} variant={'elevation'}>
             <div>My Posts</div>
             <textarea
                 value={newPostTextState}
@@ -26,6 +26,6 @@ export const UserPosts: React.FC = () => {
                 <button onClick={onAddPostHandler}>add post</button>
             </div>
             <UserPostsList />
-        </div>
+        </Paper>
     )
 }

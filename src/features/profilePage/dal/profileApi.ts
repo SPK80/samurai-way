@@ -23,12 +23,14 @@ export type UserProfileType = {
     }
 }
 
-export type UserProfileWithPhotosType = UserProfileType & {
+export type UserPhotosType = {
     photos: {
         small?: string
         large?: string
     }
 }
+
+export type UserProfileWithPhotosType = UserProfileType & UserPhotosType
 
 export const profileApi = {
     async getProfile(userId: number) {
@@ -56,6 +58,19 @@ export const profileApi = {
     async setStatus(status: string) {
         return instance
             .put<DataResponseType>(`profile/status`, { status })
+            .then(parseAxiosResponse)
+            .catch(axiosErrorToString)
+            .then(parseDataResponse)
+    },
+    async updatePhoto(photo: File) {
+        const formData = new FormData()
+        formData.append('image', photo)
+        return instance
+            .put<DataResponseType<UserPhotosType>>(`profile/photo`, formData, {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
+            })
             .then(parseAxiosResponse)
             .catch(axiosErrorToString)
             .then(parseDataResponse)

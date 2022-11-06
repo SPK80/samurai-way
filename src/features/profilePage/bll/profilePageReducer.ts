@@ -71,6 +71,15 @@ export const profilePageReducer = (
         case 'SET-USER-PROFILE':
             return { ...state, userProfile: action.userProfile }
 
+        case 'SET-USER-PHOTOS':
+            return {
+                ...state,
+                userProfile: {
+                    ...state.userProfile,
+                    photos: action.photos,
+                } as UserProfileWithPhotosType,
+            }
+
         default:
             return state
     }

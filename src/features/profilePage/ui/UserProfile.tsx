@@ -1,7 +1,9 @@
 import React, { memo, useEffect } from 'react'
-import s from './Profile.module.css'
 import { useAppDispatch, useAppSelector } from 'app'
 import { fetchProfileTC } from '../bll/thunks'
+import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
+import { Photo } from './photo/Photo'
 
 export const UserProfile: React.FC<{ userId: number }> = memo(({ userId }) => {
     const userProfile = useAppSelector((state) => state.profilePage.userProfile)
@@ -13,17 +15,22 @@ export const UserProfile: React.FC<{ userId: number }> = memo(({ userId }) => {
 
     if (!userProfile) return <h1>Profile id:{userId} not found</h1>
     return (
-        <div className={s.userProfile}>
-            <img
-                src={userProfile.photos.large || userProfile.photos.small}
-                alt="avatar"
-            />
-            <FieldView text={userProfile.fullName} />
-            {userProfile.lookingForAJob && (
-                <FieldView text={userProfile.lookingForAJobDescription} />
-            )}
-            <ObjectView object={userProfile.contacts} />
-        </div>
+        <Paper sx={{ p: 1, overflow: 'hidden', mb: 1 }}>
+            <Box sx={{ display: 'flex' }}>
+                <Photo
+                    src={userProfile.photos.large || userProfile.photos.small}
+                />
+                <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <FieldView text={userProfile.fullName} />
+                    {userProfile.lookingForAJob && (
+                        <FieldView
+                            text={userProfile.lookingForAJobDescription}
+                        />
+                    )}
+                    <ObjectView object={userProfile.contacts} />
+                </Box>
+            </Box>
+        </Paper>
     )
 })
 
