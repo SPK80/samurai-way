@@ -4,6 +4,9 @@ import { addPostAC, changeNewPostTextAC } from '../bll/actions'
 import { UserPostsList } from './UserPostsList'
 import { useAppSelector } from 'app'
 import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
 
 export const UserPosts: React.FC = () => {
     const newPostTextState = useAppSelector(
@@ -16,15 +19,28 @@ export const UserPosts: React.FC = () => {
         dispatch(changeNewPostTextAC(e.currentTarget.value))
 
     return (
-        <Paper sx={{ p: 1, overflow: 'hidden' }} variant={'elevation'}>
-            <div>My Posts</div>
-            <textarea
+        <Paper sx={{ p: 2, overflow: 'hidden' }} variant={'elevation'}>
+            <Typography variant="h4" gutterBottom>
+                My Posts
+            </Typography>
+            <TextField
+                multiline
+                fullWidth
+                id="outline
+                d-basic"
+                label="New Post"
+                variant="outlined"
+                sx={{ mb: 1 }}
                 value={newPostTextState}
                 onChange={changeNewPostTextHandler}
             />
-            <div>
-                <button onClick={onAddPostHandler}>add post</button>
-            </div>
+            <Button
+                variant={'outlined'}
+                onClick={onAddPostHandler}
+                disabled={newPostTextState === ''}
+            >
+                Add post
+            </Button>
             <UserPostsList />
         </Paper>
     )

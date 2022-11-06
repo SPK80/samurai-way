@@ -1,12 +1,20 @@
 import React from 'react'
-import s from './Profile.module.css'
 import { PostType } from '../bll/profilePageReducer'
+import Typography from '@mui/material/Typography'
+import { LikesButton } from './LikesButton'
+import { addLikeAC } from '../bll/actions'
+import { useDispatch } from 'react-redux'
 
-export const UserPost: React.FC<PostType> = (props) => {
+export const UserPost: React.FC<PostType> = ({ text, likesCount, id }) => {
+    const dispatch = useDispatch()
+    const onClickHandler = () => dispatch(addLikeAC(id))
+
     return (
-        <div className={s.post}>
-            <pre>{props.text}</pre>
-            <div>likes: {props.likesCount}</div>
+        <div>
+            <Typography component="pre" paragraph>
+                {text}
+            </Typography>
+            <LikesButton count={likesCount} onClick={onClickHandler} />
         </div>
     )
 }

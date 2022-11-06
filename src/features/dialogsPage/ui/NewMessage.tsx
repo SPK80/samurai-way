@@ -1,8 +1,9 @@
 import React, { ChangeEvent } from 'react'
-import s from './Dialogs.module.css'
 import { useDispatch } from 'react-redux'
 import { useAppSelector } from 'app'
 import { addMessageAC, changeNewMessageTextAC } from '../bll/actions'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
 
 export const NewMessage: React.FC = () => {
     const newMessageTextState = useAppSelector(
@@ -15,14 +16,21 @@ export const NewMessage: React.FC = () => {
     const onClickHandler = () => dispatch(addMessageAC())
 
     return (
-        <div className={s.newMessage}>
-            <textarea
-                rows={4}
-                cols={50}
+        <>
+            <TextField
+                multiline
+                fullWidth
+                id="outline
+                d-basic"
+                label="New Message"
+                variant="outlined"
+                sx={{ mb: 1 }}
                 value={newMessageTextState}
                 onChange={onChangeHandler}
             />
-            <button onClick={onClickHandler}>Add</button>
-        </div>
+            <Button variant={'outlined'} onClick={onClickHandler}>
+                Add
+            </Button>
+        </>
     )
 }

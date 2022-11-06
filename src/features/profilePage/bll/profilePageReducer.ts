@@ -46,12 +46,12 @@ const initialState: ProfilePageStateType = {
     userPosts: [
         {
             id: v1(),
-            text: 'Hi! Its my thirst post.\nI hope it will be cool ))',
+            text: 'Hi! Its my thirst post.\nIt`s cool',
             likesCount: 1,
         },
         {
             id: v1(),
-            text: 'Yo! This is second post.\nI nice too ))',
+            text: 'Yo! This is second post.\nIt nice too ))',
             likesCount: 2,
         },
     ],
@@ -78,6 +78,16 @@ export const profilePageReducer = (
                     ...state.userProfile,
                     photos: action.photos,
                 } as UserProfileWithPhotosType,
+            }
+
+        case 'ADD-LIKE':
+            return {
+                ...state,
+                userPosts: state.userPosts.map((p) =>
+                    p.id === action.id
+                        ? { ...p, likesCount: p.likesCount + 1 }
+                        : p
+                ),
             }
 
         default:

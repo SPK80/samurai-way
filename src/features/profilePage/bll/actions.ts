@@ -25,8 +25,15 @@ export const setUserPhotosAC = (photos: UserPhotosType) =>
         photos: photos.photos,
     } as const)
 
+export const addLikeAC = (userPostId: string) =>
+    ({
+        type: 'ADD-LIKE',
+        id: userPostId,
+    } as const)
+
 export type ProfilePageActionTypes =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewPostTextAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setUserPhotosAC>
+    | ReturnType<typeof addLikeAC>
