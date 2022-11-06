@@ -11,6 +11,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import PeopleIcon from '@mui/icons-material/People'
 import ForumIcon from '@mui/icons-material/Forum'
 import SettingsIcon from '@mui/icons-material/Settings'
+import Paper from '@mui/material/Paper'
 
 const categories = [
     {
@@ -61,29 +62,38 @@ export const Navbar = () => {
     const location = useLocation()
 
     return (
-        <Box
-            component="nav"
-            sx={{ width: 200, paddingTop: 2, bgcolor: 'primary.dark' }}
-        >
-            <List disablePadding>
-                {categories.map(({ id, children }) => (
-                    <Box key={id}>
-                        {children.map(({ id: childId, to, icon, active }) => (
-                            <ListItem disablePadding key={childId}>
-                                <ListItemButton
-                                    selected={to === location.pathname}
-                                    sx={item}
-                                    onClick={() => navigate(to)}
-                                >
-                                    <ListItemIcon>{icon}</ListItemIcon>
-                                    <ListItemText>{childId}</ListItemText>
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                        <Divider />
-                    </Box>
-                ))}
-            </List>
-        </Box>
+        <Paper sx={{ mr: 1, overflow: 'hidden' }} variant={'elevation'}>
+            <Box
+                component="nav"
+                sx={{
+                    width: 200,
+                    paddingTop: 2,
+                }}
+            >
+                <List disablePadding>
+                    {categories.map(({ id, children }) => (
+                        <Box key={id}>
+                            {children.map(
+                                ({ id: childId, to, icon, active }) => (
+                                    <ListItem disablePadding key={childId}>
+                                        <ListItemButton
+                                            selected={to === location.pathname}
+                                            sx={item}
+                                            onClick={() => navigate(to)}
+                                        >
+                                            <ListItemIcon>{icon}</ListItemIcon>
+                                            <ListItemText>
+                                                {childId}
+                                            </ListItemText>
+                                        </ListItemButton>
+                                    </ListItem>
+                                )
+                            )}
+                            <Divider />
+                        </Box>
+                    ))}
+                </List>
+            </Box>
+        </Paper>
     )
 }

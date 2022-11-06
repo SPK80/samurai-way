@@ -106,8 +106,11 @@ theme = {
         MuiListItemButton: {
             styleOverrides: {
                 root: {
+                    '&': {
+                        color: theme.palette.primary.dark,
+                    },
                     '&.Mui-selected': {
-                        color: '#4fc3f7',
+                        color: '#1c4886',
                     },
                 },
             },
@@ -117,6 +120,7 @@ theme = {
                 primary: {
                     fontSize: 14,
                     fontWeight: theme.typography.fontWeightMedium,
+                    color: theme.palette.primary.dark,
                 },
             },
         },

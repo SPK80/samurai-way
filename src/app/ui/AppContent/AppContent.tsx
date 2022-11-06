@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../bll/store'
 import { initializeAppTC } from '../../bll/thunks'
 import { theme } from '../theme'
@@ -6,10 +6,13 @@ import { Header } from '../Header/Header'
 import { Navbar } from '../Navbar/Navbar'
 import { AppRoutes } from './AppRoutes'
 import { RequestStatus } from 'common/types'
-import { CircularProgress, LinearProgress } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
+import LinearProgress from '@mui/material/LinearProgress'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import { ThemeProvider } from '@mui/material/styles'
+import Container from '@mui/material/Container'
+import { ErrorSnackbar } from 'common/components/ErrorSnackbar'
 
 export const AppContent: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -20,7 +23,21 @@ export const AppContent: React.FC = () => {
         dispatch(initializeAppTC())
     }, [])
 
-    if (!isInitialized) return <CircularProgress />
+    if (!isInitialized)
+        return (
+            <Box
+                component={'div'}
+                sx={{
+                    display: 'flex',
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <CircularProgress size={100} />
+            </Box>
+        )
+
     return (
         <ThemeProvider theme={theme}>
             <Box
@@ -34,16 +51,14 @@ export const AppContent: React.FC = () => {
                 <CssBaseline />
                 <Header />
                 {requestStatus === RequestStatus.loading && <LinearProgress />}
+                <ErrorSnackbar />
 
-                <Box sx={{ display: 'flex', flex: '1 1 auto' }}>
+                <Container sx={{ m: 1, display: 'flex', flex: '1 1 auto' }}>
                     <Navbar />
-                    <Box
-                        component="main"
-                        sx={{ flex: 1, py: 6, px: 4, mh: '100hv' }}
-                    >
+                    <Box component="main" sx={{ flex: 1, mh: '100hv' }}>
                         <AppRoutes />
                     </Box>
-                </Box>
+                </Container>
             </Box>
         </ThemeProvider>
     )
