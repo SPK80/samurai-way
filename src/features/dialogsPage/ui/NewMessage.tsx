@@ -17,8 +17,11 @@ export const NewMessage: React.FC<PropsType> = ({ onSubmit }) => {
     const dispatch = useDispatch()
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>
         dispatch(changeNewMessageTextAC(e.currentTarget.value))
-    const onClickHandler = () => onSubmit(newMessageText)
+    const onClickHandler = () => {
+        onSubmit(newMessageText)
+    }
     const onKeyUpHandler = (e: KeyboardEvent<HTMLDivElement>) => {
+        console.log(e.key, e.ctrlKey, denialToSubmit)
         if (e.key === 'Enter' && e.ctrlKey && !denialToSubmit) onClickHandler()
     }
 

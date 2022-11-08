@@ -1,22 +1,10 @@
 import { v1 } from 'uuid'
 import { DialogsPageActionTypes } from './actions'
 
-// const addMessage = (state: DialogsPageType): DialogsPageType => {
-//     const newMessageText = state.newMessageText
-//     return {
-//         ...state,
-//         newMessageText: '',
-//         messages: [
-//             ...state.messages,
-//             {
-//                 id: v1(),
-//                 text: newMessageText,
-//             },
-//         ],
-//     }
-// }
-
-const changeNewMessageText = (state: DialogsPageStateType, newMessageText: string): DialogsPageStateType => {
+const changeNewMessageText = (
+    state: DialogsPageStateType,
+    newMessageText: string
+): DialogsPageStateType => {
     return {
         ...state,
         newMessageText,

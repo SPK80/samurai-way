@@ -1,5 +1,4 @@
 import React, { memo } from 'react'
-import s from './Dialogs.module.css'
 import { Dialog } from './Dialog'
 import { MenuList } from '@mui/material'
 
