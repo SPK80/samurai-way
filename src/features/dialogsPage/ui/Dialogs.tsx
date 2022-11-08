@@ -1,16 +1,22 @@
 import React, { memo } from 'react'
 import s from './Dialogs.module.css'
 import { Dialog } from './Dialog'
-import { useAppSelector } from 'app'
+import { MenuList } from '@mui/material'
 
-export const Dialogs: React.FC = memo(() => {
-    const dialogsState = useAppSelector((state) => state.dialogsPage.dialogs)
+type PropsType = {
+    dialogs: Array<{
+        id: string
+        title: string
+    }>
+    currentDialog: string | null
+}
 
+export const Dialogs: React.FC<PropsType> = memo(({ dialogs, currentDialog }) => {
     return (
-        <div className={s.dialogsItems}>
-            {dialogsState.map((dialog) => (
-                <Dialog key={dialog.id} state={dialog} />
+        <MenuList variant="selectedMenu">
+            {dialogs.map(({ id, title }) => (
+                <Dialog key={id} id={id} title={title} selected={currentDialog === id} />
             ))}
-        </div>
+        </MenuList>
     )
 })

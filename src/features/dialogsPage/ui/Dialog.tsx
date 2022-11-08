@@ -1,21 +1,22 @@
-import s from './Dialogs.module.css'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { DialogType } from '../bll/dialogsPageReducer'
+import ListItemText from '@mui/material/ListItemText'
+import { MenuItem } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 export type DialogPropsType = {
-    state: DialogType
+    id: string
+    title: string
+    selected?: boolean
 }
 
-export const Dialog: React.FC<DialogPropsType> = ({ state }) => {
+export const Dialog: React.FC<DialogPropsType> = ({ id, title, selected }) => {
+    const navigate = useNavigate()
+
+    const onClickHandler = () => navigate(id)
+
     return (
-        <div className={s.dialog}>
-            <NavLink
-                className={(navData) => (navData.isActive ? s.active : '')}
-                to={state.id}
-            >
-                {state.name}
-            </NavLink>
-        </div>
+        <MenuItem itemID={id} selected={selected} onClick={onClickHandler}>
+            <ListItemText>{title}</ListItemText>
+        </MenuItem>
     )
 }

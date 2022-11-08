@@ -1,64 +1,73 @@
 import { v1 } from 'uuid'
 import { DialogsPageActionTypes } from './actions'
 
-export type DialogType = {
-    id: string
-    name: string
-}
+// const addMessage = (state: DialogsPageType): DialogsPageType => {
+//     const newMessageText = state.newMessageText
+//     return {
+//         ...state,
+//         newMessageText: '',
+//         messages: [
+//             ...state.messages,
+//             {
+//                 id: v1(),
+//                 text: newMessageText,
+//             },
+//         ],
+//     }
+// }
 
-export type MessageType = {
-    id: string
-    text: string
-}
-
-const addMessage = (state: DialogsPageType): DialogsPageType => {
-    const newMessageText = state.newMessageText
-    return {
-        ...state,
-        newMessageText: '',
-        messages: [
-            ...state.messages,
-            {
-                id: v1(),
-                text: newMessageText,
-            },
-        ],
-    }
-}
-
-const changeNewMessageText = (
-    state: DialogsPageType,
-    newMessageText: string
-): DialogsPageType => {
+const changeNewMessageText = (state: DialogsPageStateType, newMessageText: string): DialogsPageStateType => {
     return {
         ...state,
         newMessageText,
     }
 }
 
-export type DialogsPageType = typeof initialState
-
-const initialState = {
+const initialState: DialogsPageStateType = {
     newMessageText: '',
-    dialogs: [
-        { id: v1(), name: 'Dimych' },
-        { id: v1(), name: 'Andrey' },
-        { id: v1(), name: 'Sveta' },
-    ] as Array<DialogType>,
-    messages: [
-        { id: v1(), text: 'Hi' },
-        { id: v1(), text: 'How is your?' },
-        { id: v1(), text: 'Yo' },
-    ] as Array<MessageType>,
+    currentDialogId: null,
+    dialogs: {
+        [v1()]: {
+            title: 'First dialog',
+            messages: [
+                { id: v1(), text: 'Hi', userId: 0 },
+                { id: v1(), text: 'How is your?', userId: 2 },
+            ],
+        },
+        [v1()]: {
+            title: 'Second dialog',
+            messages: [
+                { id: v1(), text: 'Yo', userId: 0 },
+                { id: v1(), text: 'What`s up!?', userId: 3 },
+            ],
+        },
+    },
 }
 
 export const dialogsPageReducer = (
-    state: DialogsPageType = initialState,
+    state: DialogsPageStateType = initialState,
     action: DialogsPageActionTypes
-): DialogsPageType => {
+): DialogsPageStateType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
-            return addMessage(state)
+            return {
+                ...state,
+                newMessageText: '',
+                dialogs: {
+                    ...state.dialogs,
+                    [action.dialogId]: {
+                        ...state.dialogs[action.dialogId],
+                        messages: [
+                            ...state.dialogs[action.dialogId].messages,
+                            {
+                                id: v1(),
+                                userId: action.userId,
+                                text: action.text,
+                            },
+                        ],
+                    },
+                },
+            }
 
         case 'CHANGE-NEW-MESSAGE-TEXT':
             return changeNewMessageText(state, action.messageText)
@@ -66,4 +75,27 @@ export const dialogsPageReducer = (
         default:
             return state
     }
+}
+
+//===TYPES====================================================================================================
+
+export type MessageType = {
+    id: string
+    userId: number
+    text: string
+}
+
+export type DialogType = {
+    title: string
+    messages: MessageType[]
+}
+
+export type DialogsType = {
+    [dialogIndex: string]: DialogType
+}
+
+export type DialogsPageStateType = {
+    newMessageText: string
+    currentDialogId: string | null
+    dialogs: DialogsType
 }

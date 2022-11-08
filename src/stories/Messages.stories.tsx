@@ -9,6 +9,6 @@ export default {
     decorators: [ReduxStoreProviderDecorator],
 } as ComponentMeta<typeof Messages>
 
-const Template: ComponentStory<typeof Messages> = (args) => <Messages />
+const Template: ComponentStory<typeof Messages> = (args) => <Messages messages={args.messages} />
 
 export const MessagesStory = Template.bind({})

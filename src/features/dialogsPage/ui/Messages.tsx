@@ -1,15 +1,17 @@
 import React, { memo } from 'react'
-import s from './Dialogs.module.css'
 import { Message } from './Message'
-import { useAppSelector } from 'app'
+import { MessageType } from '../bll/dialogsPageReducer'
 
-export const Messages: React.FC = memo(() => {
-    const messagesState = useAppSelector((state) => state.dialogsPage.messages)
+type PropsType = {
+    messages: MessageType[]
+}
+
+export const Messages: React.FC<PropsType> = memo(({ messages }) => {
     return (
-        <div className={s.messages}>
-            {messagesState.map((m) => (
+        <>
+            {messages.map((m) => (
                 <Message key={m.id} message={m} />
             ))}
-        </div>
+        </>
     )
 })

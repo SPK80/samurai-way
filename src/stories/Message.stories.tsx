@@ -6,6 +6,4 @@ export default {
     component: Message,
 }
 
-export const WelcomeMessage = () => (
-    <Message message={{ id: '1', text: 'Welcome' }} />
-)
+export const WelcomeMessage = () => <Message message={{ id: '1', text: 'Welcome', userId: 0 }} />
