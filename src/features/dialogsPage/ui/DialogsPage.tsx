@@ -10,6 +10,7 @@ import { useAppSelector } from 'app'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addMessageAC } from '../bll/actions'
+import { RedirectIfNotLoggedIn } from 'common/components/RedirectIfNotLoggedIn'
 
 export const DialogsPage: React.FC = () => {
     const { dialogs } = useAppSelector((state) => state.dialogsPage)
@@ -29,6 +30,7 @@ export const DialogsPage: React.FC = () => {
 
     return (
         <Box sx={{ p: 1, overflow: 'hidden', width: '100%', height: '100%' }}>
+            <RedirectIfNotLoggedIn to={'/authPage'} />
             <Paper>
                 <Stack
                     direction="row"
