@@ -62,33 +62,30 @@ export const Navbar = () => {
     const location = useLocation()
 
     return (
-        <Paper sx={{ mr: 1, overflow: 'hidden' }} variant={'elevation'}>
+        <Paper sx={{ mr: 1, overflow: 'hidden', minWidth: 150 }} variant={'elevation'}>
             <Box
                 component="nav"
                 sx={{
-                    width: 200,
+                    display: 'flex',
+                    justifyContent: 'center',
                     paddingTop: 2,
                 }}
             >
                 <List disablePadding>
                     {categories.map(({ id, children }) => (
                         <Box key={id}>
-                            {children.map(
-                                ({ id: childId, to, icon, active }) => (
-                                    <ListItem disablePadding key={childId}>
-                                        <ListItemButton
-                                            selected={to === location.pathname}
-                                            sx={item}
-                                            onClick={() => navigate(to)}
-                                        >
-                                            <ListItemIcon>{icon}</ListItemIcon>
-                                            <ListItemText>
-                                                {childId}
-                                            </ListItemText>
-                                        </ListItemButton>
-                                    </ListItem>
-                                )
-                            )}
+                            {children.map(({ id: childId, to, icon, active }) => (
+                                <ListItem disablePadding key={childId}>
+                                    <ListItemButton
+                                        selected={to === location.pathname}
+                                        sx={item}
+                                        onClick={() => navigate(to)}
+                                    >
+                                        <ListItemIcon>{icon}</ListItemIcon>
+                                        <ListItemText>{childId}</ListItemText>
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
                             <Divider />
                         </Box>
                     ))}
