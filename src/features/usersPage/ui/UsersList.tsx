@@ -4,6 +4,12 @@ import { useAppSelector } from 'app'
 
 export const UsersList: React.FC = memo(() => {
     const { usersList } = useAppSelector((state) => state.usersPage)
+    if (
+        !usersList ||
+        !Array.isArray(usersList) ||
+        (Array.isArray(usersList) && usersList.length === 0)
+    )
+        return <div></div>
     return (
         <>
             {usersList.map((u) => (

@@ -1,6 +1,7 @@
 import { UserType } from 'features/usersPage/bll/usersPageReducer'
 import { instance } from 'common/api/instance'
 import {
+    axiosErrorToString,
     parseAxiosResponse,
     parseItemsResponse,
 } from 'common/api/responseParsers'
@@ -13,6 +14,7 @@ export const usersApi = {
                 params: { page, count },
             })
             .then(parseAxiosResponse)
+            .catch(axiosErrorToString)
             .then(parseItemsResponse)
     },
 }
