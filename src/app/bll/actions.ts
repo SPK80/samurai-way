@@ -1,4 +1,4 @@
-import { RequestStatus } from 'common/types'
+import { RequestStatus } from 'common/bll/types'
 
 export const setAppErrorAC = (error: string | null) =>
     ({ type: 'APP/SET-ERROR', error } as const)

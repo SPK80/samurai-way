@@ -1,16 +1,14 @@
 import React, { memo, useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'app'
 import { PagesCounter } from 'common/components/PagesCounter/PagesCounter'
-import { RequestStatus } from 'common/types'
+import { RequestStatus } from 'common/bll/types'
 import { UsersList } from './UsersList'
 import { fetchUsersTC } from '../bll/thunks'
 import { setCurrentPageAC, setPageSizeAC } from '../bll/actions'
 import Paper from '@mui/material/Paper'
 
 export const UsersPage: React.FC = memo(() => {
-    const { totalCount, pageSize, currentPage } = useAppSelector(
-        (state) => state.usersPage
-    )
+    const { totalCount, pageSize, currentPage } = useAppSelector((state) => state.usersPage)
     const { status } = useAppSelector((state) => state.app.request)
     const dispatch = useAppDispatch()
 
@@ -20,8 +18,7 @@ export const UsersPage: React.FC = memo(() => {
 
     const onClickHandler = () => dispatch(setPageSizeAC(pageSize + 10))
 
-    const onPageSizeSelectedHandler = (pageSize: number) =>
-        dispatch(setPageSizeAC(pageSize))
+    const onPageSizeSelectedHandler = (pageSize: number) => dispatch(setPageSizeAC(pageSize))
 
     const onCurrentPageChangedHandler = (newCurrentPage: number) =>
         dispatch(setCurrentPageAC(newCurrentPage))

@@ -1,5 +1,5 @@
 import { UserType } from './usersPageReducer'
-import { ErrorType, RequestStatus } from 'common/types'
+import { ErrorType, RequestStatus } from 'common/bll/types'
 
 export const setFollowedAC = (userId: number, followed: boolean) =>
     ({

@@ -1,11 +1,6 @@
 import { usersPageReducer, UsersPageType } from './usersPageReducer'
-import {
-    setCurrentPageAC,
-    setPageSizeAC,
-    setTotalCountAC,
-    setUsersAC,
-} from './actions'
-import { initialRequestingState } from 'common/types'
+import { setCurrentPageAC, setPageSizeAC, setTotalCountAC, setUsersAC } from './actions'
+import { initialRequestingState } from 'common/bll/types'
 
 let initialState: UsersPageType
 

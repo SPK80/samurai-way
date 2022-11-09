@@ -1,5 +1,5 @@
 import { UsersPageActionTypes } from './actions'
-import { initialRequestingState, RequestingStateType } from 'common/types'
+import { initialRequestingState, RequestingStateType } from 'common/bll/types'
 
 export type UserType = {
     name: string
@@ -30,9 +30,7 @@ export const usersPageReducer = (
             return {
                 ...state,
                 usersList: state.usersList.map((u) =>
-                    u.id === action.userId
-                        ? { ...u, followed: action.followed }
-                        : u
+                    u.id === action.userId ? { ...u, followed: action.followed } : u
                 ),
             }
         case 'SET-USERS':

@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import s from './authPage.module.css'
 import { useAppDispatch, useAppSelector } from 'app'
 import { loginTC } from '../bll/thunks'
-import { RequestStatus } from 'common/types'
+import { RequestStatus } from 'common/bll/types'
 import { RedirectIfLoggedIn } from 'common/components/RedirectIfLoggedIn'
 
 export const AuthPage = () => {

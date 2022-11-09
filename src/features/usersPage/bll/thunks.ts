@@ -10,7 +10,7 @@ import {
     UsersPageActionTypes,
 } from './actions'
 import { followApi } from '../dal/followApi'
-import { RequestStatus } from 'common/types'
+import { RequestStatus } from 'common/bll/types'
 
 export const fetchUsersTC =
     (page: number, count: number) =>
@@ -28,8 +28,7 @@ export const fetchUsersTC =
     }
 
 export const getFollowedTC =
-    (userId: number) =>
-    async (dispatch: Dispatch<UsersPageActionTypes | AppActionsType>) => {
+    (userId: number) => async (dispatch: Dispatch<UsersPageActionTypes | AppActionsType>) => {
         dispatch(setAppStatusAC(RequestStatus.loading))
         try {
             const isFollowed = await followApi.getFollowed(userId)

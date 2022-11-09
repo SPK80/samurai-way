@@ -3,12 +3,9 @@ import { combineReducers, legacy_createStore as createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { dialogsPageReducer } from 'features/dialogsPage/bll/dialogsPageReducer'
 import { action as storybookAction } from '@storybook/addon-actions'
-import {
-    usersPageReducer,
-    UsersPageType,
-} from 'features/usersPage/bll/usersPageReducer'
+import { usersPageReducer, UsersPageType } from 'features/usersPage/bll/usersPageReducer'
 import { authReducer, AuthStateType } from 'features/authPage/bll/authReducer'
-import { initialRequestingState } from 'common/types'
+import { initialRequestingState } from 'common/bll/types'
 
 const getObjWithoutType = <AT extends { type: string }>(action: AT) =>
     Object.fromEntries(Object.entries(action).filter(([key]) => key !== 'type'))
@@ -21,10 +18,7 @@ const getObjWithoutType2 = <AT extends { type: string }>(action: AT) => {
 }
 
 const storyActionsReducerWrap =
-    <ST, AT extends { type: string }>(
-        reducer: (state: ST, action: AT) => ST,
-        initialState?: ST
-    ) =>
+    <ST, AT extends { type: string }>(reducer: (state: ST, action: AT) => ST, initialState?: ST) =>
     (state: ST, action: AT) => {
         storybookAction(action.type)(getObjWithoutType(action))
         return reducer(initialState ? initialState : state, action)

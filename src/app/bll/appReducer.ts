@@ -1,5 +1,5 @@
 import { AppActionsType } from './actions'
-import { RequestingStateType, RequestStatus } from 'common/types'
+import { RequestingStateType, RequestStatus } from 'common/bll/types'
 
 /*============TYPES===================================================================================================*/
 export type AppStateType = RequestingStateType & {

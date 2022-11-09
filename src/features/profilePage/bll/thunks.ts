@@ -1,16 +1,11 @@
 import { Dispatch } from 'redux'
 import { AppActionsType, setAppErrorAC, setAppStatusAC } from 'app'
 import { profileApi, UserProfileType } from '../dal/profileApi'
-import {
-    ProfilePageActionTypes,
-    setUserPhotosAC,
-    setUserProfileAC,
-} from './actions'
-import { RequestStatus } from 'common/types'
+import { ProfilePageActionTypes, setUserPhotosAC, setUserProfileAC } from './actions'
+import { RequestStatus } from 'common/bll/types'
 
 export const fetchProfileTC =
-    (userId: number) =>
-    async (dispatch: Dispatch<ProfilePageActionTypes | AppActionsType>) => {
+    (userId: number) => async (dispatch: Dispatch<ProfilePageActionTypes | AppActionsType>) => {
         dispatch(setAppStatusAC(RequestStatus.loading))
         try {
             const profile = await profileApi.getProfile(userId)
@@ -36,8 +31,7 @@ export const setProfileTC =
     }
 
 export const updateProfilePhotoTC =
-    (photo: File) =>
-    async (dispatch: Dispatch<ProfilePageActionTypes | AppActionsType>) => {
+    (photo: File) => async (dispatch: Dispatch<ProfilePageActionTypes | AppActionsType>) => {
         dispatch(setAppStatusAC(RequestStatus.loading))
         try {
             const data = await profileApi.updatePhoto(photo)

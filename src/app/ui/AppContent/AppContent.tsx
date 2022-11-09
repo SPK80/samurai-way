@@ -5,7 +5,7 @@ import { theme } from '../theme'
 import { Header } from '../Header/Header'
 import { Navbar } from '../Navbar/Navbar'
 import { AppRoutes } from './AppRoutes'
-import { RequestStatus } from 'common/types'
+import { RequestStatus } from 'common/bll/types'
 import CircularProgress from '@mui/material/CircularProgress'
 import LinearProgress from '@mui/material/LinearProgress'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -40,6 +40,7 @@ export const AppContent: React.FC = () => {
 
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline />
             <Box
                 sx={{
                     display: 'flex',
@@ -48,11 +49,9 @@ export const AppContent: React.FC = () => {
                     bgcolor: '#eaeff1',
                 }}
             >
-                <CssBaseline />
                 <Header />
                 {requestStatus === RequestStatus.loading && <LinearProgress />}
                 <ErrorSnackbar />
-
                 <Container sx={{ m: 1, display: 'flex', flex: '1 1 auto' }}>
                     <Navbar />
                     <Box component="main" sx={{ flex: 1, mh: '100hv' }}>

@@ -5,7 +5,7 @@ import defaultAvatar from 'common/assets/avatar.png'
 import { UserType } from '../bll/usersPageReducer'
 import { useAppDispatch } from 'app'
 import { setFollowTC } from '../bll/thunks'
-import { RequestingStateType, RequestStatus } from 'common/types'
+import { RequestingStateType, RequestStatus } from 'common/bll/types'
 
 type PropsType = {
     userData: UserType & RequestingStateType
@@ -18,8 +18,7 @@ export const User: React.FC<PropsType> = memo(({ userData }) => {
         dispatch(setFollowTC(userData.id, !userData.followed))
     }
 
-    const avatarUrl =
-        userData.photos.large ?? userData.photos.small ?? defaultAvatar
+    const avatarUrl = userData.photos.large ?? userData.photos.small ?? defaultAvatar
     return (
         <div className={s.user}>
             <div className={s.avatarAndFollowContainer}>
