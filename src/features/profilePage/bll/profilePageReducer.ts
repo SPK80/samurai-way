@@ -2,12 +2,6 @@ import { v1 } from 'uuid'
 import { UserProfileWithPhotosType } from '../dal/profileApi'
 import { ProfilePageActionTypes } from './actions'
 
-export type PostType = {
-    id: string
-    text: string
-    likesCount: number
-}
-
 const addPost = (state: ProfilePageStateType): ProfilePageStateType => {
     const newPostText = state.newPostText
     return {
@@ -32,6 +26,12 @@ const changeNewPostText = (
         ...state,
         newPostText,
     }
+}
+
+export type PostType = {
+    id: string
+    text: string
+    likesCount: number
 }
 
 export type ProfilePageStateType = {
@@ -84,9 +84,7 @@ export const profilePageReducer = (
             return {
                 ...state,
                 userPosts: state.userPosts.map((p) =>
-                    p.id === action.id
-                        ? { ...p, likesCount: p.likesCount + 1 }
-                        : p
+                    p.id === action.id ? { ...p, likesCount: p.likesCount + 1 } : p
                 ),
             }
 

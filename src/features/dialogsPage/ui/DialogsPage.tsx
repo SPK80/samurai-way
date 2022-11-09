@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NewMessage } from './NewMessage'
 import { Dialogs } from './Dialogs'
 import { Messages } from './Messages'
@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addMessageAC } from '../bll/actions'
 import { RedirectIfNotLoggedIn } from 'common/components/RedirectIfNotLoggedIn'
+import { UserProfileWithPhotosType } from '../../profilePage/dal/profileApi'
 
 export const DialogsPage: React.FC = () => {
     const { dialogs } = useAppSelector((state) => state.dialogsPage)
@@ -22,7 +23,7 @@ export const DialogsPage: React.FC = () => {
         id: d,
         title: dialogs[d].title,
     }))
-    const currentDialog = currentDialogId === '' ? null : dialogs[currentDialogId]
+    const currentDialog = dialogs[currentDialogId]
 
     const onSubmitHandler = (text: string) => {
         if (userId && currentDialog) dispatch(addMessageAC(currentDialogId, userId, text))
