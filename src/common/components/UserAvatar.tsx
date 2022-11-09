@@ -1,8 +1,6 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo } from 'react'
 import Avatar from '@mui/material/Avatar'
-import { profileApi, UserProfileWithPhotosType } from 'features/profilePage/dal/profileApi'
-import { setAppErrorAC, setAppStatusAC } from 'app'
-import { RequestStatus } from '../types'
+import { UserProfileWithPhotosType } from 'features/profilePage/dal/profileApi'
 
 export const UserAvatar: React.FC<{ userProfile: UserProfileWithPhotosType }> = memo(
     ({ userProfile }) => {

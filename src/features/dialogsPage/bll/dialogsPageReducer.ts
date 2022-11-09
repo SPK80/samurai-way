@@ -1,5 +1,6 @@
 import { v1 } from 'uuid'
 import { DialogsPageActionTypes } from './actions'
+import { UserProfileWithPhotosType } from 'features/profilePage/dal/profileApi'
 
 const changeNewMessageText = (
     state: DialogsPageStateType,
@@ -14,6 +15,7 @@ const changeNewMessageText = (
 const initialState: DialogsPageStateType = {
     newMessageText: '',
     currentDialogId: null,
+    userProfilesCatch: {},
     dialogs: {
         [v1()]: {
             title: 'First dialog',
@@ -60,6 +62,11 @@ export const dialogsPageReducer = (
         case 'CHANGE-NEW-MESSAGE-TEXT':
             return changeNewMessageText(state, action.messageText)
 
+        case 'ADD-USER-PROFILE-TO-CATCH':
+            const userProfilesCatch = state.userProfilesCatch
+            userProfilesCatch[action.userProfile.userId] = action.userProfile
+            return { ...state, userProfilesCatch }
+
         default:
             return state
     }
@@ -86,4 +93,5 @@ export type DialogsPageStateType = {
     newMessageText: string
     currentDialogId: string | null
     dialogs: DialogsType
+    userProfilesCatch: { [userId: number]: UserProfileWithPhotosType }
 }
