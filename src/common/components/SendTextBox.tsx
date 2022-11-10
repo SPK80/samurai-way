@@ -6,11 +6,12 @@ import SendIcon from '@mui/icons-material/Send'
 
 type PropsType = {
     text: string
+    label?: string
     onChangeText: (text: string) => void
     onSubmit: (text: string) => void
 }
 
-export const SendTextBox: React.FC<PropsType> = ({ text, onChangeText, onSubmit }) => {
+export const SendTextBox: React.FC<PropsType> = ({ text, label, onChangeText, onSubmit }) => {
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>
         onChangeText(e.currentTarget.value)
 
@@ -30,7 +31,7 @@ export const SendTextBox: React.FC<PropsType> = ({ text, onChangeText, onSubmit 
                 fullWidth
                 sx={{ width: '100%' }}
                 autoFocus
-                label="New Message"
+                label={label ?? 'New Message'}
                 variant="outlined"
                 value={text}
                 onChange={onChangeHandler}

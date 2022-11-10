@@ -20,6 +20,7 @@ export const UserPosts: React.FC = () => {
             </Typography>
             <SendTextBox
                 text={newPostTextState}
+                label="New Post"
                 onChangeText={onChangeTextHandler}
                 onSubmit={onAddPostHandler}
             />
