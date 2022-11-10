@@ -1,29 +1,28 @@
 import React, { ChangeEvent, KeyboardEvent } from 'react'
-import { useDispatch } from 'react-redux'
-import { useAppSelector } from 'app'
-import { changeNewMessageTextAC } from '../bll/actions'
-import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton'
 import SendIcon from '@mui/icons-material/Send'
 
 type PropsType = {
+    text: string
+    onChangeText: (text: string) => void
     onSubmit: (text: string) => void
 }
 
-export const NewMessage: React.FC<PropsType> = ({ onSubmit }) => {
-    const newMessageText = useAppSelector((state) => state.dialogsPage.newMessageText)
-    const denialToSubmit = newMessageText === ''
-    const dispatch = useDispatch()
+export const SendTextBox: React.FC<PropsType> = ({ text, onChangeText, onSubmit }) => {
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>
-        dispatch(changeNewMessageTextAC(e.currentTarget.value))
-    const onClickHandler = () => {
-        onSubmit(newMessageText)
-    }
+        onChangeText(e.currentTarget.value)
+
+    const denialToSubmit = text === ''
+
     const onKeyUpHandler = (e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter' && e.ctrlKey && !denialToSubmit) onClickHandler()
     }
 
+    const onClickHandler = () => {
+        onSubmit(text)
+    }
     return (
         <Box display="flex" alignItems="flex-end" width="70%">
             <TextField
@@ -33,7 +32,7 @@ export const NewMessage: React.FC<PropsType> = ({ onSubmit }) => {
                 autoFocus
                 label="New Message"
                 variant="outlined"
-                value={newMessageText}
+                value={text}
                 onChange={onChangeHandler}
                 onKeyUp={onKeyUpHandler}
             />

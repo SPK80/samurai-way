@@ -1,5 +1,4 @@
 import React from 'react'
-import { NewMessage } from './NewMessage'
 import { Dialogs } from './Dialogs'
 import { Messages } from './Messages'
 import Paper from '@mui/material/Paper'
@@ -9,26 +8,30 @@ import Divider from '@mui/material/Divider'
 import { useAppSelector } from 'app'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { addMessageAC } from '../bll/actions'
+import { addMessageAC, changeNewMessageTextAC } from '../bll/actions'
 import { RedirectIfNotLoggedIn } from 'common/components/RedirectIfNotLoggedIn'
 import { RequestStatus } from 'common/bll/types'
 import { TopLinearProgress } from 'common/components/TopLinearProgress'
+import { SendTextBox } from 'common/components/SendTextBox'
 
 export const DialogsPage: React.FC = () => {
     const { dialogs, requestStatus } = useAppSelector((state) => state.dialogsPage)
     const userId = useAppSelector((state) => state.auth.userData?.id)
-    const currentDialogId = useParams()['*'] ?? ''
+    const newMessageText = useAppSelector((state) => state.dialogsPage.newMessageText)
     const dispatch = useDispatch()
+
+    const currentDialogId = useParams()['*'] ?? ''
+    const currentDialog = dialogs[currentDialogId]
+
+    const onChangeTextHandler = (text: string) => dispatch(changeNewMessageTextAC(text))
+    const onSubmitHandler = (text: string) => {
+        if (userId && currentDialog) dispatch(addMessageAC(currentDialogId, userId, text))
+    }
 
     const dialogsDescriptors = Object.getOwnPropertyNames(dialogs).map((d) => ({
         id: d,
         title: dialogs[d].title,
     }))
-    const currentDialog = dialogs[currentDialogId]
-
-    const onSubmitHandler = (text: string) => {
-        if (userId && currentDialog) dispatch(addMessageAC(currentDialogId, userId, text))
-    }
 
     return (
         <Box sx={{ p: 1, overflow: 'hidden', width: '100%', height: '100%' }}>
@@ -53,7 +56,11 @@ export const DialogsPage: React.FC = () => {
                                 <Messages messages={currentDialog.messages} />
                             </Box>
                             <Box padding={2}>
-                                <NewMessage onSubmit={onSubmitHandler} />
+                                <SendTextBox
+                                    text={newMessageText}
+                                    onChangeText={onChangeTextHandler}
+                                    onSubmit={onSubmitHandler}
+                                />
                             </Box>
                         </Stack>
                     ) : (
