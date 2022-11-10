@@ -7,12 +7,12 @@ import { Navbar } from '../Navbar/Navbar'
 import { AppRoutes } from './AppRoutes'
 import { RequestStatus } from 'common/bll/types'
 import CircularProgress from '@mui/material/CircularProgress'
-import LinearProgress from '@mui/material/LinearProgress'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import { ThemeProvider } from '@mui/material/styles'
 import Container from '@mui/material/Container'
 import { ErrorSnackbar } from 'common/components/ErrorSnackbar'
+import { TopLinearProgress } from 'common/components/TopLinearProgress'
 
 export const AppContent: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -50,7 +50,7 @@ export const AppContent: React.FC = () => {
                 }}
             >
                 <Header />
-                {requestStatus === RequestStatus.loading && <LinearProgress />}
+                {requestStatus === RequestStatus.loading && <TopLinearProgress />}
                 <ErrorSnackbar />
                 <Container sx={{ m: 1, display: 'flex', flex: '1 1 auto' }}>
                     <Navbar />

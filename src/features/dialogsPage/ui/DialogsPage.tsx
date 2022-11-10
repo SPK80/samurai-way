@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux'
 import { addMessageAC } from '../bll/actions'
 import { RedirectIfNotLoggedIn } from 'common/components/RedirectIfNotLoggedIn'
 import { RequestStatus } from 'common/bll/types'
-import LinearProgress from '@mui/material/LinearProgress'
+import { TopLinearProgress } from 'common/components/TopLinearProgress'
 
 export const DialogsPage: React.FC = () => {
     const { dialogs, requestStatus } = useAppSelector((state) => state.dialogsPage)
@@ -34,7 +34,7 @@ export const DialogsPage: React.FC = () => {
         <Box sx={{ p: 1, overflow: 'hidden', width: '100%', height: '100%' }}>
             <RedirectIfNotLoggedIn to={'/authPage'} />
             <Paper>
-                {requestStatus === RequestStatus.loading && <LinearProgress />}
+                {requestStatus === RequestStatus.loading && <TopLinearProgress />}
                 <Stack
                     direction="row"
                     divider={<Divider orientation="vertical" flexItem />}
