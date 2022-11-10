@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { NewMessage } from './NewMessage'
 import { Dialogs } from './Dialogs'
 import { Messages } from './Messages'
@@ -11,10 +11,11 @@ import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addMessageAC } from '../bll/actions'
 import { RedirectIfNotLoggedIn } from 'common/components/RedirectIfNotLoggedIn'
-import { UserProfileWithPhotosType } from '../../profilePage/dal/profileApi'
+import { RequestStatus } from 'common/bll/types'
+import LinearProgress from '@mui/material/LinearProgress'
 
 export const DialogsPage: React.FC = () => {
-    const { dialogs } = useAppSelector((state) => state.dialogsPage)
+    const { dialogs, requestStatus } = useAppSelector((state) => state.dialogsPage)
     const userId = useAppSelector((state) => state.auth.userData?.id)
     const currentDialogId = useParams()['*'] ?? ''
     const dispatch = useDispatch()
@@ -33,6 +34,7 @@ export const DialogsPage: React.FC = () => {
         <Box sx={{ p: 1, overflow: 'hidden', width: '100%', height: '100%' }}>
             <RedirectIfNotLoggedIn to={'/authPage'} />
             <Paper>
+                {requestStatus === RequestStatus.loading && <LinearProgress />}
                 <Stack
                     direction="row"
                     divider={<Divider orientation="vertical" flexItem />}

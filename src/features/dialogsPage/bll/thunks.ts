@@ -1,12 +1,13 @@
 import { Dispatch } from 'redux'
-import { AppActionsType, setAppErrorAC, setAppStatusAC } from 'app'
-import { RequestStatus } from 'common/types'
+import { AppActionsType, setAppErrorAC } from 'app'
+import { RequestStatus } from 'common/bll/types'
 import { profileApi } from 'features/profilePage/dal/profileApi'
-import { addUserProfileToCatchAC, DialogsPageActionTypes } from './actions'
+import { addUserProfileToCatchAC, DialogsPageActionTypes, setDialogsStatusAC } from './actions'
 
 export const fetchUserProfilesCatchTC =
     (userIds: number[]) => async (dispatch: Dispatch<DialogsPageActionTypes | AppActionsType>) => {
-        dispatch(setAppStatusAC(RequestStatus.loading))
+        if (userIds.length < 1) return
+        dispatch(setDialogsStatusAC(RequestStatus.loading))
         try {
             await Promise.allSettled(
                 userIds.map((id) =>
@@ -19,6 +20,6 @@ export const fetchUserProfilesCatchTC =
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
         } finally {
-            dispatch(setAppStatusAC(RequestStatus.idle))
+            dispatch(setDialogsStatusAC(RequestStatus.idle))
         }
     }

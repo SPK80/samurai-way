@@ -10,6 +10,9 @@ export const Messages: React.FC<{ messages: MessageType[] }> = ({ messages }) =>
     useEffect(() => {
         const usersIds = messages.map((m) => m.userId)
         const setOfIds = new Set(usersIds)
+        Object.getOwnPropertyNames(userProfilesCatch).forEach((id) => {
+            if (setOfIds.has(+id)) setOfIds.delete(+id)
+        })
         dispatch(fetchUserProfilesCatchTC(Array.from(setOfIds)))
     }, [messages])
     return (
