@@ -6,7 +6,7 @@ import { ChoosePhotoButton } from './ChoosePhotoButton'
 import { updateProfilePhotoTC } from '../../bll/thunks'
 import { useAppDispatch } from 'app'
 
-export const Photo: React.FC<{ src?: string }> = ({ src }) => {
+export const Photo: React.FC<{ src?: string; changeable?: boolean }> = ({ src, changeable }) => {
     const [selectedFile, setSelectedFile] = useState<File>()
     const [preview, setPreview] = useState<string>()
     const dispatch = useAppDispatch()
@@ -28,19 +28,20 @@ export const Photo: React.FC<{ src?: string }> = ({ src }) => {
     return (
         <div className={s.photo}>
             <img alt="User Photo" src={preview || src || defaultAvatar} />
-            <div className={s.buttons} style={preview ? { opacity: 1 } : {}}>
-                {preview ? (
-                    <SubmitButtons
-                        onConfirm={() =>
-                            selectedFile &&
-                            dispatch(updateProfilePhotoTC(selectedFile))
-                        }
-                        onCancel={() => setPreview(undefined)}
-                    />
-                ) : (
-                    <ChoosePhotoButton onConfirm={setSelectedFile} />
-                )}
-            </div>
+            {changeable && (
+                <div className={s.buttons} style={preview ? { opacity: 1 } : {}}>
+                    {preview ? (
+                        <SubmitButtons
+                            onConfirm={() =>
+                                selectedFile && dispatch(updateProfilePhotoTC(selectedFile))
+                            }
+                            onCancel={() => setPreview(undefined)}
+                        />
+                    ) : (
+                        <ChoosePhotoButton onConfirm={setSelectedFile} />
+                    )}
+                </div>
+            )}
         </div>
     )
 }

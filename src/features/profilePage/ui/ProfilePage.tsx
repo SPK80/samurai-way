@@ -1,20 +1,17 @@
 import React, { memo } from 'react'
 import { UserProfile } from './UserProfile'
 import { UserPosts } from './UserPosts'
-import { useAppSelector } from 'app'
-import { Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { getValidIdNumber } from 'common/bll/utils'
+import { RedirectIfNotLoggedIn } from 'common/components/RedirectIfNotLoggedIn'
 
 export const ProfilePage: React.FC = memo(() => {
-    let { userId } = useParams()
-    const authUserId = useAppSelector((state) => state.auth.userData?.id)
-
-    const uid = getValidIdNumber(userId) ?? authUserId
-    if (!uid) return <Navigate to={'/authPage'} />
+    const { userId } = useParams()
     return (
         <>
-            <UserProfile userId={uid} />
-            <UserPosts />
+            <RedirectIfNotLoggedIn to="/authPage" />
+            <UserProfile userId={getValidIdNumber(userId)} />
+            <UserPosts canAddPost={!userId} />
         </>
     )
 })
