@@ -1,28 +1,42 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, PropsWithChildren, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from 'app'
-import { fetchProfileTC } from '../bll/thunks'
+import { fetchProfileTC, fetchUserStatusTC, updateUserStatusTC } from '../bll/thunks'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import { Photo } from './photo/Photo'
+import { SendTextBox } from 'common/components/SendTextBox'
 
 export const UserProfile: React.FC<{ userId?: number | null }> = memo(({ userId }) => {
-    const userProfile = useAppSelector((state) => state.profilePage.userProfile)
+    const { userProfile, userStatus } = useAppSelector((state) => state.profilePage)
     const authUserId = useAppSelector((state) => state.auth.userData?.id)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         const id = userId ?? authUserId
-        id && dispatch(fetchProfileTC(id))
+        if (id) {
+            dispatch(fetchProfileTC(id))
+            dispatch(fetchUserStatusTC(id))
+        }
     }, [userId])
 
     if (!userProfile) return <h1>Profile id:{userId} not found</h1>
     return (
         <Paper sx={{ p: 1, overflow: 'hidden', mb: 1 }}>
             <Box sx={{ display: 'flex' }}>
-                <Photo
-                    src={userProfile.photos.large || userProfile.photos.small}
-                    changeable={!userId}
-                />
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <EditableTextField
+                        onSubmit={(text) => {
+                            console.log(text)
+                            dispatch(updateUserStatusTC(text))
+                        }}
+                    >
+                        {userStatus ?? 'No status'}
+                    </EditableTextField>
+                    <Photo
+                        src={userProfile.photos.large || userProfile.photos.small}
+                        changeable={!userId}
+                    />
+                </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                     <FieldView text={userProfile.fullName} />
                     {userProfile.lookingForAJob && (
@@ -54,5 +68,23 @@ const ObjectView: React.FC<{ object: any }> = ({ object }) => {
                 <FieldView key={key} caption={key} text={object[key]} />
             ))}
         </div>
+    )
+}
+
+type PropsType = PropsWithChildren & {
+    onSubmit: (text: string) => void
+}
+
+export const EditableTextField: React.FC<PropsType> = ({ onSubmit, children }) => {
+    const [isEditing, setIsEditing] = useState(false)
+    return isEditing ? (
+        <SendTextBox
+            onSubmit={onSubmit}
+            onChangeText={console.log}
+            onBlur={() => setIsEditing(false)}
+            text={children?.toString() ?? ''}
+        />
+    ) : (
+        <Box onDoubleClick={() => setIsEditing(true)}>{children}</Box>
     )
 }

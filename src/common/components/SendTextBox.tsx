@@ -9,9 +9,16 @@ type PropsType = {
     label?: string
     onChangeText: (text: string) => void
     onSubmit: (text: string) => void
+    onBlur?: () => void
 }
 
-export const SendTextBox: React.FC<PropsType> = ({ text, label, onChangeText, onSubmit }) => {
+export const SendTextBox: React.FC<PropsType> = ({
+    text,
+    label,
+    onChangeText,
+    onSubmit,
+    onBlur,
+}) => {
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>
         onChangeText(e.currentTarget.value)
 
@@ -25,7 +32,7 @@ export const SendTextBox: React.FC<PropsType> = ({ text, label, onChangeText, on
         onSubmit(text)
     }
     return (
-        <Box display="flex" alignItems="flex-end" width="70%">
+        <Box onBlur={onBlur} display="flex" alignItems="flex-end" width="70%">
             <TextField
                 multiline
                 fullWidth

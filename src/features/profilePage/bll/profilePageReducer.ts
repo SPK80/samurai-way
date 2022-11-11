@@ -36,12 +36,14 @@ export type PostType = {
 
 export type ProfilePageStateType = {
     userProfile: UserProfileWithPhotosType | null
+    userStatus: string | null
     newPostText: string
     userPosts: Array<PostType>
 }
 
 const initialState: ProfilePageStateType = {
     userProfile: null,
+    userStatus: '',
     newPostText: '',
     userPosts: [
         {
@@ -87,7 +89,8 @@ export const profilePageReducer = (
                     p.id === action.id ? { ...p, likesCount: p.likesCount + 1 } : p
                 ),
             }
-
+        case 'SET-USER-STATUS':
+            return { ...state, userStatus: action.status }
         default:
             return state
     }

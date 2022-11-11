@@ -11,9 +11,7 @@ export const changeNewPostTextAC = (postText: string) =>
         postText,
     } as const)
 
-export const setUserProfileAC = (
-    userProfile: UserProfileWithPhotosType | null
-) =>
+export const setUserProfileAC = (userProfile: UserProfileWithPhotosType | null) =>
     ({
         type: 'SET-USER-PROFILE',
         userProfile,
@@ -31,9 +29,17 @@ export const addLikeAC = (userPostId: string) =>
         id: userPostId,
     } as const)
 
+export const setUserStatusAC = (userId: number, status: string | null) =>
+    ({
+        type: 'SET-USER-STATUS',
+        userId,
+        status,
+    } as const)
+
 export type ProfilePageActionTypes =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof changeNewPostTextAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setUserPhotosAC>
     | ReturnType<typeof addLikeAC>
+    | ReturnType<typeof setUserStatusAC>
