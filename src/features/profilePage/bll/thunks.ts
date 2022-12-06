@@ -65,8 +65,7 @@ export const updateUserStatusTC =
     (status: string) => async (dispatch: Dispatch<ProfilePageActionTypes | AppActionsType>) => {
         dispatch(setAppStatusAC(RequestStatus.loading))
         try {
-            const result = await profileApi.setStatus(status)
-            console.log(result)
+            await profileApi.setStatus(status)
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
         } finally {

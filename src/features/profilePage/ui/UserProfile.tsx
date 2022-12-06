@@ -17,19 +17,17 @@ export const UserProfile: React.FC<{ userId?: number | null }> = memo(({ userId 
             dispatch(fetchProfileTC(id))
             dispatch(fetchUserStatusTC(id))
         }
-    }, [userId])
+    }, [userId, authUserId, dispatch])
 
     if (!userProfile) return <h1>Profile id:{userId} not found</h1>
+
+    const onSubmitHandler = (text: string) => dispatch(updateUserStatusTC(text))
+
     return (
         <Paper sx={{ p: 1, overflow: 'hidden', mb: 1 }}>
             <Box sx={{ display: 'flex' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <EditableTextField
-                        onSubmit={(text) => {
-                            console.log(text)
-                            dispatch(updateUserStatusTC(text))
-                        }}
-                    >
+                    <EditableTextField onSubmit={onSubmitHandler}>
                         {userStatus ?? 'No status'}
                     </EditableTextField>
                     <Photo
