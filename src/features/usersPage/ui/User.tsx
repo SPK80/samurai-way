@@ -3,22 +3,17 @@ import s from './user.module.css'
 import { NavLink } from 'react-router-dom'
 import defaultAvatar from 'common/assets/avatar.png'
 import { UserType } from '../bll/usersPageReducer'
-import { useAppDispatch } from 'app'
-import { setFollowTC } from '../bll/thunks'
 import { RequestingStateType, RequestStatus } from 'common/bll/types'
 
 type PropsType = {
     userData: UserType & RequestingStateType
+    onFollow: (userId: number, isFollow: boolean) => void
 }
 
-export const User: React.FC<PropsType> = memo(({ userData }) => {
-    const dispatch = useAppDispatch()
+export const User: React.FC<PropsType> = memo(({ userData, onFollow }) => {
+    const onClickFollowHandler = () => onFollow(userData.id, !userData.followed)
+    const avatarUrl = userData.photos.large || userData.photos.small || defaultAvatar
 
-    const onClickFollowHandler = () => {
-        dispatch(setFollowTC(userData.id, !userData.followed))
-    }
-
-    const avatarUrl = userData.photos.large ?? userData.photos.small ?? defaultAvatar
     return (
         <div className={s.user}>
             <div className={s.avatarAndFollowContainer}>
