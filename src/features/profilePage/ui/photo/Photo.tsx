@@ -25,6 +25,8 @@ export const Photo: React.FC<{ src?: string; changeable?: boolean }> = ({ src, c
         setPreview(undefined)
     }, [src])
 
+    const onConfirmHandler = () => selectedFile && dispatch(updateProfilePhotoTC(selectedFile))
+
     return (
         <div className={s.photo}>
             <img alt="User Photo" src={preview || src || defaultAvatar} />
@@ -32,9 +34,7 @@ export const Photo: React.FC<{ src?: string; changeable?: boolean }> = ({ src, c
                 <div className={s.buttons} style={preview ? { opacity: 1 } : {}}>
                     {preview ? (
                         <SubmitButtons
-                            onConfirm={() =>
-                                selectedFile && dispatch(updateProfilePhotoTC(selectedFile))
-                            }
+                            onConfirm={onConfirmHandler}
                             onCancel={() => setPreview(undefined)}
                         />
                     ) : (
