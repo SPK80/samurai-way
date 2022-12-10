@@ -6,30 +6,34 @@ import Stack from '@mui/material/Stack'
 import { UserStatus } from './UserStatus'
 import { FlexBox } from 'common/components/FlexBox'
 import { UserPhoto } from './UserPhoto'
+import { getValidIdNumber } from 'common/bll/utils'
+import { useParams } from 'react-router-dom'
 
-export const UserProfile: React.FC<{ userId?: number | null }> = memo(({ userId }) => {
+export const UserProfile: React.FC = memo(() => {
+    const { userId } = useParams()
+    const numberUserId = getValidIdNumber(userId)
     const { userProfile } = useAppSelector((state) => state.profilePage)
     const authUserId = useAppSelector((state) => state.auth.userData?.id)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        const id = userId ?? authUserId
+        const id = numberUserId ?? authUserId
         if (id) {
             dispatch(fetchProfileTC(id))
             dispatch(fetchUserStatusTC(id))
         }
-    }, [userId, authUserId, dispatch])
+    }, [numberUserId, authUserId, dispatch])
 
-    if (!userProfile) return <h1>Profile id:{userId} not found</h1>
+    if (!userProfile) return <h1>Profile not found</h1>
 
     return (
         <Paper sx={{ p: 2, overflow: 'hidden', mb: 1 }}>
             <FlexBox>
                 <Stack marginRight={2}>
-                    <UserPhoto isOwn={!userId} />
+                    <UserPhoto isOwn={!numberUserId} />
                     <br />
                     <FieldView text={userProfile.fullName} />
-                    <UserStatus isOwn={!userId} />
+                    <UserStatus isOwn={!numberUserId} />
                 </Stack>
                 <Stack>
                     {userProfile.lookingForAJob && (

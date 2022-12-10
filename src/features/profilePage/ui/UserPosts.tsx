@@ -5,8 +5,11 @@ import { UserPostsList } from './UserPostsList'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import { SendTextBox } from 'common/components/SendTextBox'
+import { useParams } from 'react-router-dom'
 
-export const UserPosts: React.FC<{ canAddPost: boolean }> = ({ canAddPost }) => {
+export const UserPosts: React.FC = () => {
+    const { userId } = useParams()
+    const canAddPost = !userId
     const dispatch = useDispatch()
     const onAddPostHandler = (text: string) => dispatch(addPostAC(text))
 
