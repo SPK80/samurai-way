@@ -3,19 +3,8 @@ import { DialogsPageActionTypes } from './actions'
 import { UserProfileWithPhotosType } from 'features/profilePage/dal/profileApi'
 import { RequestStatus } from 'common/bll/types'
 
-const changeNewMessageText = (
-    state: DialogsPageStateType,
-    newMessageText: string
-): DialogsPageStateType => {
-    return {
-        ...state,
-        newMessageText,
-    }
-}
-
 const initialState: DialogsPageStateType = {
     requestStatus: RequestStatus.idle,
-    newMessageText: '',
     userProfilesCatch: {},
     dialogs: {
         [v1()]: {
@@ -45,7 +34,6 @@ export const dialogsPageReducer = (
         case 'ADD-MESSAGE':
             return {
                 ...state,
-                newMessageText: '',
                 dialogs: {
                     ...state.dialogs,
                     [action.dialogId]: {
@@ -61,9 +49,6 @@ export const dialogsPageReducer = (
                     },
                 },
             }
-
-        case 'CHANGE-NEW-MESSAGE-TEXT':
-            return changeNewMessageText(state, action.messageText)
 
         case 'ADD-USER-PROFILE-TO-CATCH':
             const userProfilesCatch = state.userProfilesCatch
@@ -94,7 +79,6 @@ export type DialogsType = {
 
 export type DialogsPageStateType = {
     requestStatus: RequestStatus
-    newMessageText: string
     dialogs: DialogsType
     userProfilesCatch: { [userId: number]: UserProfileWithPhotosType }
 }

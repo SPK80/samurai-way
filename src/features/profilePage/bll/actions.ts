@@ -1,14 +1,9 @@
 import { UserPhotosType, UserProfileWithPhotosType } from '../dal/profileApi'
 
-export const addPostAC = () =>
+export const addPostAC = (newPostText: string) =>
     ({
         type: 'ADD-POST',
-    } as const)
-
-export const changeNewPostTextAC = (postText: string) =>
-    ({
-        type: 'CHANGE-NEW-POST-TEXT',
-        postText,
+        newPostText,
     } as const)
 
 export const setUserProfileAC = (userProfile: UserProfileWithPhotosType | null) =>
@@ -38,7 +33,6 @@ export const setUserStatusAC = (userId: number, status: string | null) =>
 
 export type ProfilePageActionTypes =
     | ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewPostTextAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setUserPhotosAC>
     | ReturnType<typeof addLikeAC>

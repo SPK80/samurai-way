@@ -1,12 +1,6 @@
 import { UserProfileWithPhotosType } from 'features/profilePage/dal/profileApi'
 import { RequestStatus } from 'common/bll/types'
 
-export const changeNewMessageTextAC = (messageText: string) =>
-    ({
-        type: 'CHANGE-NEW-MESSAGE-TEXT',
-        messageText,
-    } as const)
-
 export const addMessageAC = (dialogId: string, userId: number, text: string) =>
     ({
         type: 'ADD-MESSAGE',
@@ -25,7 +19,6 @@ export const setDialogsStatusAC = (status: RequestStatus) =>
     ({ type: 'DIALOGS/SET-STATUS', status } as const)
 
 export type DialogsPageActionTypes =
-    | ReturnType<typeof changeNewMessageTextAC>
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof addUserProfileToCatchAC>
     | ReturnType<typeof setDialogsStatusAC>

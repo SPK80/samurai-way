@@ -1,35 +1,36 @@
 import { v1 } from 'uuid'
-import { dialogsPageReducer, DialogsPageStateType, MessageType } from './dialogsPageReducer'
-import { changeNewMessageTextAC } from './actions'
+import { dialogsPageReducer, DialogsPageStateType } from './dialogsPageReducer'
+import { RequestStatus } from 'common/bll/types'
+import { addMessageAC } from './actions'
 
 let initialState: DialogsPageStateType
 
-// beforeEach(() => {
-//     initialState = {
-//         newMessageText: 'test message',
-//         dialogs: [
-//             { id: v1(), name: 'Dimych' },
-//             { id: v1(), name: 'Andrey' },
-//             { id: v1(), name: 'Sveta' },
-//         ] as Array<DialogType>,
-//         messages: [
-//             { id: v1(), text: 'Hi' },
-//             { id: v1(), text: 'How is your?' },
-//             { id: v1(), text: 'Yo' },
-//         ] as Array<MessageType>,
-//     }
-// })
+beforeEach(() => {
+    initialState = {
+        userProfilesCatch: {},
+        requestStatus: RequestStatus.idle,
+        dialogs: {
+            ['testDialog']: {
+                title: 'Dimych',
+                messages: [
+                    { id: v1(), userId: 0, text: 'Hi' },
+                    { id: v1(), userId: 1, text: 'How is your?' },
+                ],
+            },
+        },
+    }
+})
 
-// test('new message must be added', () => {
-//     const action = addMessageAC()
-//     const endState = dialogsPageReducer(initialState, action)
-//     expect(endState.messages.length).toBe(4)
-//     expect(endState.messages[3].text).toBe(initialState.newMessageText)
-// })
+test('new message must be added', () => {
+    const newMessageText = 'new message'
+    const userId = 1
 
-// test('newMessageText must be changed', () => {
-//     const newMessageText = 'changed text'
-//     const action = changeNewMessageTextAC(newMessageText)
-//     const endState = dialogsPageReducer(initialState, action)
-//     expect(endState.newMessageText).toBe(newMessageText)
-// })
+    const action = addMessageAC('testDialog', userId, newMessageText)
+    const endState = dialogsPageReducer(initialState, action)
+
+    expect(endState.dialogs['testDialog'].messages.length).toBe(
+        initialState.dialogs['testDialog'].messages.length + 1
+    )
+    expect(endState.dialogs['testDialog'].messages[2].text).toBe(newMessageText)
+    expect(endState.dialogs['testDialog'].messages[2].userId).toBe(userId)
+})

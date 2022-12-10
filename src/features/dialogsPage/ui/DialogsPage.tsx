@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider'
 import { useAppSelector } from 'app'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { addMessageAC, changeNewMessageTextAC } from '../bll/actions'
+import { addMessageAC } from '../bll/actions'
 import { RedirectIfNotLoggedIn } from 'common/components/RedirectIfNotLoggedIn'
 import { RequestStatus } from 'common/bll/types'
 import { TopLinearProgress } from 'common/components/TopLinearProgress'
@@ -17,16 +17,13 @@ import { SendTextBox } from 'common/components/SendTextBox'
 export const DialogsPage: React.FC = () => {
     const { dialogs, requestStatus } = useAppSelector((state) => state.dialogsPage)
     const userId = useAppSelector((state) => state.auth.userData?.id)
-    const newMessageText = useAppSelector((state) => state.dialogsPage.newMessageText)
     const dispatch = useDispatch()
 
     const currentDialogId = useParams()['*'] ?? ''
     const currentDialog = dialogs[currentDialogId]
 
-    const onChangeTextHandler = (text: string) => dispatch(changeNewMessageTextAC(text))
-    const onSubmitHandler = (text: string) => {
-        if (userId && currentDialog) dispatch(addMessageAC(currentDialogId, userId, text))
-    }
+    const onSubmitHandler = (text: string) =>
+        userId && currentDialog && dispatch(addMessageAC(currentDialogId, userId, text))
 
     const dialogsDescriptors = Object.getOwnPropertyNames(dialogs).map((d) => ({
         id: d,
@@ -56,11 +53,7 @@ export const DialogsPage: React.FC = () => {
                                 <Messages messages={currentDialog.messages} />
                             </Box>
                             <Box padding={2}>
-                                <SendTextBox
-                                    text={newMessageText}
-                                    onChangeText={onChangeTextHandler}
-                                    onSubmit={onSubmitHandler}
-                                />
+                                <SendTextBox onSubmit={onSubmitHandler} />
                             </Box>
                         </Stack>
                     ) : (
