@@ -11,6 +11,10 @@ export const WelcomeMessage = () => (
         message={{ id: '1', text: 'Welcome', userId: 0 }}
         userProfile={{
             userId: 0,
+            fullName: 'test user',
+            aboutMe: '',
+            lookingForAJob: false,
+            lookingForAJobDescription: '',
             photos: { large: undefined, small: undefined },
             contacts: {
                 github: '',
@@ -22,9 +26,6 @@ export const WelcomeMessage = () => (
                 website: '',
                 youtube: '',
             },
-            fullName: 'test user',
-            lookingForAJob: false,
-            lookingForAJobDescription: '',
         }}
     />
 )

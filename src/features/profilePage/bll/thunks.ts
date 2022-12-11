@@ -5,6 +5,7 @@ import {
     ProfilePageActionTypes,
     setUserPhotosAC,
     setUserProfileAC,
+    setUserProfileDataAC,
     setUserStatusAC,
 } from './actions'
 import { RequestStatus } from 'common/bll/types'
@@ -25,9 +26,10 @@ export const fetchProfileTC =
 export const setProfileTC =
     (profile: UserProfileType) =>
     async (dispatch: Dispatch<ProfilePageActionTypes | AppActionsType>) => {
-        dispatch(setAppStatusAC(RequestStatus.loading))
         try {
+            dispatch(setAppStatusAC(RequestStatus.loading))
             await profileApi.setProfile(profile)
+            dispatch(setUserProfileDataAC(profile))
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
         } finally {
@@ -53,7 +55,7 @@ export const fetchUserStatusTC =
         dispatch(setAppStatusAC(RequestStatus.loading))
         try {
             const status = await profileApi.getStatus(userId)
-            dispatch(setUserStatusAC(userId, status))
+            dispatch(setUserStatusAC(status))
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
         } finally {
@@ -66,6 +68,7 @@ export const updateUserStatusTC =
         dispatch(setAppStatusAC(RequestStatus.loading))
         try {
             await profileApi.setStatus(status)
+            dispatch(setUserStatusAC(status))
         } catch (err: any) {
             dispatch(setAppErrorAC(err))
         } finally {
