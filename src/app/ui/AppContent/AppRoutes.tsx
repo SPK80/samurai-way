@@ -47,12 +47,10 @@ const routes = [
     { path: Path.Other, element: <Navigate to={Path.PageNotFound} /> },
 ]
 
-export const AppRoutes: React.FC = () => {
-    return (
-        <Routes>
-            {routes.map((r) => (
-                <Route {...r} />
-            ))}
-        </Routes>
-    )
-}
+export const AppRoutes: React.FC = () => (
+    <Routes>
+        {routes.map((route, index) => (
+            <Route key={index} {...route} />
+        ))}
+    </Routes>
+)
