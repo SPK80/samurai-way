@@ -1,9 +1,10 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { AuthPage } from 'features/authPage'
 import { ProfilePage } from 'features/profilePage'
 import { DialogsPage } from 'features/dialogsPage'
 import { UsersPage } from 'features/usersPage'
+import { PageNotFound } from 'features/pageNotFound'
 import { LoginRedirect } from './LoginRedirect'
 
 export enum Path {
@@ -13,7 +14,6 @@ export enum Path {
     Profile = '/profile',
     Dialogs = '/dialogs',
     Users = '/users',
-    PageNotFound = '/404',
 }
 
 const routes = [
@@ -43,8 +43,7 @@ const routes = [
         ),
     },
     { path: Path.Users, element: <UsersPage /> },
-    { path: Path.PageNotFound, element: <h1>404</h1> },
-    { path: Path.Other, element: <Navigate to={Path.PageNotFound} /> },
+    { path: Path.Other, element: <PageNotFound /> },
 ]
 
 export const AppRoutes: React.FC = () => (
