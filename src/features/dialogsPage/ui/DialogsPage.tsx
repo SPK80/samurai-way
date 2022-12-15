@@ -9,7 +9,6 @@ import { useAppSelector } from 'app'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addMessageAC } from '../bll/actions'
-import { RedirectIfNotLoggedIn } from 'common/components/RedirectIfNotLoggedIn'
 import { RequestStatus } from 'common/bll/types'
 import { TopLinearProgress } from 'common/components/TopLinearProgress'
 import { SendTextBox } from 'common/components/SendTextBox'
@@ -32,7 +31,6 @@ export const DialogsPage: React.FC = () => {
 
     return (
         <Box sx={{ p: 1, overflow: 'hidden', width: '100%', height: '100%' }}>
-            <RedirectIfNotLoggedIn to={'/authPage'} />
             <Paper>
                 {requestStatus === RequestStatus.loading && <TopLinearProgress />}
                 <Stack
