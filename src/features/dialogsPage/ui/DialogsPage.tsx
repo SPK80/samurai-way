@@ -9,12 +9,14 @@ import { useAppSelector } from 'app'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addMessageAC } from '../bll/actions'
-import { RequestStatus } from 'common/bll/types'
 import { TopLinearProgress } from 'common/components/TopLinearProgress'
 import { SendTextBox } from 'common/components/SendTextBox'
+import { useIsLoading } from 'app/bll/store'
 
 export const DialogsPage: React.FC = () => {
-    const { dialogs, requestStatus } = useAppSelector((state) => state.dialogsPage)
+    const { dialogs } = useAppSelector((state) => state.dialogsPage)
+    const isLoading = useIsLoading()
+
     const userId = useAppSelector((state) => state.auth.userData?.id)
     const dispatch = useDispatch()
 
@@ -32,7 +34,7 @@ export const DialogsPage: React.FC = () => {
     return (
         <Box sx={{ p: 1, overflow: 'hidden', width: '100%', height: '100%' }}>
             <Paper>
-                {requestStatus === RequestStatus.loading && <TopLinearProgress />}
+                {isLoading && <TopLinearProgress />}
                 <Stack
                     direction="row"
                     divider={<Divider orientation="vertical" flexItem />}

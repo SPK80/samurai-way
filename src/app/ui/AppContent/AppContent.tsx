@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../bll/store'
+import { useAppDispatch, useAppSelector, useIsLoading } from '../../bll/store'
 import { initializeAppTC } from '../../bll/thunks'
 import { theme } from '../theme'
 import { Header } from '../Header/Header'
 import { Navbar } from '../Navbar/Navbar'
 import { AppRoutes } from './AppRoutes'
-import { RequestStatus } from 'common/bll/types'
 import CircularProgress from '@mui/material/CircularProgress'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -16,7 +15,7 @@ import { TopLinearProgress } from 'common/components/TopLinearProgress'
 
 export const AppContent: React.FC = () => {
     const dispatch = useAppDispatch()
-    const requestStatus = useAppSelector((state) => state.app.request.status)
+    const isLoading = useIsLoading()
     const isInitialized = useAppSelector((state) => state.app.isInitialized)
 
     useEffect(() => {
@@ -50,7 +49,7 @@ export const AppContent: React.FC = () => {
                 }}
             >
                 <Header />
-                {requestStatus === RequestStatus.loading && <TopLinearProgress />}
+                {isLoading && <TopLinearProgress />}
                 <ErrorSnackbar />
                 <Container sx={{ m: 1, display: 'flex', flex: '1 1 auto' }}>
                     <Navbar />
