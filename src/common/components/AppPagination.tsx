@@ -3,33 +3,36 @@ import Pagination from '@mui/material/Pagination'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Box from '@mui/material/Box'
+import { useIsLoading } from 'app/bll/store'
 
 type PropsType = {
-    rowsPerPage: number
+    pageSize: number
     page: number
     totalCount: number
-    setPageCount: (newPageCount: number) => void
-    setPage: (newPageCount: number) => void
+    onChangePageSize: (newPageCount: number) => void
+    onChangePage: (newPageCount: number) => void
     itemsCaption?: string
 }
 
 export const AppPagination: React.FC<PropsType> = ({
     totalCount,
-    rowsPerPage,
+    pageSize,
     page,
-    setPage,
-    setPageCount,
+    onChangePage,
+    onChangePageSize,
     itemsCaption,
 }) => {
-    const onChangeRowsPerPageHandler = (e: SelectChangeEvent<number>) => {
+    const isLoading = useIsLoading()
+
+    const onChangePageSizeHandler = (e: SelectChangeEvent<number>) => {
         const newPageSize = +e.target.value
-        const newPage = Math.ceil((page * rowsPerPage - rowsPerPage + 1) / newPageSize)
-        setPageCount(newPageSize)
-        setPage(newPage)
+        const newPage = Math.ceil((page * pageSize - pageSize + 1) / newPageSize)
+        onChangePageSize(newPageSize)
+        onChangePage(newPage)
     }
 
     const onChangePageHandler = (event: React.ChangeEvent<unknown>, page: number) => {
-        setPage(page)
+        onChangePage(page)
     }
 
     return (
@@ -44,20 +47,22 @@ export const AppPagination: React.FC<PropsType> = ({
         >
             <Pagination
                 color={'primary'}
-                count={Math.floor(totalCount / rowsPerPage) + 1}
+                count={Math.floor(totalCount / pageSize) + 1}
                 variant="outlined"
                 shape="rounded"
                 page={page}
                 defaultPage={1}
                 onChange={onChangePageHandler}
+                disabled={isLoading}
             />
             <Box sx={{ ml: 2 }}>
                 <span>Show</span>
                 <Select
                     sx={{ ml: 1, mr: 1 }}
-                    value={rowsPerPage}
-                    onChange={onChangeRowsPerPageHandler}
                     variant={'standard'}
+                    value={pageSize}
+                    onChange={onChangePageSizeHandler}
+                    disabled={isLoading}
                 >
                     {[5, 10, 25].map((v) => (
                         <MenuItem key={v} value={v}>

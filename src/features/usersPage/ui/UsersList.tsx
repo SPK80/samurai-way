@@ -1,11 +1,18 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { User } from './User'
 import { useAppDispatch, useAppSelector } from 'app'
-import { setFollowTC } from '../bll/thunks'
+import { fetchUsersTC, setFollowTC } from '../bll/thunks'
+import { useIsLoading } from 'app/bll/store'
 
 export const UsersList: React.FC = memo(() => {
     const { usersList } = useAppSelector((state) => state.usersPage)
+    const { pageSize, currentPage } = useAppSelector((state) => state.usersPage)
+    const isLoading = useIsLoading()
     const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchUsersTC(currentPage, pageSize))
+    }, [currentPage, pageSize])
 
     const onFollowHandler = (userId: number, isFollow: boolean) =>
         dispatch(setFollowTC(userId, isFollow))
@@ -18,9 +25,11 @@ export const UsersList: React.FC = memo(() => {
         return <div></div>
     return (
         <>
-            {usersList.map((u) => (
-                <User key={u.id} userData={u} onFollow={onFollowHandler} />
-            ))}
+            {isLoading ? (
+                <div>Loading...</div>
+            ) : (
+                usersList.map((u) => <User key={u.id} userData={u} onFollow={onFollowHandler} />)
+            )}
         </>
     )
 })
