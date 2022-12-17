@@ -1,9 +1,22 @@
 import React, { memo } from 'react'
-import s from './user.module.css'
 import { NavLink } from 'react-router-dom'
 import defaultAvatar from 'common/assets/avatar.png'
 import { UserType } from '../bll/usersPageReducer'
 import { RequestingStateType, RequestStatus } from 'common/bll/types'
+import { ListItem, ListItemAvatar } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
+import Box from '@mui/material/Box'
+import ListItemText from '@mui/material/ListItemText'
+import Divider from '@mui/material/Divider'
+import Paper from '@mui/material/Paper'
+import { styled } from '@mui/material/styles'
+import { FollowingButton } from './FollowingButton'
+
+const CustomListItemAvatar = styled(ListItemAvatar)({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+})
 
 type PropsType = {
     userData: UserType & RequestingStateType
@@ -12,28 +25,26 @@ type PropsType = {
 
 export const User: React.FC<PropsType> = memo(({ userData, onFollow }) => {
     const onClickFollowHandler = () => onFollow(userData.id, !userData.followed)
-    const avatarUrl = userData.photos.large || userData.photos.small || defaultAvatar
+    const avatarUrl = userData.photos.small || userData.photos.large || defaultAvatar
 
     return (
-        <div className={s.user}>
-            <div className={s.avatarAndFollowContainer}>
-                <NavLink to={'/profile/' + userData.id}>
-                    <img src={avatarUrl} alt="avatar" />
-                </NavLink>
-                <button onClick={onClickFollowHandler}>
-                    {userData.request.status === RequestStatus.loading
-                        ? 'pending...'
-                        : userData.followed
-                        ? 'Unfollow'
-                        : 'Follow'}
-                </button>
-            </div>
-            <div className={s.userDataContainer}>
-                <div className={s.nameAndStatus}>
-                    <div className={s.name}>{userData.name}</div>
-                    <div className={s.status}>{userData.status}</div>
-                </div>
-            </div>
-        </div>
+        <Paper variant={'outlined'} sx={{ mb: 2, width: '400px' }}>
+            <ListItem alignItems="flex-start">
+                <CustomListItemAvatar>
+                    <Box marginBottom={1}>
+                        <NavLink to={'/profile/' + userData.id}>
+                            <Avatar src={avatarUrl} alt="avatar" sx={{ width: 56, height: 56 }} />
+                        </NavLink>
+                    </Box>
+                    <FollowingButton
+                        isFollowed={userData.followed}
+                        isLoading={userData.request.status === RequestStatus.loading}
+                        onClick={onClickFollowHandler}
+                    />
+                </CustomListItemAvatar>
+                <Divider orientation="vertical" flexItem sx={{ mr: 2, ml: 2 }} />
+                <ListItemText primary={userData.name} secondary={userData.status} />
+            </ListItem>
+        </Paper>
     )
 })
