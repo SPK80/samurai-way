@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthPage } from 'features/authPage'
 import { ProfilePage } from 'features/profilePage'
 import { DialogsPage } from 'features/dialogsPage'
@@ -17,6 +17,7 @@ export enum Path {
 }
 
 const routes = [
+    { path: Path.Root, element: <Navigate to={Path.Profile} /> },
     { path: Path.AuthPage, element: <AuthPage /> },
     {
         path: Path.Profile,
