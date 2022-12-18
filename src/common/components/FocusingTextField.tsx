@@ -6,14 +6,11 @@ export const FocusingTextField: React.FC<TextFieldProps & { focus?: boolean }> =
     ...restProps
 }) => {
     const [focusing, setFocusing] = useState(false)
-    const ref = useRef(null)
+    const inputRef = useRef(null)
 
     useEffect(() => {
-        if (!focus || !focusing || !ref?.current) return
-        const textField = ref?.current as HTMLElement
-        if (!textField) return
-
-        const input = textField.getElementsByTagName('input')[0]
+        if (!focus || !focusing || !inputRef?.current) return
+        const input = inputRef?.current as HTMLElement
         input.focus()
     })
 
@@ -21,7 +18,7 @@ export const FocusingTextField: React.FC<TextFieldProps & { focus?: boolean }> =
 
     return (
         <TextField
-            ref={ref}
+            inputRef={inputRef}
             onFocus={() => setFocusing(true)}
             onBlur={() => setFocusing(false)}
             {...restProps}
