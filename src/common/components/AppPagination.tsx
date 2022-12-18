@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Pagination from '@mui/material/Pagination'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
@@ -12,6 +12,7 @@ type PropsType = {
     onChangePageSize: (newPageCount: number) => void
     onChangePage: (newPageCount: number) => void
     itemsCaption?: string
+    pageSizes?: number[]
 }
 
 export const AppPagination: React.FC<PropsType> = ({
@@ -21,8 +22,15 @@ export const AppPagination: React.FC<PropsType> = ({
     onChangePage,
     onChangePageSize,
     itemsCaption,
+    pageSizes,
 }) => {
     const isLoading = useIsLoading()
+
+    const [_pageSizes, setPageSizes] = useState(pageSizes ?? [5, 10, 50])
+    useEffect(() => {
+        if (_pageSizes.includes(pageSize)) return
+        setPageSizes((ps) => [...ps, pageSize].sort((a, b) => a - b))
+    }, [pageSize])
 
     const onChangePageSizeHandler = (e: SelectChangeEvent<number>) => {
         const newPageSize = +e.target.value
@@ -64,9 +72,9 @@ export const AppPagination: React.FC<PropsType> = ({
                     onChange={onChangePageSizeHandler}
                     disabled={isLoading}
                 >
-                    {[5, 10, 25].map((v) => (
-                        <MenuItem key={v} value={v}>
-                            {v}
+                    {_pageSizes.map((value) => (
+                        <MenuItem key={value} value={value}>
+                            {value}
                         </MenuItem>
                     ))}
                 </Select>
