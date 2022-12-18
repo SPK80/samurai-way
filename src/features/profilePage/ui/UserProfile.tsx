@@ -43,9 +43,11 @@ export const UserProfile: React.FC = memo(() => {
                         <>
                             <FlexBox alignItems={'flex-start'}>
                                 <ViewProfileData />
-                                <IconButton color="primary" onClick={() => setEdit(true)}>
-                                    <EditIcon />
-                                </IconButton>
+                                {!userId && (
+                                    <IconButton color="primary" onClick={() => setEdit(true)}>
+                                        <EditIcon />
+                                    </IconButton>
+                                )}
                             </FlexBox>
                         </>
                     )}
