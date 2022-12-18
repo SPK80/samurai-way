@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { AppActionsType, setAppErrorAC, setAppStatusAC } from 'app'
-import { usersApi } from '../dal/usersApi'
+import { usersApi, UsersRequestType } from '../dal/usersApi'
 import {
     setFollowedAC,
     setTotalCountAC,
@@ -13,11 +13,11 @@ import { followApi } from '../dal/followApi'
 import { RequestStatus } from 'common/bll/types'
 
 export const fetchUsersTC =
-    (page: number, count: number) =>
+    (params: UsersRequestType) =>
     async (dispatch: Dispatch<UsersPageActionTypes | AppActionsType>) => {
         dispatch(setAppStatusAC(RequestStatus.loading))
         try {
-            const users = await usersApi.getUsers(page, count)
+            const users = await usersApi.getUsers(params)
             dispatch(setUsersAC(users.items))
             dispatch(setTotalCountAC(users.totalCount))
         } catch (err: any) {

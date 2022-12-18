@@ -6,12 +6,21 @@ import List from '@mui/material/List'
 
 export const UsersList: React.FC = memo(() => {
     const { usersList } = useAppSelector((state) => state.usersPage)
-    const { pageSize, currentPage } = useAppSelector((state) => state.usersPage)
+    const { pageSize, currentPage, friendFilter, userNameFilter } = useAppSelector(
+        (state) => state.usersPage
+    )
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(fetchUsersTC(currentPage, pageSize))
-    }, [currentPage, pageSize])
+        dispatch(
+            fetchUsersTC({
+                page: currentPage,
+                count: pageSize,
+                friend: friendFilter,
+                term: userNameFilter,
+            })
+        )
+    }, [currentPage, pageSize, friendFilter, userNameFilter])
 
     const onFollowHandler = (userId: number, isFollow: boolean) =>
         dispatch(setFollowTC(userId, isFollow))

@@ -7,11 +7,18 @@ import {
 } from 'common/api/responseParsers'
 import { ItemsResponseType } from 'common/api/responseTypes'
 
+export type UsersRequestType = {
+    page?: number
+    count?: number
+    friend?: boolean
+    term?: string
+}
+
 export const usersApi = {
-    async getUsers(page: number = 1, count: number = 10) {
+    async getUsers(params: UsersRequestType) {
         return instance
             .get<ItemsResponseType<UserType>>('users', {
-                params: { page, count },
+                params,
             })
             .then(parseAxiosResponse)
             .catch(axiosErrorToString)

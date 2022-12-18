@@ -17,6 +17,8 @@ const initialState = {
     pageSize: 5,
     currentPage: 1,
     totalCount: 0,
+    friendFilter: false,
+    userNameFilter: '',
 }
 
 export type UsersPageType = typeof initialState
@@ -81,6 +83,12 @@ export const usersPageReducer = (
                         : u
                 ),
             }
+
+        case 'SET-USER-NAME-FILTER':
+            return { ...state, userNameFilter: action.userNameFilter }
+
+        case 'SET-FRIEND-FILTER':
+            return { ...state, friendFilter: action.friendFilter }
 
         default:
             return state

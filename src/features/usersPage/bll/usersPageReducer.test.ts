@@ -9,6 +9,8 @@ beforeEach(() => {
         currentPage: 1,
         totalCount: 0,
         pageSize: 10,
+        userNameFilter: '',
+        friendFilter: false,
         usersList: [
             {
                 id: 1,
@@ -52,6 +54,8 @@ test('Must set 3 users', () => {
     const action = setUsersAC(settingUsersList)
     const emptyState: UsersPageType = {
         usersList: [],
+        userNameFilter: '',
+        friendFilter: false,
         currentPage: 1,
         pageSize: 10,
         totalCount: 0,

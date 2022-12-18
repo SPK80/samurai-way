@@ -6,6 +6,9 @@ import { setCurrentPageAC, setPageSizeAC } from '../bll/actions'
 import { UsersList } from './UsersList'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
+import { UsersFilterToggle } from './UsersFilterToggle'
+import { UserNameFilter } from './UserNameFilter'
+import { FlexBox } from 'common/components/FlexBox'
 
 export const UsersPage: React.FC = memo(() => {
     const { pageSize, currentPage, totalCount } = useAppSelector((state) => state.usersPage)
@@ -18,6 +21,10 @@ export const UsersPage: React.FC = memo(() => {
 
     return (
         <Paper sx={{ minHeight: '100%', p: 1, overflow: 'hidden' }}>
+            <FlexBox margin={2}>
+                <UsersFilterToggle />
+                <UserNameFilter />
+            </FlexBox>
             <AppPagination
                 page={currentPage}
                 totalCount={totalCount}

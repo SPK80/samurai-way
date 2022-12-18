@@ -46,6 +46,18 @@ export const setUserRequestErrorAC = (id: number, error: ErrorType) =>
         error,
     } as const)
 
+export const setFriendFilterAC = (friendFilter: boolean) =>
+    ({
+        type: 'SET-FRIEND-FILTER',
+        friendFilter,
+    } as const)
+
+export const setUserNameFilterAC = (userNameFilter: string) =>
+    ({
+        type: 'SET-USER-NAME-FILTER',
+        userNameFilter,
+    } as const)
+
 export type UsersPageActionTypes =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
@@ -54,3 +66,5 @@ export type UsersPageActionTypes =
     | ReturnType<typeof setFollowedAC>
     | ReturnType<typeof setUserRequestStatusAC>
     | ReturnType<typeof setUserRequestErrorAC>
+    | ReturnType<typeof setFriendFilterAC>
+    | ReturnType<typeof setUserNameFilterAC>
